@@ -53,7 +53,7 @@ namespace FrbaOfertas.Model
             this.clie_telefono = p8;
         }
 
-        [System.ComponentModel.Browsable(false)]
+        
         public Int32 id_cliente { get { return this._id_cliente; } set { this._id_cliente = value; atributesModify.Add("id_cliente"); } }
         [System.ComponentModel.Browsable(false)]
         public Int32 id_domicilio { get { return this._id_domicilio; } set { this._id_domicilio = value; atributesModify.Add("id_domicilio"); } }

@@ -44,10 +44,19 @@ namespace FrbaOfertas.AbmCliente
             if (exError == null)
             {
                 dataGridClientes.DataSource = clientes;
-
+                dataGridClientes.Columns[0].Visible = false;
             }
             else
                 MessageBox.Show("No se pudo obtener la lista de Usuarios, " + exError.Message);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Int32 id = (Int32) dataGridClientes.Rows[dataGridClientes.CurrentCell.RowIndex].Cells["id_cliente"].Value;
+            MessageBox.Show(id.ToString());
+            ModificarCliente modificarCliente = new ModificarCliente(id);
+            modificarCliente.ShowDialog();
+            modificarCliente.Focus();    
         }
     }
 }

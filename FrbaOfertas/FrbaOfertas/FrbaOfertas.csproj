@@ -50,6 +50,12 @@
     <Compile Include="AbmCliente\ClienteList.Designer.cs">
       <DependentUpon>ClienteList.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmCliente\ModificarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente\ModificarCliente.Designer.cs">
+      <DependentUpon>ModificarCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmCliente\NuevoCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AbmCliente\ClienteList.resx">
       <DependentUpon>ClienteList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\ModificarCliente.resx">
+      <DependentUpon>ModificarCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCliente\NuevoCliente.resx">
       <DependentUpon>NuevoCliente.cs</DependentUpon>

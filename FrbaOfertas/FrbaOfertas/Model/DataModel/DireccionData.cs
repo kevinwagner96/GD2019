@@ -13,7 +13,7 @@ namespace FrbaOfertas.Model.DataModel
     class DireccionData : DataHelper<Direccion>
     {
         public DireccionData(SqlConnection connection) : base(connection) { }
-        String allAtributes = "[id_cliente],[id_domicilio],[id_usuario],[clie_dni],[clie_nombre],[clie_apellido],[clie_email],[clie_telefono],[clie_fecha_nac],[clie_credito],[clie_activo]";
+        String allAtributes = "[dom_calle],[dom_numero],[dom_depto],[dom_piso],[dom_ciudad],[dom_localidad],[dom_codigo_postal]";
 
         public override List<Direccion> Select(out Exception exError)
         {
@@ -93,7 +93,46 @@ namespace FrbaOfertas.Model.DataModel
 
         public override Direccion Read(int ID, out Exception exError)
         {
-            throw new NotImplementedException();
+            Direccion d = new Direccion();
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("SELECT " + allAtributes + "FROM [dbo].[Domicilio]" + " WHERE id_domicilio=" + ID, (SqlConnection)this.Connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (!reader.Read())
+                            throw new InvalidOperationException("No existe el cliente.");
+                        //[dom_calle],[dom_numero],[dom_depto],[dom_piso],[dom_ciudad],[dom_localidad],[dom_codigo_postal]
+                        d.dom_calle = (String)reader.GetValue(0);
+                        d.dom_numero = (String)reader.GetValue(1);
+                        d.dom_depto = (Int32?) reader.GetValue(2);
+                        d.dom_piso = (Int32?)reader.GetValue(3);
+                        d.dom_ciudad = (String)reader.GetValue(4);
+                        d.dom_localidad = (String)reader.GetValue(5);
+                        d.dom_codigo_postal = (String)reader.GetValue(6);
+
+                        if (reader.Read())
+                            throw new InvalidOperationException("Clientes multiples.");
+
+                    }
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return d;
         }
 
         public override Direccion Read(Direccion instance, out Exception exError)

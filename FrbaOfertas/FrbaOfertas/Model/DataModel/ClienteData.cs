@@ -103,7 +103,50 @@ namespace FrbaOfertas.Model.DataModel
 
         public override Cliente Read(int ID, out Exception exError)
         {
-            throw new NotImplementedException();
+            Cliente c = new Cliente();
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("SELECT " + allAtributes + "FROM [dbo].[Cliente]"+" WHERE id_cliente="+ID, (SqlConnection)this.Connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (!reader.Read())        
+                            throw new InvalidOperationException("No existe el cliente.");
+                            
+                        c.id_cliente = reader.GetInt32(0);
+                        c.id_domicilio = reader.GetInt32(1);
+                        c.id_usuario = reader.GetValue(2) == System.DBNull.Value ? -1 : (Int32)reader.GetInt32(2);
+                        c.clie_dni = reader.GetValue(3) == System.DBNull.Value ? -1 : (Int32)reader.GetSqlDecimal(3);
+                        c.clie_nombre = reader.GetString(4);
+                        c.clie_apellido = reader.GetString(5);
+                        c.clie_email = reader.GetString(6);
+                        c.clie_telefono = reader.GetString(7);
+                        c.clie_fecha_nac = (Convert.ToDateTime(reader["clie_fecha_nac"]));
+                        c.clie_credito = reader.GetSqlDecimal(9).ToDouble();
+                        c.clie_activo = reader.GetBoolean(10);
+
+                        if (reader.Read())
+                            throw new InvalidOperationException("Clientes multiples.");
+                                               
+                    }
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+              
+            return c;
         }
 
         public override Cliente Read(Cliente instance, out Exception exError)

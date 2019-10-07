@@ -14,8 +14,8 @@ namespace FrbaOfertas.Model
         private Int32 _id_domicilio;
         private String _dom_calle;
         private String _dom_numero ;
-        private Int32 _dom_depto;
-        private Int32 _dom_piso;
+        private Int32? _dom_depto;
+        private Int32? _dom_piso;
         private String _dom_ciudad;
         private String _dom_localidad;
         private String _dom_codigo_postal;
@@ -26,9 +26,9 @@ namespace FrbaOfertas.Model
         [System.ComponentModel.DisplayName("Numero")]
         public String dom_numero { get { return this._dom_numero; } set { this._dom_numero = value; atributesModify.Add("dom_numero"); } }
         [System.ComponentModel.DisplayName("Depto")]
-        public Int32 dom_depto { get { return this._dom_depto; } set { this._dom_depto = value; atributesModify.Add("dom_depto"); } }
+        public Int32? dom_depto { get { return this._dom_depto; } set { this._dom_depto = value; atributesModify.Add("dom_depto"); } }
         [System.ComponentModel.DisplayName("Piso")]
-        public Int32 dom_piso { get { return this._dom_piso; } set { this._dom_piso = value; atributesModify.Add("dom_piso"); } }
+        public Int32? dom_piso { get { return this._dom_piso; } set { this._dom_piso = value; atributesModify.Add("dom_piso"); } }
         [System.ComponentModel.DisplayName("Ciudad")]
         public String dom_ciudad { get { return this._dom_ciudad; } set { this._dom_ciudad = value; atributesModify.Add("dom_ciudad"); } }
         [System.ComponentModel.DisplayName("Localidad")]
