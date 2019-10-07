@@ -13,6 +13,7 @@ namespace FrbaOfertas.DataModel
     class UsuarioData : DataHelper<Usuario>
     {
         public UsuarioData(SqlConnection connection) : base(connection) { }
+        private String table = "[dbo].[usuario]";
         private String userName = "[usu_nombre]";
         private String userId = "[usu_id]";
         private String habilitado = "[habilitado]";
@@ -27,19 +28,14 @@ namespace FrbaOfertas.DataModel
             {
                 if (this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
+                
 
                 using (SqlCommand command = new SqlCommand("SELECT [usu_nombre],[usu_id],[habilitado] FROM [dbo].[usuario]", (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        /*
-                        *  userName { get; set; }
-                         *   public String contrasenia { get; set; }
-                         *   public Int16 cantIntentosFallidos { get; set; }
-                          *  public Boolean activo { get; set; }
-                         */
                         while (reader.Read())
-                            returnValue.Add(new Usuario(reader.GetString(0),reader.GetInt32(1),reader.GetBoolean(2)));
+                            returnValue.Add(new Usuario(reader.GetString(0), reader.GetInt32(1), reader.GetBoolean(2)));
                     }
                 }
             }
@@ -60,7 +56,7 @@ namespace FrbaOfertas.DataModel
             throw new NotImplementedException();
         }
 
-        public override bool Create(Usuario instance, out Exception exError)
+        public override Int32 Create(Usuario instance, out Exception exError)
         {
             throw new NotImplementedException();
         }
@@ -78,6 +74,18 @@ namespace FrbaOfertas.DataModel
         public override bool Update(Usuario instance, out Exception exError)
         {
             throw new NotImplementedException();
+            /*
+             * SqlCommand tCommand = new SqlCommand();
+                tCommand.Connection = new SqlConnection("YourConnectionString");
+                tCommand.CommandText = "UPDATE players SET name = @name, score = @score, active = @active WHERE jerseyNum = @jerseyNum";
+
+                tCommand.Parameters.Add(new SqlParameter("@name", System.Data.SqlDbType.VarChar).Value = "Smith, Steve");
+                tCommand.Parameters.Add(new SqlParameter("@score", System.Data.SqlDbType.Int).Value = "42");
+                tCommand.Parameters.Add(new SqlParameter("@active", System.Data.SqlDbType.Bit).Value = true);
+                tCommand.Parameters.Add(new SqlParameter("@jerseyNum", System.Data.SqlDbType.Int).Value = "99");
+
+                tCommand.ExecuteNonQuery();
+             * */
         }
 
         public override bool Delete(int ID, out Exception exError)

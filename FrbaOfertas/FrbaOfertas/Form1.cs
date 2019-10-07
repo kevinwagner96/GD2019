@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using FrbaOfertas.Model;
+using FrbaOfertas.AbmCliente;
 
 
 namespace FrbaOfertas
@@ -27,7 +28,12 @@ namespace FrbaOfertas
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            List<Usuario> usuarios = usuarioData.Select(out exError);          
+            List<Usuario> usuarios = usuarioData.Select(out exError);
+
+            Cliente cliente = new Cliente();
+            cliente.clie_nombre = "peter";
+            String nombre = cliente.getMethodString("clie_nombre");
+            MessageBox.Show(nombre);
 
             if (exError == null)
             {                
@@ -41,6 +47,13 @@ namespace FrbaOfertas
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ClienteList nc = new ClienteList();
+            nc.ShowDialog();
+            nc.Focus();   
         }
     }
 }

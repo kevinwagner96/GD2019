@@ -44,11 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\Form1.cs">
+    <Compile Include="AbmCliente\ClienteList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmCliente\ClienteList.Designer.cs">
+      <DependentUpon>ClienteList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCliente\NuevoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente\NuevoCliente.Designer.cs">
+      <DependentUpon>NuevoCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmProveedor\Form1.cs">
       <SubType>Form</SubType>
@@ -81,7 +87,9 @@
     <Compile Include="CrearOferta\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\UsuarioData.cs" />
+    <Compile Include="Model\DataModel\ClienteData.cs" />
+    <Compile Include="Model\DataModel\DireccionData.cs" />
+    <Compile Include="Model\DataModel\UsuarioData.cs" />
     <Compile Include="Facturar\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,15 +104,27 @@
     </Compile>
     <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
+    <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="ListadoEstadistico\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListadoEstadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Cliente.cs" />
+    <Compile Include="Model\Direccion.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AbmCliente\ClienteList.resx">
+      <DependentUpon>ClienteList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\NuevoCliente.resx">
+      <DependentUpon>NuevoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmProveedor\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
