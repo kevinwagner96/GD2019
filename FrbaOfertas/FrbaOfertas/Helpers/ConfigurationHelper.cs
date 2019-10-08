@@ -10,5 +10,7 @@ namespace FrbaOfertas
     {
         public static string ConnectionString { get { return Properties.Settings.Default.ConexionString; } }
         public static DateTime FechaActual { get { return Properties.Settings.Default.Fecha; } }
+        public static Double CreditoInicial { get { return (Double)Properties.Settings.Default.CreditoInicial; } }
+
     }
 }

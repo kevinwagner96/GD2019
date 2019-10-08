@@ -38,6 +38,7 @@ namespace FrbaOfertas.DataModel
                             returnValue.Add(new Usuario(reader.GetString(0), reader.GetInt32(1), reader.GetBoolean(2)));
                     }
                 }
+
             }
             catch (InvalidOperationException invalid)
             {
@@ -57,6 +58,11 @@ namespace FrbaOfertas.DataModel
         }
 
         public override Int32 Create(Usuario instance, out Exception exError)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Int32 Create(Usuario instance, object otro,out Exception exError)
         {
             throw new NotImplementedException();
         }

@@ -41,6 +41,11 @@ namespace FrbaOfertas.Model
             return atributesModify.Distinct().ToList();
         }
 
+        public void restartMList()
+        {
+            this.atributesModify.Clear() ;
+        }
+
         public dynamic getMethodString(String methodName)
         {
             return this.GetType().GetProperty(methodName).GetValue(this, null); ;

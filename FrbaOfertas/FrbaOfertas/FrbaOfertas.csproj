@@ -93,6 +93,7 @@
     <Compile Include="CrearOferta\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FormHelper.cs" />
     <Compile Include="Model\DataModel\ClienteData.cs" />
     <Compile Include="Model\DataModel\DireccionData.cs" />
     <Compile Include="Model\DataModel\UsuarioData.cs" />

@@ -28,19 +28,7 @@ namespace FrbaOfertas
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            List<Usuario> usuarios = usuarioData.Select(out exError);
-
-            Cliente cliente = new Cliente();
-            cliente.clie_nombre = "peter";
-            String nombre = cliente.getMethodString("clie_nombre");
-            MessageBox.Show(nombre);
-
-            if (exError == null)
-            {                
-                dataGridViewUsuarios.DataSource = usuarios;                
-            }
-            else               
-                MessageBox.Show("No se pudo obtener la lista de Usuarios, " + exError.Message);
+           
 
         }
 

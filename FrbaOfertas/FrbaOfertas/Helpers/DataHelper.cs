@@ -23,6 +23,8 @@ namespace FrbaOfertas.Helpers
         public abstract List<T> FilterSelect(List<Dictionary<String,String>> filtros,out Exception exError);
 
         public abstract Int32 Create(T instance, out Exception exError);
+        
+        public abstract Int32 Create(T instance,object otro, out Exception exError);
 
         public abstract T Read(int ID, out Exception exError);
 

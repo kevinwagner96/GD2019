@@ -53,7 +53,6 @@ namespace FrbaOfertas.AbmCliente
         private void button3_Click(object sender, EventArgs e)
         {
             Int32 id = (Int32) dataGridClientes.Rows[dataGridClientes.CurrentCell.RowIndex].Cells["id_cliente"].Value;
-            MessageBox.Show(id.ToString());
             ModificarCliente modificarCliente = new ModificarCliente(id);
             modificarCliente.ShowDialog();
             modificarCliente.Focus();    

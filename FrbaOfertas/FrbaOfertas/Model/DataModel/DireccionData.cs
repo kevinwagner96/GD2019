@@ -13,7 +13,7 @@ namespace FrbaOfertas.Model.DataModel
     class DireccionData : DataHelper<Direccion>
     {
         public DireccionData(SqlConnection connection) : base(connection) { }
-        String allAtributes = "[dom_calle],[dom_numero],[dom_depto],[dom_piso],[dom_ciudad],[dom_localidad],[dom_codigo_postal]";
+        List<String> allAtributes = new List<String>( new String[] {"dom_calle","dom_numero","dom_depto","dom_piso","dom_ciudad","dom_localidad","dom_codigo_postal"});
 
         public override List<Direccion> Select(out Exception exError)
         {
@@ -26,7 +26,7 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("SELECT " + allAtributes + "FROM [dbo].[cliente]", (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM [dbo].[cliente]", (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -102,20 +102,15 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("SELECT " + allAtributes + "FROM [dbo].[Domicilio]" + " WHERE id_domicilio=" + ID, (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM [dbo].[Domicilio]" + " WHERE id_domicilio=" + ID, (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (!reader.Read())
                             throw new InvalidOperationException("No existe el cliente.");
-                        //[dom_calle],[dom_numero],[dom_depto],[dom_piso],[dom_ciudad],[dom_localidad],[dom_codigo_postal]
-                        d.dom_calle = (String)reader.GetValue(0);
-                        d.dom_numero = (String)reader.GetValue(1);
-                        d.dom_depto = (Int32?) reader.GetValue(2);
-                        d.dom_piso = (Int32?)reader.GetValue(3);
-                        d.dom_ciudad = (String)reader.GetValue(4);
-                        d.dom_localidad = (String)reader.GetValue(5);
-                        d.dom_codigo_postal = (String)reader.GetValue(6);
+
+                        SqlHelper.setearAtributos(reader, allAtributes, d);
+                        d.restartMList();
 
                         if (reader.Read())
                             throw new InvalidOperationException("Clientes multiples.");
@@ -140,21 +135,42 @@ namespace FrbaOfertas.Model.DataModel
             throw new NotImplementedException();
         }
 
-        public override bool Update(Direccion instance, out Exception exError)
+        public override Int32 Create(Direccion instance, object otro, out Exception exError)
         {
             throw new NotImplementedException();
-            /*
-             * SqlCommand tCommand = new SqlCommand();
-                tCommand.Connection = new SqlConnection("YourConnectionString");
-                tCommand.CommandText = "UPDATE players SET name = @name, score = @score, active = @active WHERE jerseyNum = @jerseyNum";
+        }
 
-                tCommand.Parameters.Add(new SqlParameter("@name", System.Data.SqlDbType.VarChar).Value = "Smith, Steve");
-                tCommand.Parameters.Add(new SqlParameter("@score", System.Data.SqlDbType.Int).Value = "42");
-                tCommand.Parameters.Add(new SqlParameter("@active", System.Data.SqlDbType.Bit).Value = true);
-                tCommand.Parameters.Add(new SqlParameter("@jerseyNum", System.Data.SqlDbType.Int).Value = "99");
+        public override bool Update(Direccion instance, out Exception exError)
+        {
+            exError = null;
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
 
-                tCommand.ExecuteNonQuery();
-             * */
+
+                using (SqlCommand command = new SqlCommand("UPDATE [dbo].[Domicilio] SET " + SqlHelper.getUpdate(instance.getAtributeMList()) + " WHERE id_domicilio=" + instance.id_domicilio, (SqlConnection)this.Connection))
+                {
+
+                    foreach (String value in instance.getAtributeMList())
+                    {
+                        command.Parameters.AddWithValue("@" + value, instance.getMethodString(value));
+                    }
+
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)

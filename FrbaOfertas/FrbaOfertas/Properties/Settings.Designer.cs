@@ -47,5 +47,17 @@ namespace FrbaOfertas.Properties {
                 this["Fecha"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public decimal CreditoInicial {
+            get {
+                return ((decimal)(this["CreditoInicial"]));
+            }
+            set {
+                this["CreditoInicial"] = value;
+            }
+        }
     }
 }

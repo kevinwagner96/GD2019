@@ -28,44 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxNombre = new System.Windows.Forms.TextBox();
+            this.clie_nombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxApellido = new System.Windows.Forms.TextBox();
+            this.clie_apellido = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxDNI = new System.Windows.Forms.TextBox();
+            this.clie_dni = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBoxEmail = new System.Windows.Forms.TextBox();
+            this.clie_email = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBoxTelefono = new System.Windows.Forms.TextBox();
+            this.clie_telefono = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxCalle = new System.Windows.Forms.TextBox();
+            this.dom_calle = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBoxNumero = new System.Windows.Forms.TextBox();
+            this.dom_numero = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBoxDepartamento = new System.Windows.Forms.TextBox();
+            this.dom_depto = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBoxPiso = new System.Windows.Forms.TextBox();
+            this.dom_piso = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBoxCiudad = new System.Windows.Forms.TextBox();
+            this.dom_ciudad = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBoxLocalidad = new System.Windows.Forms.TextBox();
+            this.dom_localidad = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBoxCodPostal = new System.Windows.Forms.TextBox();
+            this.dom_codigo_postal = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.textFNacimiento = new System.Windows.Forms.TextBox();
+            this.clie_fecha_nac = new System.Windows.Forms.TextBox();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.button1 = new System.Windows.Forms.Button();
             this.guardar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBoxNombre
+            // clie_nombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(111, 29);
-            this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(213, 20);
-            this.textBoxNombre.TabIndex = 0;
+            this.clie_nombre.Location = new System.Drawing.Point(111, 29);
+            this.clie_nombre.Name = "clie_nombre";
+            this.clie_nombre.Size = new System.Drawing.Size(213, 20);
+            this.clie_nombre.TabIndex = 0;
+            this.clie_nombre.Tag = "Nombre";
             // 
             // label1
             // 
@@ -75,7 +76,6 @@
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Modificar Cliente";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -94,14 +94,14 @@
             this.label3.Size = new System.Drawing.Size(51, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Apellido *";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // textBoxApellido
+            // clie_apellido
             // 
-            this.textBoxApellido.Location = new System.Drawing.Point(111, 55);
-            this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(213, 20);
-            this.textBoxApellido.TabIndex = 3;
+            this.clie_apellido.Location = new System.Drawing.Point(111, 55);
+            this.clie_apellido.Name = "clie_apellido";
+            this.clie_apellido.Size = new System.Drawing.Size(213, 20);
+            this.clie_apellido.TabIndex = 3;
+            this.clie_apellido.Tag = "Apellido";
             // 
             // label4
             // 
@@ -112,12 +112,13 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "DNI *";
             // 
-            // textBoxDNI
+            // clie_dni
             // 
-            this.textBoxDNI.Location = new System.Drawing.Point(111, 81);
-            this.textBoxDNI.Name = "textBoxDNI";
-            this.textBoxDNI.Size = new System.Drawing.Size(213, 20);
-            this.textBoxDNI.TabIndex = 5;
+            this.clie_dni.Location = new System.Drawing.Point(111, 81);
+            this.clie_dni.Name = "clie_dni";
+            this.clie_dni.Size = new System.Drawing.Size(213, 20);
+            this.clie_dni.TabIndex = 5;
+            this.clie_dni.Tag = "DNI";
             // 
             // label5
             // 
@@ -128,12 +129,13 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Email";
             // 
-            // textBoxEmail
+            // clie_email
             // 
-            this.textBoxEmail.Location = new System.Drawing.Point(112, 132);
-            this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(212, 20);
-            this.textBoxEmail.TabIndex = 7;
+            this.clie_email.Location = new System.Drawing.Point(112, 132);
+            this.clie_email.Name = "clie_email";
+            this.clie_email.Size = new System.Drawing.Size(212, 20);
+            this.clie_email.TabIndex = 7;
+            this.clie_email.Tag = "Email";
             // 
             // label6
             // 
@@ -144,12 +146,13 @@
             this.label6.TabIndex = 10;
             this.label6.Text = "Telefono";
             // 
-            // textBoxTelefono
+            // clie_telefono
             // 
-            this.textBoxTelefono.Location = new System.Drawing.Point(112, 158);
-            this.textBoxTelefono.Name = "textBoxTelefono";
-            this.textBoxTelefono.Size = new System.Drawing.Size(212, 20);
-            this.textBoxTelefono.TabIndex = 9;
+            this.clie_telefono.Location = new System.Drawing.Point(112, 158);
+            this.clie_telefono.Name = "clie_telefono";
+            this.clie_telefono.Size = new System.Drawing.Size(212, 20);
+            this.clie_telefono.TabIndex = 9;
+            this.clie_telefono.Tag = "Telefono";
             // 
             // label7
             // 
@@ -160,12 +163,13 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "Calle *";
             // 
-            // textBoxCalle
+            // dom_calle
             // 
-            this.textBoxCalle.Location = new System.Drawing.Point(112, 184);
-            this.textBoxCalle.Name = "textBoxCalle";
-            this.textBoxCalle.Size = new System.Drawing.Size(212, 20);
-            this.textBoxCalle.TabIndex = 11;
+            this.dom_calle.Location = new System.Drawing.Point(112, 184);
+            this.dom_calle.Name = "dom_calle";
+            this.dom_calle.Size = new System.Drawing.Size(212, 20);
+            this.dom_calle.TabIndex = 11;
+            this.dom_calle.Tag = "Calle";
             // 
             // label8
             // 
@@ -176,12 +180,13 @@
             this.label8.TabIndex = 14;
             this.label8.Text = "Numero";
             // 
-            // textBoxNumero
+            // dom_numero
             // 
-            this.textBoxNumero.Location = new System.Drawing.Point(112, 210);
-            this.textBoxNumero.Name = "textBoxNumero";
-            this.textBoxNumero.Size = new System.Drawing.Size(212, 20);
-            this.textBoxNumero.TabIndex = 13;
+            this.dom_numero.Location = new System.Drawing.Point(112, 210);
+            this.dom_numero.Name = "dom_numero";
+            this.dom_numero.Size = new System.Drawing.Size(212, 20);
+            this.dom_numero.TabIndex = 13;
+            this.dom_numero.Tag = "Numero";
             // 
             // label9
             // 
@@ -192,12 +197,13 @@
             this.label9.TabIndex = 16;
             this.label9.Text = "Depto.";
             // 
-            // textBoxDepartamento
+            // dom_depto
             // 
-            this.textBoxDepartamento.Location = new System.Drawing.Point(112, 236);
-            this.textBoxDepartamento.Name = "textBoxDepartamento";
-            this.textBoxDepartamento.Size = new System.Drawing.Size(212, 20);
-            this.textBoxDepartamento.TabIndex = 15;
+            this.dom_depto.Location = new System.Drawing.Point(112, 236);
+            this.dom_depto.Name = "dom_depto";
+            this.dom_depto.Size = new System.Drawing.Size(212, 20);
+            this.dom_depto.TabIndex = 15;
+            this.dom_depto.Tag = "Depto.";
             // 
             // label10
             // 
@@ -208,12 +214,13 @@
             this.label10.TabIndex = 18;
             this.label10.Text = "Piso";
             // 
-            // textBoxPiso
+            // dom_piso
             // 
-            this.textBoxPiso.Location = new System.Drawing.Point(112, 262);
-            this.textBoxPiso.Name = "textBoxPiso";
-            this.textBoxPiso.Size = new System.Drawing.Size(212, 20);
-            this.textBoxPiso.TabIndex = 17;
+            this.dom_piso.Location = new System.Drawing.Point(112, 262);
+            this.dom_piso.Name = "dom_piso";
+            this.dom_piso.Size = new System.Drawing.Size(212, 20);
+            this.dom_piso.TabIndex = 17;
+            this.dom_piso.Tag = "Piso";
             // 
             // label11
             // 
@@ -224,12 +231,13 @@
             this.label11.TabIndex = 20;
             this.label11.Text = "Ciudad *";
             // 
-            // textBoxCiudad
+            // dom_ciudad
             // 
-            this.textBoxCiudad.Location = new System.Drawing.Point(112, 288);
-            this.textBoxCiudad.Name = "textBoxCiudad";
-            this.textBoxCiudad.Size = new System.Drawing.Size(212, 20);
-            this.textBoxCiudad.TabIndex = 19;
+            this.dom_ciudad.Location = new System.Drawing.Point(112, 288);
+            this.dom_ciudad.Name = "dom_ciudad";
+            this.dom_ciudad.Size = new System.Drawing.Size(212, 20);
+            this.dom_ciudad.TabIndex = 19;
+            this.dom_ciudad.Tag = "Ciudad";
             // 
             // label12
             // 
@@ -240,12 +248,13 @@
             this.label12.TabIndex = 22;
             this.label12.Text = "Localidad";
             // 
-            // textBoxLocalidad
+            // dom_localidad
             // 
-            this.textBoxLocalidad.Location = new System.Drawing.Point(112, 314);
-            this.textBoxLocalidad.Name = "textBoxLocalidad";
-            this.textBoxLocalidad.Size = new System.Drawing.Size(212, 20);
-            this.textBoxLocalidad.TabIndex = 21;
+            this.dom_localidad.Location = new System.Drawing.Point(112, 314);
+            this.dom_localidad.Name = "dom_localidad";
+            this.dom_localidad.Size = new System.Drawing.Size(212, 20);
+            this.dom_localidad.TabIndex = 21;
+            this.dom_localidad.Tag = "Localidad";
             // 
             // label13
             // 
@@ -256,12 +265,13 @@
             this.label13.TabIndex = 24;
             this.label13.Text = "Cod. Postal";
             // 
-            // textBoxCodPostal
+            // dom_codigo_postal
             // 
-            this.textBoxCodPostal.Location = new System.Drawing.Point(112, 340);
-            this.textBoxCodPostal.Name = "textBoxCodPostal";
-            this.textBoxCodPostal.Size = new System.Drawing.Size(212, 20);
-            this.textBoxCodPostal.TabIndex = 23;
+            this.dom_codigo_postal.Location = new System.Drawing.Point(112, 340);
+            this.dom_codigo_postal.Name = "dom_codigo_postal";
+            this.dom_codigo_postal.Size = new System.Drawing.Size(212, 20);
+            this.dom_codigo_postal.TabIndex = 23;
+            this.dom_codigo_postal.Tag = "Cod Postal";
             // 
             // label14
             // 
@@ -271,14 +281,14 @@
             this.label14.Size = new System.Drawing.Size(100, 13);
             this.label14.TabIndex = 26;
             this.label14.Text = "Fecha Nacimiento *";
-            this.label14.Click += new System.EventHandler(this.label14_Click);
             // 
-            // textFNacimiento
+            // clie_fecha_nac
             // 
-            this.textFNacimiento.Location = new System.Drawing.Point(111, 107);
-            this.textFNacimiento.Name = "textFNacimiento";
-            this.textFNacimiento.Size = new System.Drawing.Size(123, 20);
-            this.textFNacimiento.TabIndex = 25;
+            this.clie_fecha_nac.Location = new System.Drawing.Point(111, 107);
+            this.clie_fecha_nac.Name = "clie_fecha_nac";
+            this.clie_fecha_nac.Size = new System.Drawing.Size(123, 20);
+            this.clie_fecha_nac.TabIndex = 25;
+            this.clie_fecha_nac.Tag = "Fecha de nacimiento";
             // 
             // monthCalendar1
             // 
@@ -286,7 +296,6 @@
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 27;
             this.monthCalendar1.Visible = false;
-            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
             this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
             // 
             // button1
@@ -318,32 +327,32 @@
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.textFNacimiento);
+            this.Controls.Add(this.clie_fecha_nac);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.textBoxCodPostal);
+            this.Controls.Add(this.dom_codigo_postal);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.textBoxLocalidad);
+            this.Controls.Add(this.dom_localidad);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBoxCiudad);
+            this.Controls.Add(this.dom_ciudad);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.textBoxPiso);
+            this.Controls.Add(this.dom_piso);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.textBoxDepartamento);
+            this.Controls.Add(this.dom_depto);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBoxNumero);
+            this.Controls.Add(this.dom_numero);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBoxCalle);
+            this.Controls.Add(this.dom_calle);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBoxTelefono);
+            this.Controls.Add(this.clie_telefono);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBoxEmail);
+            this.Controls.Add(this.clie_email);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBoxDNI);
+            this.Controls.Add(this.clie_dni);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxApellido);
+            this.Controls.Add(this.clie_apellido);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxNombre);
+            this.Controls.Add(this.clie_nombre);
             this.Name = "ModificarCliente";
             this.Text = "ModificarCliente";
             this.Load += new System.EventHandler(this.ModificarCliente_Load);
@@ -354,33 +363,33 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxNombre;
+        private System.Windows.Forms.TextBox clie_nombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxApellido;
+        private System.Windows.Forms.TextBox clie_apellido;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxDNI;
+        private System.Windows.Forms.TextBox clie_dni;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxEmail;
+        private System.Windows.Forms.TextBox clie_email;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBoxTelefono;
+        private System.Windows.Forms.TextBox clie_telefono;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBoxCalle;
+        private System.Windows.Forms.TextBox dom_calle;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBoxNumero;
+        private System.Windows.Forms.TextBox dom_numero;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBoxDepartamento;
+        private System.Windows.Forms.TextBox dom_depto;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBoxPiso;
+        private System.Windows.Forms.TextBox dom_piso;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBoxCiudad;
+        private System.Windows.Forms.TextBox dom_ciudad;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBoxLocalidad;
+        private System.Windows.Forms.TextBox dom_localidad;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBoxCodPostal;
+        private System.Windows.Forms.TextBox dom_codigo_postal;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textFNacimiento;
+        private System.Windows.Forms.TextBox clie_fecha_nac;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button guardar;
