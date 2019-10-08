@@ -87,7 +87,8 @@ namespace FrbaOfertas.AbmCliente
             Int32 id = dataC.Create(cliente,direccion, out exError);             
             if (exError == null)
             {
-                MessageBox.Show("Cliente  " + cliente.clie_nombre + " " + cliente.clie_apellido + " agregado exitosamente.", "Cliente nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);     
+                MessageBox.Show("Cliente  " + cliente.clie_nombre + " " + cliente.clie_apellido + " agregado exitosamente.", "Cliente nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             else
                 MessageBox.Show("Erro al agregar cliente, " + exError.Message,"Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);    

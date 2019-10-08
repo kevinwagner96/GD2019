@@ -30,6 +30,8 @@ namespace FrbaOfertas.Helpers
 
         public abstract T Read(T instance, out Exception exError);
 
+        public abstract bool Update(T instance, object otro, out Exception exError);
+        
         public abstract bool Update(T instance, out Exception exError);
 
         public abstract bool Delete(int ID, out Exception exError);

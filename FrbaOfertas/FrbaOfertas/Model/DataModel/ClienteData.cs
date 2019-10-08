@@ -203,34 +203,65 @@ namespace FrbaOfertas.Model.DataModel
 
         public override bool Update(Cliente instance, out Exception exError)
         {
-            
+            throw new NotImplementedException();
+        }
+
+        public override bool Update(Cliente instance,object otro ,out Exception exError)
+        {
+            SqlTransaction trans;
+            SqlCommand command;
+            Direccion direccion = (Direccion) otro;
             exError = null;
             try
             {
                 if (this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-
-                using (SqlCommand command = new SqlCommand("UPDATE [dbo].[Cliente] SET " + SqlHelper.getUpdate(instance.getAtributeMList()) + " WHERE id_cliente="+instance.id_cliente, (SqlConnection)this.Connection))
-                {
-
-                    foreach (String value in instance.getAtributeMList())
+                 using ( trans = ((SqlConnection)this.Connection).BeginTransaction())
+                 {
+                    try
                     {
-                        command.Parameters.AddWithValue("@" + value, instance.getMethodString(value));
+                            command  = new SqlCommand("UPDATE [dbo].[Cliente] SET " + SqlHelper.getUpdate(instance.getAtributeMList()) +
+                                                        " WHERE id_cliente="+instance.id_cliente, (SqlConnection)this.Connection,trans);
+                            command.CommandType = System.Data.CommandType.Text;
+                            foreach (String value in instance.getAtributeMList())
+                            {
+                                command.Parameters.AddWithValue("@" + value, instance.getMethodString(value));
+                            }
+
+                            command.ExecuteNonQuery();
+
+                            command.CommandText = "UPDATE [dbo].[Domicilio] SET " + SqlHelper.getUpdate(direccion.getAtributeMList())
+                                                + " WHERE id_domicilio=" + direccion.id_domicilio;
+                       
+                            foreach (String value in direccion.getAtributeMList())
+                            {
+                                command.Parameters.AddWithValue("@" + value, direccion.getMethodString(value));
+                            }
+                            
+                            command.ExecuteNonQuery();
+
+                            trans.Commit();
+                        }
+                        catch (Exception ex2)
+                        {
+                            try
+                            {
+                                trans.Rollback();
+                            }
+                            catch {
+                                exError = ex2;
+                            }
+                
+                        }
+
                     }
-
-
-                    command.ExecuteNonQuery();
-                }
-            }
+                }           
             catch (InvalidOperationException invalid)
-            {
+            {                
                 exError = invalid;
             }
-            catch (Exception ex)
-            {
-                exError = ex;
-            }
+
 
             return true;
         }

@@ -35,8 +35,8 @@ namespace FrbaOfertas.AbmCliente
         {
             NuevoCliente nc = new NuevoCliente();
             nc.ShowDialog();
-            nc.Focus();            
-
+            nc.Focus();
+            cargarDataGrid();
         }
 
         private void ClienteList_Load(object sender, EventArgs e)
@@ -67,7 +67,8 @@ namespace FrbaOfertas.AbmCliente
             Int32 id = (Int32) dataGridClientes.Rows[dataGridClientes.CurrentCell.RowIndex].Cells["id_cliente"].Value;
             ModificarCliente modificarCliente = new ModificarCliente(id);
             modificarCliente.ShowDialog();
-            modificarCliente.Focus();    
+            modificarCliente.Focus();
+            cargarDataGrid();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -88,8 +89,7 @@ namespace FrbaOfertas.AbmCliente
                     MessageBox.Show("No se pudo eliminar cliente, " + exError.Message);
                     return;
                 }
-
-                MessageBox.Show("Cliente " + nombre + " eliminado.", "Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
                 
             }
         }

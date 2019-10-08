@@ -76,7 +76,10 @@ namespace FrbaOfertas.DataModel
         {
             throw new NotImplementedException();
         }
-
+        public override bool Update(Usuario instance, object otro, out Exception exError)
+        {
+            throw new NotImplementedException();
+        }
         public override bool Update(Usuario instance, out Exception exError)
         {
             throw new NotImplementedException();

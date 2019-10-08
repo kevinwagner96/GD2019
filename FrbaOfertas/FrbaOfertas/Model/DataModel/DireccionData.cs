@@ -13,7 +13,7 @@ namespace FrbaOfertas.Model.DataModel
     class DireccionData : DataHelper<Direccion>
     {
         public DireccionData(SqlConnection connection) : base(connection) { }
-        List<String> allAtributes = new List<String>( new String[] {"dom_calle","dom_numero","dom_depto","dom_piso","dom_ciudad","dom_localidad","dom_codigo_postal"});
+        List<String> allAtributes = new List<String>( new String[] {"id_domicilio","dom_calle","dom_numero","dom_depto","dom_piso","dom_ciudad","dom_localidad","dom_codigo_postal"});
 
         public override List<Direccion> Select(out Exception exError)
         {
@@ -136,6 +136,11 @@ namespace FrbaOfertas.Model.DataModel
         }
 
         public override Int32 Create(Direccion instance, object otro, out Exception exError)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Update(Direccion instance, object otro, out Exception exError)
         {
             throw new NotImplementedException();
         }

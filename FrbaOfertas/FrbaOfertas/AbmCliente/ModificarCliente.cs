@@ -56,7 +56,8 @@ namespace FrbaOfertas.AbmCliente
             dataC = new ClienteData(Conexion.getConexion());
 
             cliente= dataC.Read(id_cliente, out exError);
-            clie_activo= cliente.clie_activo;
+            clie_activo.Checked = cliente.clie_activo;
+
             direccion = dataD.Read(cliente.id_domicilio, out exError);
 
             FormHelper.setearTextBoxs(todos, cliente);
@@ -92,24 +93,21 @@ namespace FrbaOfertas.AbmCliente
 
             FormHelper.setearAtributos(todos, cliente);
             FormHelper.setearAtributos(todos, direccion);
+            cliente.clie_activo = clie_activo.Checked;
 
-            
-            
-            dataD.Update(direccion, out exError);
-            if (exError == null)
+            DialogResult result = MessageBox.Show("Seguro quiere modificar al cliente " + cliente.clie_nombre + ".", "Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
             {
-                                
-                dataC.Update(cliente, out exError);
+                dataC.Update(cliente, direccion, out exError);
                 if (exError == null)
                 {
-                    MessageBox.Show("Cliente  " + cliente.clie_nombre + " " + cliente.clie_apellido + " modificado exitosamente.", "Cliente nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);     
+
+                    this.Close();
+                    //MessageBox.Show("Cliente  " + cliente.clie_nombre + " " + cliente.clie_apellido + " modificado exitosamente.", "Cliente nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);     
                 }
                 else
-                    MessageBox.Show("Erro al modificar cliente, " + exError.Message,"Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);    
+                    MessageBox.Show("Erro al modificar cliente, " + exError.Message, "Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-                MessageBox.Show("Erro al  modificar direccion, " + exError.Message, "Direccion", MessageBoxButtons.OK, MessageBoxIcon.Error);    
-            
 
         }
 
