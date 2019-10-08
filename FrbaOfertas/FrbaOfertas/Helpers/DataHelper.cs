@@ -19,8 +19,8 @@ namespace FrbaOfertas.Helpers
         }
 
         public abstract List<T> Select(out Exception exError);
-        
-        public abstract List<T> FilterSelect(Dictionary<String,String> filtros,out Exception exError);
+
+        public abstract List<T> FilterSelect(Dictionary<String, String> like, Dictionary<String, Object> exac, out Exception exError);
 
         public abstract Int32 Create(T instance, out Exception exError);
         

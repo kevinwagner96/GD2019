@@ -52,7 +52,7 @@ namespace FrbaOfertas.DataModel
             return returnValue;
         }
 
-        public override List<Usuario> FilterSelect(Dictionary<String, String> filtros, out Exception exError)
+        public override List<Usuario> FilterSelect(Dictionary<String, String> like, Dictionary<String, Object> exac, out Exception exError)
         {
             throw new NotImplementedException();
         }

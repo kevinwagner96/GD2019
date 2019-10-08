@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace FrbaOfertas.Model.DataModel
 {
-    class ClienteData : DataHelper<Cliente>
+    class ProveedorData : DataHelper<Proveedor>
     {
-        public ClienteData(SqlConnection connection) : base(connection) { }
-       List<String> allAtributes = new List<String>( new String[] {"id_cliente","id_domicilio","id_usuario","clie_dni","clie_nombre","clie_apellido","clie_email","clie_telefono","clie_fecha_nac","clie_credito","clie_activo"});
+        public ProveedorData(SqlConnection connection) : base(connection) { }
+       List<String> allAtributes = new List<String>( new String[] {"id_proveedor","id_domicilio","id_usuario","prov_CUIT","prov_razon_social","prov_email","prov_telefono","prov_rubro","prov_contacto","prov_activo"});
 
-        public override List<Cliente> Select(out Exception exError)
+        public override List<Proveedor> Select(out Exception exError)
         {
-            List<Cliente> returnValue = new List<Cliente>();
+            List<Proveedor> returnValue = new List<Proveedor>();
             exError = null;
 
             try
@@ -26,13 +26,13 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
                 
 
-                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) +"FROM [dbo].[Cliente]", (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) +"FROM [dbo].[Proveedor]", (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            Cliente c = new Cliente();
+                            Proveedor c = new Proveedor();
                             SqlHelper.setearAtributos(reader, allAtributes, c);
                             c.restartMList();
                             returnValue.Add(c);
@@ -52,9 +52,9 @@ namespace FrbaOfertas.Model.DataModel
             return returnValue;
         }
 
-        public override List<Cliente> FilterSelect(Dictionary<String, String> like, Dictionary<String, Object> exac, out Exception exError)
+        public override List<Proveedor> FilterSelect(Dictionary<String, String> like, Dictionary<String, Object> exac, out Exception exError)
         {
-            List<Cliente> returnValue = new List<Cliente>();
+            List<Proveedor> returnValue = new List<Proveedor>();
             exError = null;
 
             try
@@ -64,7 +64,7 @@ namespace FrbaOfertas.Model.DataModel
 
 
                 using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) +
-                    "FROM [dbo].[Cliente] WHERE " + SqlHelper.getLikeFilter(like) + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
+                    "FROM [dbo].[Proveedor] WHERE " + SqlHelper.getLikeFilter(like) + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
                 {
                     foreach (KeyValuePair<String, Object> value in exac)
                     {
@@ -75,7 +75,7 @@ namespace FrbaOfertas.Model.DataModel
                     {
                         while (reader.Read())
                         {
-                            Cliente c = new Cliente();
+                            Proveedor c = new Proveedor();
                             SqlHelper.setearAtributos(reader, allAtributes, c);
                             c.restartMList();
                             returnValue.Add(c);
@@ -95,7 +95,7 @@ namespace FrbaOfertas.Model.DataModel
             return returnValue;
         }
 
-        public override Int32 Create(Cliente instance, object otro, out Exception exError)
+        public override Int32 Create(Proveedor instance, object otro, out Exception exError)
         {
             Int32 modified = -1;
             SqlTransaction trans;
@@ -124,8 +124,8 @@ namespace FrbaOfertas.Model.DataModel
                         modified = (Int32)command.ExecuteScalar();
                         instance.id_domicilio = modified;
 
-                        command.CommandText = "INSERT INTO [dbo].[Cliente] (" + SqlHelper.getColumns(instance.getAtributeMList()) + ")" +
-                                    " output INSERTED.id_cliente VALUES(" + SqlHelper.getValues(instance.getAtributeMList()) + ")";
+                        command.CommandText = "INSERT INTO [dbo].[Proveedor] (" + SqlHelper.getColumns(instance.getAtributeMList()) + ")" +
+                                    " output INSERTED.id_proveedor VALUES(" + SqlHelper.getValues(instance.getAtributeMList()) + ")";
                         foreach (String value in instance.getAtributeMList())
                         {
                             command.Parameters.AddWithValue("@" + value, instance.getMethodString(value));
@@ -144,7 +144,7 @@ namespace FrbaOfertas.Model.DataModel
                             catch {
                                 exError = ex2;
                             }
-                
+                            exError = ex2;
                         }
 
                     }
@@ -158,14 +158,14 @@ namespace FrbaOfertas.Model.DataModel
             return modified;
         }
 
-        public override Int32 Create(Cliente instance, out Exception exError)
+        public override Int32 Create(Proveedor instance, out Exception exError)
         {
             throw new NotImplementedException();
         }
 
-        public override Cliente Read(int ID, out Exception exError)
+        public override Proveedor Read(int ID, out Exception exError)
         {
-            Cliente cliente = new Cliente();
+            Proveedor proveedor = new Proveedor();
             exError = null;
 
             try
@@ -174,18 +174,18 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM [dbo].[Cliente]"+" WHERE id_cliente="+ID, (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM [dbo].[Proveedor]"+" WHERE id_proveedor="+ID, (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (!reader.Read())        
-                            throw new InvalidOperationException("No existe el cliente.");
+                            throw new InvalidOperationException("No existe el proveedor.");
                                                 
-                        SqlHelper.setearAtributos(reader, allAtributes, cliente);
-                        cliente.restartMList();
+                        SqlHelper.setearAtributos(reader, allAtributes, proveedor);
+                        proveedor.restartMList();
 
                         if (reader.Read())
-                            throw new InvalidOperationException("Clientes multiples.");
+                            throw new InvalidOperationException("Proveedors multiples.");
                                                
                     }
                 }
@@ -199,20 +199,20 @@ namespace FrbaOfertas.Model.DataModel
                 exError = ex;
             }
               
-            return cliente;
+            return proveedor;
         }
 
-        public override Cliente Read(Cliente instance, out Exception exError)
+        public override Proveedor Read(Proveedor instance, out Exception exError)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Update(Cliente instance, out Exception exError)
+        public override bool Update(Proveedor instance, out Exception exError)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Update(Cliente instance,object otro ,out Exception exError)
+        public override bool Update(Proveedor instance,object otro ,out Exception exError)
         {
             SqlTransaction trans;
             SqlCommand command;
@@ -227,8 +227,8 @@ namespace FrbaOfertas.Model.DataModel
                  {
                     try
                     {
-                            command  = new SqlCommand("UPDATE [dbo].[Cliente] SET " + SqlHelper.getUpdate(instance.getAtributeMList()) +
-                                                        " WHERE id_cliente="+instance.id_cliente, (SqlConnection)this.Connection,trans);
+                            command  = new SqlCommand("UPDATE [dbo].[Proveedor] SET " + SqlHelper.getUpdate(instance.getAtributeMList()) +
+                                                        " WHERE id_proveedor="+instance.id_proveedor, (SqlConnection)this.Connection,trans);
                             command.CommandType = System.Data.CommandType.Text;
                             foreach (String value in instance.getAtributeMList())
                             {
@@ -281,7 +281,7 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("UPDATE [dbo].[Cliente] SET [clie_activo]=0 WHERE id_cliente=" + ID, (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("UPDATE [dbo].[Proveedor] SET [prov_activo]=0 WHERE id_proveedor=" + ID, (SqlConnection)this.Connection))
                 {
 
                     command.ExecuteNonQuery();
@@ -299,7 +299,7 @@ namespace FrbaOfertas.Model.DataModel
             return true;
         }
 
-        public override bool Delete(Cliente instance, out Exception exError)
+        public override bool Delete(Proveedor instance, out Exception exError)
         {
             throw new NotImplementedException();
         }

@@ -50,7 +50,6 @@
     <Compile Include="AbmCliente\ClienteList.Designer.cs">
       <DependentUpon>ClienteList.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCliente\DialoagResult.cs" />
     <Compile Include="AbmCliente\ModificarCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,11 +62,23 @@
     <Compile Include="AbmCliente\NuevoCliente.Designer.cs">
       <DependentUpon>NuevoCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmProveedor\Form1.cs">
+    <Compile Include="AbmProveedor\ModificarProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmProveedor\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmProveedor\ModificarProveedor.Designer.cs">
+      <DependentUpon>ModificarProveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmProveedor\ProveedoresList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmProveedor\ProveedoresList.Designer.cs">
+      <DependentUpon>ProveedoresList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmProveedor\NuevoProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmProveedor\NuevoProveedor.Designer.cs">
+      <DependentUpon>NuevoProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmRol\Form1.cs">
       <SubType>Form</SubType>
@@ -96,6 +107,7 @@
     </Compile>
     <Compile Include="Helpers\FormHelper.cs" />
     <Compile Include="Model\DataModel\ClienteData.cs" />
+    <Compile Include="Model\DataModel\ProveedorData.cs" />
     <Compile Include="Model\DataModel\DireccionData.cs" />
     <Compile Include="Model\DataModel\UsuarioData.cs" />
     <Compile Include="Facturar\Form1.cs">
@@ -121,6 +133,7 @@
     </Compile>
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\Direccion.cs" />
+    <Compile Include="Model\Proveedor.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,8 +146,14 @@
     <EmbeddedResource Include="AbmCliente\NuevoCliente.resx">
       <DependentUpon>NuevoCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmProveedor\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AbmProveedor\ModificarProveedor.resx">
+      <DependentUpon>ModificarProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmProveedor\ProveedoresList.resx">
+      <DependentUpon>ProveedoresList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmProveedor\NuevoProveedor.resx">
+      <DependentUpon>NuevoProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

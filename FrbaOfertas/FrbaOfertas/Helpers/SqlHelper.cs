@@ -22,13 +22,30 @@ namespace FrbaOfertas.Helpers
 
         public static String getLikeFilter(Dictionary<String,String> filtros)
         {
-            String returned = "";
+            if (filtros.Count() == 0)
+                return "";
+
+            String returned = " ";
             foreach (KeyValuePair<string, string> value in filtros)
             {
                 returned += "[" + value.Key + "] LIKE ('%"+value.Value+"%') AND";
             }
 
             return returned.Remove(returned.Length - 3);
+        }
+
+        public static String getExactFilter(Dictionary<String, Object> filtros)
+        {
+            if (filtros.Count() == 0)
+                return "";
+
+            String returned = " ";
+            foreach (KeyValuePair<string, Object> value in filtros)
+            {
+                returned += "[" + value.Key + "]=@" + value.Key + ",";
+            }
+
+            return returned.Remove(returned.Length - 1);
         }
 
         public static String getValues(List<String> list)

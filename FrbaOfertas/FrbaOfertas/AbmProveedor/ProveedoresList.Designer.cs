@@ -1,6 +1,6 @@
-﻿namespace FrbaOfertas.AbmCliente
+﻿namespace FrbaOfertas.AbmProveedor
 {
-    partial class ClienteList
+    partial class ProveedoresList
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridClientes = new System.Windows.Forms.DataGridView();
+            this.dataGridProveedores = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -36,34 +36,32 @@
             this.buscar = new System.Windows.Forms.Button();
             this.limpiar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.clie_email = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.clie_dni = new System.Windows.Forms.TextBox();
+            this.prov_email = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.clie_apellido = new System.Windows.Forms.TextBox();
+            this.prov_CUIT = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.clie_nombre = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
+            this.prov_razon_social = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridProveedores)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridClientes
+            // dataGridProveedores
             // 
-            this.dataGridClientes.AllowUserToAddRows = false;
-            this.dataGridClientes.AllowUserToDeleteRows = false;
-            this.dataGridClientes.AllowUserToOrderColumns = true;
-            this.dataGridClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridProveedores.AllowUserToAddRows = false;
+            this.dataGridProveedores.AllowUserToDeleteRows = false;
+            this.dataGridProveedores.AllowUserToOrderColumns = true;
+            this.dataGridProveedores.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridClientes.Location = new System.Drawing.Point(12, 61);
-            this.dataGridClientes.MultiSelect = false;
-            this.dataGridClientes.Name = "dataGridClientes";
-            this.dataGridClientes.ReadOnly = true;
-            this.dataGridClientes.Size = new System.Drawing.Size(744, 428);
-            this.dataGridClientes.TabIndex = 0;
-            this.dataGridClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridProveedores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridProveedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridProveedores.Location = new System.Drawing.Point(12, 61);
+            this.dataGridProveedores.MultiSelect = false;
+            this.dataGridProveedores.Name = "dataGridProveedores";
+            this.dataGridProveedores.ReadOnly = true;
+            this.dataGridProveedores.Size = new System.Drawing.Size(744, 428);
+            this.dataGridProveedores.TabIndex = 0;
+            this.dataGridProveedores.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // button1
             // 
@@ -105,13 +103,11 @@
             this.groupBox1.Controls.Add(this.buscar);
             this.groupBox1.Controls.Add(this.limpiar);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.clie_email);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.clie_dni);
+            this.groupBox1.Controls.Add(this.prov_email);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.clie_apellido);
+            this.groupBox1.Controls.Add(this.prov_CUIT);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.clie_nombre);
+            this.groupBox1.Controls.Add(this.prov_razon_social);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(744, 43);
@@ -144,71 +140,54 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(445, 19);
+            this.label4.Location = new System.Drawing.Point(345, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Email";
             // 
-            // clie_email
+            // prov_email
             // 
-            this.clie_email.Location = new System.Drawing.Point(483, 16);
-            this.clie_email.Name = "clie_email";
-            this.clie_email.Size = new System.Drawing.Size(93, 20);
-            this.clie_email.TabIndex = 6;
-            this.clie_email.Tag = "LIKE";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(310, 19);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "DNI";
-            // 
-            // clie_dni
-            // 
-            this.clie_dni.Location = new System.Drawing.Point(339, 16);
-            this.clie_dni.Name = "clie_dni";
-            this.clie_dni.Size = new System.Drawing.Size(100, 20);
-            this.clie_dni.TabIndex = 4;
+            this.prov_email.Location = new System.Drawing.Point(383, 16);
+            this.prov_email.Name = "prov_email";
+            this.prov_email.Size = new System.Drawing.Size(93, 20);
+            this.prov_email.TabIndex = 6;
+            this.prov_email.Tag = "LIKE";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(166, 19);
+            this.label2.Location = new System.Drawing.Point(197, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Apellido";
+            this.label2.Text = "CUIT";
             // 
-            // clie_apellido
+            // prov_CUIT
             // 
-            this.clie_apellido.Location = new System.Drawing.Point(211, 16);
-            this.clie_apellido.Name = "clie_apellido";
-            this.clie_apellido.Size = new System.Drawing.Size(93, 20);
-            this.clie_apellido.TabIndex = 2;
-            this.clie_apellido.Tag = "LIKE";
+            this.prov_CUIT.Location = new System.Drawing.Point(235, 16);
+            this.prov_CUIT.Name = "prov_CUIT";
+            this.prov_CUIT.Size = new System.Drawing.Size(93, 20);
+            this.prov_CUIT.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Nombre";
+            this.label1.Text = "Razon Social";
             // 
-            // clie_nombre
+            // prov_razon_social
             // 
-            this.clie_nombre.Location = new System.Drawing.Point(57, 16);
-            this.clie_nombre.Name = "clie_nombre";
-            this.clie_nombre.Size = new System.Drawing.Size(100, 20);
-            this.clie_nombre.TabIndex = 0;
-            this.clie_nombre.Tag = "LIKE";
+            this.prov_razon_social.Location = new System.Drawing.Point(81, 16);
+            this.prov_razon_social.Name = "prov_razon_social";
+            this.prov_razon_social.Size = new System.Drawing.Size(100, 20);
+            this.prov_razon_social.TabIndex = 0;
+            this.prov_razon_social.Tag = "LIKE";
             // 
-            // ClienteList
+            // ProveedoresList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -217,11 +196,11 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridClientes);
-            this.Name = "ClienteList";
+            this.Controls.Add(this.dataGridProveedores);
+            this.Name = "ProveedoresList";
             this.Text = "Lista de Proveedores";
             this.Load += new System.EventHandler(this.ClienteList_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridProveedores)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -230,20 +209,18 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridClientes;
+        private System.Windows.Forms.DataGridView dataGridProveedores;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button limpiar;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox clie_email;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox clie_dni;
+        private System.Windows.Forms.TextBox prov_email;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox clie_apellido;
+        private System.Windows.Forms.TextBox prov_CUIT;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox clie_nombre;
+        private System.Windows.Forms.TextBox prov_razon_social;
         private System.Windows.Forms.Button buscar;
     }
 }

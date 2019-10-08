@@ -1,4 +1,5 @@
-﻿using FrbaOfertas.Helpers;
+﻿using FrbaOfertas.AbmProveedor;
+using FrbaOfertas.Helpers;
 using FrbaOfertas.Model;
 using FrbaOfertas.Model.DataModel;
 using System;
@@ -11,18 +12,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FrbaOfertas.AbmCliente
+namespace FrbaOfertas.AbmProveedor
 {
-    public partial class ClienteList : Form
+    public partial class ProveedoresList : Form
     {
-        ClienteData data;
+        ProveedorData data;
         List<TextBox> todos = new List<TextBox>();
         Exception exError = null;
 
-        public ClienteList()
+        public ProveedoresList()
         {
             InitializeComponent();
-            data = new ClienteData(Conexion.getConexion());
+            data = new ProveedorData(Conexion.getConexion());
             
         }
 
@@ -33,7 +34,7 @@ namespace FrbaOfertas.AbmCliente
 
         private void button1_Click(object sender, EventArgs e)
         {
-            NuevoCliente nc = new NuevoCliente();
+            NuevoProveedor nc = new NuevoProveedor();
             nc.ShowDialog();
             nc.Focus();
             cargarDataGrid();
@@ -41,42 +42,46 @@ namespace FrbaOfertas.AbmCliente
 
         private void ClienteList_Load(object sender, EventArgs e)
         {
-            todos.Add(clie_nombre);
-            todos.Add(clie_email);
-            todos.Add(clie_dni);
-            todos.Add(clie_apellido);
-
+            
+            todos.Add(prov_CUIT);
+            todos.Add(prov_email);
+            todos.Add(prov_razon_social);
+            
+                
             cargarDataGrid();
         }
 
         private void cargarDataGrid()
         {
-            List<Cliente> clientes = data.Select(out exError);
+
+            List<Proveedor> proveedores = data.Select(out exError);
 
             if (exError == null)
             {
-                dataGridClientes.DataSource = clientes;
-                dataGridClientes.Columns[0].Visible = false;
+                dataGridProveedores.DataSource = proveedores;
+                dataGridProveedores.Columns[0].Visible = false;
             }
             else
-                MessageBox.Show("No se pudo obtener la lista de Usuarios, " + exError.Message);
+                MessageBox.Show("No se pudo obtener la lista de Proveedores, " + exError.Message);
+             
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Int32 id = (Int32) dataGridClientes.Rows[dataGridClientes.CurrentCell.RowIndex].Cells["id_cliente"].Value;
-            ModificarCliente modificarCliente = new ModificarCliente(id);
-            modificarCliente.ShowDialog();
-            modificarCliente.Focus();
+           
+            Int32 id = (Int32) dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["id_proveedor"].Value;
+            ModificarProveedor modificarProveedor = new ModificarProveedor(id);
+            modificarProveedor.ShowDialog();
+            modificarProveedor.Focus();
             cargarDataGrid();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            String nombre = dataGridClientes.Rows[dataGridClientes.CurrentCell.RowIndex].Cells["clie_nombre"].Value.ToString();
-            Int32 id = (Int32)dataGridClientes.Rows[dataGridClientes.CurrentCell.RowIndex].Cells["id_cliente"].Value;
+            String nombre = dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["prov_razon_social"].Value.ToString();
+            Int32 id = (Int32)dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["id_proveedor"].Value;
 
-            DialogResult result = MessageBox.Show("Seguro quiere eliminar al cliente " + nombre + ".", "Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Seguro quiere eliminar al proveedor " + nombre + ".", "Proveedor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 data.Delete(id, out exError);
@@ -96,6 +101,7 @@ namespace FrbaOfertas.AbmCliente
 
         private void buscar_Click(object sender, EventArgs e)
         {
+            
             Dictionary<String, String> like = new Dictionary<string, string>();
             Dictionary<String, Object> exac = new Dictionary<string, Object>();
              List < TextBox > noNulos = FormHelper.getNoNulos(todos);
@@ -113,12 +119,12 @@ namespace FrbaOfertas.AbmCliente
                 return;
             }
 
-            List<Cliente> clientes = data.FilterSelect(like,exac,out exError);
+            List<Proveedor> proveedores = data.FilterSelect(like,exac,out exError);
 
             if (exError == null)
             {
-                dataGridClientes.DataSource = clientes;
-                dataGridClientes.Columns[0].Visible = false;
+                dataGridProveedores.DataSource = proveedores;
+                dataGridProveedores.Columns[0].Visible = false;
             }
             else
                 MessageBox.Show("No se pudo obtener la lista de Usuarios, " + exError.Message);
