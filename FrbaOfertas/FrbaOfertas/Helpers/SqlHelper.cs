@@ -20,6 +20,17 @@ namespace FrbaOfertas.Helpers
             return returned.Remove(returned.Length - 1);
         }
 
+        public static String getLikeFilter(Dictionary<String,String> filtros)
+        {
+            String returned = "";
+            foreach (KeyValuePair<string, string> value in filtros)
+            {
+                returned += "[" + value.Key + "] LIKE ('%"+value.Value+"%') AND";
+            }
+
+            return returned.Remove(returned.Length - 3);
+        }
+
         public static String getValues(List<String> list)
         {
             String returned = "";

@@ -50,6 +50,7 @@
     <Compile Include="AbmCliente\ClienteList.Designer.cs">
       <DependentUpon>ClienteList.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmCliente\DialoagResult.cs" />
     <Compile Include="AbmCliente\ModificarCliente.cs">
       <SubType>Form</SubType>
     </Compile>

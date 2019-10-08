@@ -58,6 +58,9 @@
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.button1 = new System.Windows.Forms.Button();
             this.guardar = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.clie_credito = new System.Windows.Forms.TextBox();
+            this.clie_activo = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // clie_nombre
@@ -310,7 +313,7 @@
             // 
             // guardar
             // 
-            this.guardar.Location = new System.Drawing.Point(240, 366);
+            this.guardar.Location = new System.Drawing.Point(241, 392);
             this.guardar.Name = "guardar";
             this.guardar.Size = new System.Drawing.Size(84, 20);
             this.guardar.TabIndex = 29;
@@ -318,11 +321,41 @@
             this.guardar.UseVisualStyleBackColor = true;
             this.guardar.Click += new System.EventHandler(this.guardar_Click);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(14, 369);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(40, 13);
+            this.label15.TabIndex = 31;
+            this.label15.Text = "Credito";
+            // 
+            // clie_credito
+            // 
+            this.clie_credito.Location = new System.Drawing.Point(111, 366);
+            this.clie_credito.Name = "clie_credito";
+            this.clie_credito.Size = new System.Drawing.Size(151, 20);
+            this.clie_credito.TabIndex = 30;
+            this.clie_credito.Tag = "Cod Postal";
+            // 
+            // clie_activo
+            // 
+            this.clie_activo.AutoSize = true;
+            this.clie_activo.Location = new System.Drawing.Point(268, 368);
+            this.clie_activo.Name = "clie_activo";
+            this.clie_activo.Size = new System.Drawing.Size(56, 17);
+            this.clie_activo.TabIndex = 34;
+            this.clie_activo.Text = "Activo";
+            this.clie_activo.UseVisualStyleBackColor = true;
+            // 
             // ModificarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 397);
+            this.ClientSize = new System.Drawing.Size(337, 420);
+            this.Controls.Add(this.clie_activo);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.clie_credito);
             this.Controls.Add(this.guardar);
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.button1);
@@ -393,5 +426,8 @@
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button guardar;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox clie_credito;
+        private System.Windows.Forms.CheckBox clie_activo;
     }
 }

@@ -50,7 +50,7 @@ namespace FrbaOfertas.Model.DataModel
             return returnValue;
         }
 
-        public override List<Direccion> FilterSelect(List<Dictionary<String, String>> filtros, out Exception exError)
+        public override List<Direccion> FilterSelect(Dictionary<String, String> filtros, out Exception exError)
         {
             throw new NotImplementedException();
         }

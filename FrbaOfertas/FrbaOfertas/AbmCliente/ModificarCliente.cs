@@ -56,6 +56,7 @@ namespace FrbaOfertas.AbmCliente
             dataC = new ClienteData(Conexion.getConexion());
 
             cliente= dataC.Read(id_cliente, out exError);
+            clie_activo= cliente.clie_activo;
             direccion = dataD.Read(cliente.id_domicilio, out exError);
 
             FormHelper.setearTextBoxs(todos, cliente);

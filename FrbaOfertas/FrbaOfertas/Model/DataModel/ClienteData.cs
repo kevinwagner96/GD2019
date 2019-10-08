@@ -52,9 +52,41 @@ namespace FrbaOfertas.Model.DataModel
             return returnValue;
         }
 
-        public override List<Cliente> FilterSelect(List<Dictionary<String, String>> filtros, out Exception exError)
+        public override List<Cliente> FilterSelect(Dictionary<String, String> filtros, out Exception exError)
         {
-            throw new NotImplementedException();
+            List<Cliente> returnValue = new List<Cliente>();
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM [dbo].[Cliente] WHERE "+SqlHelper.getLikeFilter(filtros), (SqlConnection)this.Connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Cliente c = new Cliente();
+                            SqlHelper.setearAtributos(reader, allAtributes, c);
+                            c.restartMList();
+                            returnValue.Add(c);
+                        }
+                    }
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return returnValue;
         }
 
         public override Int32 Create(Cliente instance, object otro, out Exception exError)
@@ -205,7 +237,29 @@ namespace FrbaOfertas.Model.DataModel
 
         public override bool Delete(int ID, out Exception exError)
         {
-            throw new NotImplementedException();
+            exError = null;
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("UPDATE [dbo].[Cliente] SET [clie_activo]=0 WHERE id_cliente=" + ID, (SqlConnection)this.Connection))
+                {
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return true;
         }
 
         public override bool Delete(Cliente instance, out Exception exError)
