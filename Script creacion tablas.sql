@@ -98,7 +98,7 @@ CREATE TABLE [GDDS2].[Domicilio](
 	[dom_numero] [nvarchar](50) NULL,
 	[dom_depto] [int] NULL,
 	[dom_piso] [int] NULL,
-	[dom_ciudad] [varchar](50) NOT NULL,
+	[dom_ciudad] [nvarchar](50) NOT NULL,
 	[dom_localidad] [nvarchar](50) NULL,
 	[dom_codigo_postal] [nvarchar](50) NULL,
  CONSTRAINT [domicilio_pk] PRIMARY KEY CLUSTERED 
@@ -310,7 +310,7 @@ GO
 
 CREATE TABLE [GDDS2].[Usuario](
 	[id_usuario] [int] IDENTITY(1,1) NOT NULL,
-	[usu_username] [nvarchar](50) NOT NULL,
+	[usu_username] [nvarchar](50) unique NOT NULL,
 	[usu_contrasenia] [nvarchar](50) NOT NULL,
 	[usu_cant_intentos_fallidos] [int] NOT NULL,
 	[usu_activo] [bit] NOT NULL,
@@ -522,9 +522,15 @@ VALUES (1,1)
 
 INSERT INTO GDDS2.[rol_funcionalidad](id_rol,func_codigo)
 VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(2,2),(2,6),(2,11), (3,5),(3,9),(3,10)
-
--- inserto clientes, junto con sus domicilios
 go
+
+--insertamos los tipos de pago,cod de c/u 1,2,y 3 respectivamente
+insert into GDDS2.[Tipo_pago](tipo_pago_nombre)
+values ('Efectivo'),('Crédito'),('Débito')
+GO
+-- inserto clientes, junto con sus domicilios
+
+
 create procedure cargarClientes
 as begin
 declare @nombre nvarchar(50)
@@ -564,7 +570,7 @@ end
 
 exec cargarClientes
 drop procedure cargarClientes
-go
+GO
 
 --cargo los proveedore con respectivos domicilio
 create procedure cargarProveedores
@@ -598,18 +604,46 @@ close cursorProveedores
 deallocate cursorProveedores
 end
 
-exec cargarProveedores
+exec cargarProveedores 
 drop procedure cargarProveedores
-go
+GO
+
+-- migrando los registros de cargas de credito, 
+--en la tabla maestra solo un cliente realiza cargas, DNI: 83183632, mas info ejecutar select Cli_Dni,Carga_Credito,Carga_Fecha,Tipo_Pago_Desc from gd_esquema.Maestra where Tipo_Pago_Desc is not null
+--tarda mucho debido a que busca al cliente por dni para halar su  id y registrarlo por cada fila (casi 16k filas). no se como optimizarlo. 
+
+alter procedure migrarCargasDeCredito
+as begin
+declare @dni numeric(18,0)
+declare @fecha datetime
+declare @tipo_pago_string nvarchar(50)
+declare @carga_credito numeric(18,2)
+declare @id_cliente int
+declare @id_tipo_pago int
 
 
+declare cursorCargaCredito cursor for (select   Cli_Dni ,Carga_Fecha,Tipo_Pago_Desc,Carga_Credito from gd_esquema.Maestra where Carga_Fecha is not null and Tipo_Pago_Desc is not null)
+open cursorCargaCredito
 
+fetch cursorCargaCredito into @dni,@fecha,@tipo_pago_string,@carga_credito
+while (@@FETCH_STATUS = 0)
+begin
+set @id_cliente =(select id_cliente from GDDS2.Cliente where clie_dni = @dni)
+set @id_tipo_pago = (select t.id_tipo_pago from GDDS2.Tipo_pago t where @tipo_pago_string = t.tipo_pago_nombre)
 
+insert into GDDS2.[credito](id_cliente,id_tipo_pago,cred_fecha,cred_monto)
+values (@id_cliente,@id_tipo_pago,@fecha,@carga_credito)
 
+fetch cursorCargaCredito into @dni,@fecha,@tipo_pago_string,@carga_credito
+end
+close cursorCargaCredito
+deallocate cursorCargaCredito
 
+end
 
-
-
+exec migrarCargasDeCredito
+drop procedure migrarCargasDeCredito
+GO
 
 
 
