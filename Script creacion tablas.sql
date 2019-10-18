@@ -612,29 +612,25 @@ GO
 --en la tabla maestra solo un cliente realiza cargas, DNI: 83183632, mas info ejecutar select Cli_Dni,Carga_Credito,Carga_Fecha,Tipo_Pago_Desc from gd_esquema.Maestra where Tipo_Pago_Desc is not null
 --tarda mucho debido a que busca al cliente por dni para halar su  id y registrarlo por cada fila (casi 16k filas). no se como optimizarlo. 
 
-alter procedure migrarCargasDeCredito
+create procedure migrarCargasDeCredito
 as begin
-declare @dni numeric(18,0)
 declare @fecha datetime
-declare @tipo_pago_string nvarchar(50)
 declare @carga_credito numeric(18,2)
 declare @id_cliente int
 declare @id_tipo_pago int
 
 
-declare cursorCargaCredito cursor for (select   Cli_Dni ,Carga_Fecha,Tipo_Pago_Desc,Carga_Credito from gd_esquema.Maestra where Carga_Fecha is not null and Tipo_Pago_Desc is not null)
+declare cursorCargaCredito cursor for (select   id_cliente,Carga_Fecha,id_tipo_pago,Carga_Credito from gd_esquema.Maestra join GDDS2.Cliente on clie_dni = Cli_Dni join GDDS2.Tipo_pago tp on tp.tipo_pago_nombre = Tipo_Pago_Desc  where Carga_Fecha is not null and Tipo_Pago_Desc is not null)
 open cursorCargaCredito
 
-fetch cursorCargaCredito into @dni,@fecha,@tipo_pago_string,@carga_credito
+fetch cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
 while (@@FETCH_STATUS = 0)
 begin
-set @id_cliente =(select id_cliente from GDDS2.Cliente where clie_dni = @dni)
-set @id_tipo_pago = (select t.id_tipo_pago from GDDS2.Tipo_pago t where @tipo_pago_string = t.tipo_pago_nombre)
 
 insert into GDDS2.[credito](id_cliente,id_tipo_pago,cred_fecha,cred_monto)
 values (@id_cliente,@id_tipo_pago,@fecha,@carga_credito)
 
-fetch cursorCargaCredito into @dni,@fecha,@tipo_pago_string,@carga_credito
+fetch cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
 end
 close cursorCargaCredito
 deallocate cursorCargaCredito
