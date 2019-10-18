@@ -608,10 +608,8 @@ exec cargarProveedores
 drop procedure cargarProveedores
 GO
 
--- migrando los registros de cargas de credito, 
---en la tabla maestra solo un cliente realiza cargas, DNI: 83183632, mas info ejecutar select Cli_Dni,Carga_Credito,Carga_Fecha,Tipo_Pago_Desc from gd_esquema.Maestra where Tipo_Pago_Desc is not null
---tarda mucho debido a que busca al cliente por dni para halar su  id y registrarlo por cada fila (casi 16k filas). no se como optimizarlo. 
-
+-- migrando los registros de cargas de credito
+--en la tabla maestra solo un cliente realiza cargas, DNI: 83183632
 create procedure migrarCargasDeCredito
 as begin
 declare @fecha datetime
@@ -620,7 +618,7 @@ declare @id_cliente int
 declare @id_tipo_pago int
 
 
-declare cursorCargaCredito cursor for (select   id_cliente,Carga_Fecha,id_tipo_pago,Carga_Credito from gd_esquema.Maestra join GDDS2.Cliente on clie_dni = Cli_Dni join GDDS2.Tipo_pago tp on tp.tipo_pago_nombre = Tipo_Pago_Desc  where Carga_Fecha is not null and Tipo_Pago_Desc is not null)
+declare cursorCargaCredito cursor for( select  distinct id_cliente,Carga_Fecha,id_tipo_pago,Carga_Credito from gd_esquema.Maestra join GDDS2.Cliente on clie_dni = Cli_Dni join GDDS2.Tipo_pago tp on tp.tipo_pago_nombre = Tipo_Pago_Desc  where Carga_Fecha is not null and Tipo_Pago_Desc is not null )
 open cursorCargaCredito
 
 fetch cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
@@ -640,6 +638,37 @@ end
 exec migrarCargasDeCredito
 drop procedure migrarCargasDeCredito
 GO
+--migramos las ofertas y linkeadas a cada proveedor
+create procedure migrarOfertas
+as begin
+declare @cod_proveedor int
+declare @cod_oferta nvarchar(50)
+declare @descripcion nvarchar(255)
+declare @cantidad int
+declare @fecha_publicacion datetime
+declare @fecha_vencimiento datetime
+declare @precio_lista decimal(12,2)
+declare @precio_oferta decimal (12,2)
+
+
+declare cursor_oferta cursor for (select distinct id_proveedor,Oferta_Codigo,Oferta_Descripcion,Oferta_Fecha,Oferta_Fecha_Venc,Oferta_Precio,Oferta_Precio_Ficticio,Oferta_Cantidad from gd_esquema.Maestra join GDDS2.Proveedor on prov_CUIT = Provee_CUIT)
+open cursor_oferta
+fetch cursor_oferta into @cod_proveedor,@cod_oferta,@descripcion,@fecha_publicacion,@fecha_vencimiento,@precio_oferta,@precio_lista,@cantidad
+while @@FETCH_STATUS = 0
+begin
+
+insert into GDDS2.[Oferta](id_oferta,id_proveedor,ofer_descripcion,ofer_cant_disp,ofer_activo,ofer_f_public,ofer_f_venc,ofer_pr_oferta,ofer_pr_lista)
+values (@cod_oferta,@cod_proveedor,@descripcion,@cantidad,1,@fecha_publicacion,@fecha_vencimiento,@precio_oferta,@precio_lista)
 
 
 
+fetch cursor_oferta into @cod_proveedor,@cod_oferta,@descripcion,@fecha_publicacion,@fecha_vencimiento,@precio_oferta,@precio_lista,@cantidad
+end
+close cursor_oferta
+deallocate cursor_oferta
+end
+
+exec migrarOfertas
+drop procedure migrarOfertas
+
+GO
