@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using FrbaOfertas.Model;
 using FrbaOfertas.AbmCliente;
 using FrbaOfertas.AbmProveedor;
+using FrbaOfertas.AbmRol;
 
 
 namespace FrbaOfertas
@@ -49,6 +50,13 @@ namespace FrbaOfertas
         private void button2_Click(object sender, EventArgs e)
         {
             ProveedoresList nc = new ProveedoresList();
+            nc.ShowDialog();
+            nc.Focus(); 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RolesList nc = new RolesList();
             nc.ShowDialog();
             nc.Focus(); 
         }

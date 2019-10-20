@@ -80,11 +80,23 @@
     <Compile Include="AbmProveedor\NuevoProveedor.Designer.cs">
       <DependentUpon>NuevoProveedor.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Form1.cs">
+    <Compile Include="AbmRol\ModificarRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmRol\ModificarRol.Designer.cs">
+      <DependentUpon>ModificarRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\NuevoRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\NuevoRol.Designer.cs">
+      <DependentUpon>NuevoRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\RolesList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\RolesList.Designer.cs">
+      <DependentUpon>RolesList.cs</DependentUpon>
     </Compile>
     <Compile Include="ComprarOferta\Form1.cs">
       <SubType>Form</SubType>
@@ -107,6 +119,8 @@
     </Compile>
     <Compile Include="Helpers\FormHelper.cs" />
     <Compile Include="Model\DataModel\ClienteData.cs" />
+    <Compile Include="Model\DataModel\RolData.cs" />
+    <Compile Include="Model\DataModel\FuncionalidadesData.cs" />
     <Compile Include="Model\DataModel\ProveedorData.cs" />
     <Compile Include="Model\DataModel\DireccionData.cs" />
     <Compile Include="Model\DataModel\UsuarioData.cs" />
@@ -133,7 +147,9 @@
     </Compile>
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\Direccion.cs" />
+    <Compile Include="Model\Funcionalidad.cs" />
     <Compile Include="Model\Proveedor.cs" />
+    <Compile Include="Model\Rol.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -154,6 +170,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmProveedor\NuevoProveedor.resx">
       <DependentUpon>NuevoProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\ModificarRol.resx">
+      <DependentUpon>ModificarRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\NuevoRol.resx">
+      <DependentUpon>NuevoRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\RolesList.resx">
+      <DependentUpon>RolesList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
