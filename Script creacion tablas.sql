@@ -545,7 +545,7 @@ declare @ciudad nvarchar(50)
 declare @contador int 
 set @contador = 1
 
-declare cursorClientes cursor for (select distinct Cli_Nombre, Cli_Apellido,Cli_Dni,Cli_Direccion,Cli_Telefono,Cli_Mail,Cli_Fecha_Nac,Cli_Ciudad from gd_esquema.Maestra)
+declare cursorClientes cursor fast_forward for (select distinct Cli_Nombre, Cli_Apellido,Cli_Dni,Cli_Direccion,Cli_Telefono,Cli_Mail,Cli_Fecha_Nac,Cli_Ciudad from gd_esquema.Maestra)
 open cursorClientes 
 fetch cursorClientes into @nombre,@apellido,@dni,@direccion_string,@telefono,@email,@fechaNac,@ciudad
 
@@ -585,7 +585,7 @@ declare @rubro nvarchar(50)
 declare @contador int
 set @contador = (select count(id_domicilio)from GDDS2.Domicilio)+1
 
-declare cursorProveedores cursor for (select distinct isnull(Provee_RS,'--'),isnull(Provee_Dom,'--'),isnull(Provee_Ciudad,'--'),isnull(Provee_Telefono,0),isnull(Provee_CUIT,'--'),isnull(Provee_Rubro,'--') from gd_esquema.Maestra)
+declare cursorProveedores cursor fast_forward for (select distinct isnull(Provee_RS,'--'),isnull(Provee_Dom,'--'),isnull(Provee_Ciudad,'--'),isnull(Provee_Telefono,0),isnull(Provee_CUIT,'--'),isnull(Provee_Rubro,'--') from gd_esquema.Maestra)
 open cursorProveedores
 fetch cursorProveedores into @razon_social,@domicilio_string,@ciudad,@telefono,@cuit,@rubro
 while (@@FETCH_STATUS = 0)
@@ -619,7 +619,7 @@ declare @id_cliente int
 declare @id_tipo_pago int
 
 
-declare cursorCargaCredito cursor for( select  distinct id_cliente,Carga_Fecha,id_tipo_pago,Carga_Credito from gd_esquema.Maestra join GDDS2.Cliente on clie_dni = Cli_Dni join GDDS2.Tipo_pago tp on tp.tipo_pago_nombre = Tipo_Pago_Desc  where Carga_Fecha is not null and Tipo_Pago_Desc is not null )
+declare cursorCargaCredito cursor fast_forward for( select  distinct id_cliente,Carga_Fecha,id_tipo_pago,Carga_Credito from gd_esquema.Maestra join GDDS2.Cliente on clie_dni = Cli_Dni join GDDS2.Tipo_pago tp on tp.tipo_pago_nombre = Tipo_Pago_Desc  where Carga_Fecha is not null and Tipo_Pago_Desc is not null )
 open cursorCargaCredito
 
 fetch cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
@@ -652,7 +652,7 @@ declare @precio_lista decimal(12,2)
 declare @precio_oferta decimal (12,2)
 
 
-declare cursor_oferta cursor for (select distinct id_proveedor,Oferta_Codigo,Oferta_Descripcion,Oferta_Fecha,Oferta_Fecha_Venc,Oferta_Precio,Oferta_Precio_Ficticio,Oferta_Cantidad from gd_esquema.Maestra join GDDS2.Proveedor on prov_CUIT = Provee_CUIT)
+declare cursor_oferta cursor fast_forward for (select distinct id_proveedor,Oferta_Codigo,Oferta_Descripcion,Oferta_Fecha,Oferta_Fecha_Venc,Oferta_Precio,Oferta_Precio_Ficticio,Oferta_Cantidad from gd_esquema.Maestra join GDDS2.Proveedor on prov_CUIT = Provee_CUIT)
 open cursor_oferta
 fetch cursor_oferta into @cod_proveedor,@cod_oferta,@descripcion,@fecha_publicacion,@fecha_vencimiento,@precio_oferta,@precio_lista,@cantidad
 while @@FETCH_STATUS = 0
@@ -726,3 +726,20 @@ deallocate cursor_compras
 
 end
 */
+create procedure GDDS2.existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(50), @resultado bit OUTPUT
+AS
+BEGIN
+	declare @hash binary(32) = (select HASHBYTES('SHA2_256', @Contrasenia))
+	select @resultado = (select case when (select count(*) from GDDS2.Usuario where usu_contrasenia = @hash and usu_username = @Usuario) >=1 then 1 else 0 end)
+	if(@resultado = 1)
+	begin
+		update GDDS2.Usuario set usu_cant_intentos_fallidos = 0 where usu_username = @Usuario
+	end
+	else
+	begin
+		if(exists(select * from GDDS2.Usuario where usu_username = @Usuario))
+		begin
+			update GDDS2.Usuario set usu_cant_intentos_fallidos = ((select usu_cant_intentos_fallidos from GDDS2.Usuario where usu_username = @Usuario) + 1) where usu_username = @Usuario
+		end
+	end
+END
