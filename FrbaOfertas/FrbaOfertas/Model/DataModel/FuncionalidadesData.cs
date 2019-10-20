@@ -14,7 +14,7 @@ namespace FrbaOfertas.Model.DataModel
     {
         public FuncionalidadesData(SqlConnection connection) : base(connection) { }
        List<String> allAtributes = new List<String>( new String[] {"func_codigo","func_nombre"});
-
+       String Table = "[GDDS2].[funcionalidad]";
        public override List<Funcionalidad> Select(out Exception exError)
         {
             List<Funcionalidad> returnValue = new List<Funcionalidad>();
@@ -24,17 +24,15 @@ namespace FrbaOfertas.Model.DataModel
             {
                 if (this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
-                
 
-                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) +"FROM [dbo].[funcionalidad]", (SqlConnection)this.Connection))
+
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM " + Table, (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            Funcionalidad f = new Funcionalidad();
-                            f.fun_codigo = reader.GetInt32(0);
-                            f.fun_nombre = reader.GetString(1);                            
+                            Funcionalidad f = new Funcionalidad(reader.GetString(1), reader.GetInt32(0));                                                                         
                             returnValue.Add(f);
                         }
                     }
@@ -89,7 +87,29 @@ namespace FrbaOfertas.Model.DataModel
 
         public override bool Delete(int ID, out Exception exError)
         {
-            throw new NotImplementedException();
+            exError = null;
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("DELETE FROM [GDDS2].[rol_funcionalidad] WHERE id_rol=" + ID, (SqlConnection)this.Connection))
+                {
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return true;
         }
 
         public override bool Delete(Funcionalidad instance, out Exception exError)

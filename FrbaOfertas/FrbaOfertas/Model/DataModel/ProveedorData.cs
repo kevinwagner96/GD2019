@@ -13,7 +13,9 @@ namespace FrbaOfertas.Model.DataModel
     class ProveedorData : DataHelper<Proveedor>
     {
         public ProveedorData(SqlConnection connection) : base(connection) { }
-       List<String> allAtributes = new List<String>( new String[] {"id_proveedor","id_domicilio","id_usuario","prov_CUIT","prov_razon_social","prov_email","prov_telefono","prov_rubro","prov_contacto","prov_activo"});
+        List<String> allAtributes = new List<String>(new String[] { "id_proveedor", "id_domicilio", "prove_usuario", "prov_CUIT", "prov_razon_social", "prov_email", "prov_telefono", "prov_rubro", "prov_contacto", "prov_activo" });
+       String Table = "[GDDS2].[Proveedor]";
+       String DTable = "[GDDS2].[Domicilio]";
 
         public override List<Proveedor> Select(out Exception exError)
         {
@@ -26,7 +28,7 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
                 
 
-                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) +"FROM [dbo].[Proveedor]", (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) +"FROM "+Table, (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -64,7 +66,7 @@ namespace FrbaOfertas.Model.DataModel
 
 
                 using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) +
-                    "FROM [dbo].[Proveedor] WHERE " + SqlHelper.getLikeFilter(like) + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
+                    "FROM "+Table+" WHERE " + SqlHelper.getLikeFilter(like) + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
                 {
                     foreach (KeyValuePair<String, Object> value in exac)
                     {
@@ -111,7 +113,7 @@ namespace FrbaOfertas.Model.DataModel
                     {
                         try
                         {
-                        command = new SqlCommand("INSERT INTO [dbo].[Domicilio] (" + SqlHelper.getColumns(direccion.getAtributeMList()) + ")" +
+                        command = new SqlCommand("INSERT INTO "+DTable+" (" + SqlHelper.getColumns(direccion.getAtributeMList()) + ")" +
                                        " output INSERTED.id_domicilio VALUES(" + SqlHelper.getValues(direccion.getAtributeMList()) + ")", (SqlConnection)this.Connection, trans);
 
                         command.CommandType = System.Data.CommandType.Text;
@@ -124,7 +126,7 @@ namespace FrbaOfertas.Model.DataModel
                         modified = (Int32)command.ExecuteScalar();
                         instance.id_domicilio = modified;
 
-                        command.CommandText = "INSERT INTO [dbo].[Proveedor] (" + SqlHelper.getColumns(instance.getAtributeMList()) + ")" +
+                        command.CommandText = "INSERT INTO " + Table + " (" + SqlHelper.getColumns(instance.getAtributeMList()) + ")" +
                                     " output INSERTED.id_proveedor VALUES(" + SqlHelper.getValues(instance.getAtributeMList()) + ")";
                         foreach (String value in instance.getAtributeMList())
                         {
@@ -174,7 +176,7 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM [dbo].[Proveedor]"+" WHERE id_proveedor="+ID, (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM " + Table + " WHERE id_proveedor=" + ID, (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -227,7 +229,7 @@ namespace FrbaOfertas.Model.DataModel
                  {
                     try
                     {
-                            command  = new SqlCommand("UPDATE [dbo].[Proveedor] SET " + SqlHelper.getUpdate(instance.getAtributeMList()) +
+                        command = new SqlCommand("UPDATE " + Table + " SET " + SqlHelper.getUpdate(instance.getAtributeMList()) +
                                                         " WHERE id_proveedor="+instance.id_proveedor, (SqlConnection)this.Connection,trans);
                             command.CommandType = System.Data.CommandType.Text;
                             foreach (String value in instance.getAtributeMList())
@@ -237,7 +239,7 @@ namespace FrbaOfertas.Model.DataModel
 
                             command.ExecuteNonQuery();
 
-                            command.CommandText = "UPDATE [dbo].[Domicilio] SET " + SqlHelper.getUpdate(direccion.getAtributeMList())
+                            command.CommandText = "UPDATE " + DTable + " SET " + SqlHelper.getUpdate(direccion.getAtributeMList())
                                                 + " WHERE id_domicilio=" + direccion.id_domicilio;
                        
                             foreach (String value in direccion.getAtributeMList())
@@ -281,7 +283,7 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("UPDATE [dbo].[Proveedor] SET [prov_activo]=0 WHERE id_proveedor=" + ID, (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("UPDATE " + Table + " SET [prov_activo]=0 WHERE id_proveedor=" + ID, (SqlConnection)this.Connection))
                 {
 
                     command.ExecuteNonQuery();

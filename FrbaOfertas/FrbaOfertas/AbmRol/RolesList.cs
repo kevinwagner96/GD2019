@@ -50,20 +50,38 @@ namespace FrbaOfertas.AbmRol
             NuevoRol nc = new NuevoRol();
             nc.ShowDialog();
             nc.Focus();
-            //cargarDataGrid();
+            cargarDataGrid();
         }
 
         private void modificar_Click(object sender, EventArgs e)
         {
-            ModificarRol nc = new ModificarRol();
+            Int32 id = (Int32)dataGridRoles.Rows[dataGridRoles.CurrentCell.RowIndex].Cells["id_rol"].Value;
+            ModificarRol nc = new ModificarRol(id);
             nc.ShowDialog();
             nc.Focus();
-            //cargarDataGrid();
+            cargarDataGrid();
         }
 
         private void eliminar_Click(object sender, EventArgs e)
         {
-            //ELIMINAR
+            Int32 id = (Int32)dataGridRoles.Rows[dataGridRoles.CurrentCell.RowIndex].Cells["id_rol"].Value;            
+
+            DialogResult result = MessageBox.Show("Seguro quiere eliminar al rol", "Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                data.Delete(id, out exError);
+                if (exError == null)
+                {
+                    cargarDataGrid();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar el rol, " + exError.Message);
+                    return;
+                }
+
+
+            }
         }
     }
 }

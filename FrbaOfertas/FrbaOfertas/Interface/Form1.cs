@@ -20,17 +20,19 @@ namespace FrbaOfertas
     public partial class Form1 : Form
     {
         UsuarioData usuarioData;
+        Usuario me;
         Exception exError = null;
 
-        public Form1()
+        public Form1(Usuario usuario)
         {
             InitializeComponent();
+            me = usuario;
             usuarioData = new UsuarioData(Conexion.getConexion()) ;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+            usuarioTool.Text = me.usu_username;
 
         }
 
@@ -60,5 +62,28 @@ namespace FrbaOfertas
             nc.ShowDialog();
             nc.Focus(); 
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void close_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+      
     }
 }

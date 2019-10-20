@@ -44,6 +44,7 @@
             this.guardar.TabIndex = 42;
             this.guardar.Text = "Aceptar";
             this.guardar.UseVisualStyleBackColor = true;
+            this.guardar.Click += new System.EventHandler(this.guardar_Click);
             // 
             // rol_activo
             // 
@@ -102,6 +103,7 @@
             this.Controls.Add(this.rol_nombre);
             this.Name = "ModificarRol";
             this.Text = "ModificarRol";
+            this.Load += new System.EventHandler(this.ModificarRol_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

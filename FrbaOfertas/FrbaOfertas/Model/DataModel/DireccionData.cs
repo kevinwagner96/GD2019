@@ -13,7 +13,8 @@ namespace FrbaOfertas.Model.DataModel
     class DireccionData : DataHelper<Direccion>
     {
         public DireccionData(SqlConnection connection) : base(connection) { }
-        List<String> allAtributes = new List<String>( new String[] {"id_domicilio","dom_calle","dom_numero","dom_depto","dom_piso","dom_ciudad","dom_localidad","dom_codigo_postal"});
+        List<String> allAtributes = new List<String>( new String[] {"id_domicilio","dom_calle","dom_numero","dom_depto","dom_piso","dom_ciudad","dom_localidad","dom_codigo_postal"});        
+        String Table = "[GDDS2].[Domicilio]";
 
         public override List<Direccion> Select(out Exception exError)
         {
@@ -102,7 +103,7 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM [dbo].[Domicilio]" + " WHERE id_domicilio=" + ID, (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM "+Table + " WHERE id_domicilio=" + ID, (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -154,7 +155,7 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("UPDATE [dbo].[Domicilio] SET " + SqlHelper.getUpdate(instance.getAtributeMList()) + " WHERE id_domicilio=" + instance.id_domicilio, (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("UPDATE "+Table+" SET " + SqlHelper.getUpdate(instance.getAtributeMList()) + " WHERE id_domicilio=" + instance.id_domicilio, (SqlConnection)this.Connection))
                 {
 
                     foreach (String value in instance.getAtributeMList())

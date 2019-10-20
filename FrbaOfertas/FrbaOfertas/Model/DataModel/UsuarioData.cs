@@ -13,11 +13,8 @@ namespace FrbaOfertas.DataModel
     class UsuarioData : DataHelper<Usuario>
     {
         public UsuarioData(SqlConnection connection) : base(connection) { }
-        private String table = "[dbo].[usuario]";
-        private String userName = "[usu_nombre]";
-        private String userId = "[usu_id]";
-        private String habilitado = "[habilitado]";
-        private String password = "[usu_password]";
+        private String Table = "[GDDS2].[Usuario]";
+        List<String> allAtributes = new List<String>(new String[] { "id_usuario","usu_username", "usu_contrasenia", "usu_cant_intentos_fallidos", "usu_activo" });
 
         public override List<Usuario> Select(out Exception exError)
         {
@@ -28,17 +25,20 @@ namespace FrbaOfertas.DataModel
             {
                 if (this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
-                
 
-                using (SqlCommand command = new SqlCommand("SELECT [usu_nombre],[usu_id],[habilitado] FROM [dbo].[usuario]", (SqlConnection)this.Connection))
+                /*
+                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) + " FROM "FROM "+Table + " WHERE usu_username="+instance.id_usuario, (SqlConnection)this.Connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                            returnValue.Add(new Usuario(reader.GetString(0), reader.GetInt32(1), reader.GetBoolean(2)));
-                    }
-                }
+                    if (!reader.Read())
+                        throw new InvalidOperationException("No existe el cliente.");
 
+                    SqlHelper.setearAtributos(reader, allAtributes, d);
+                    d.restartMList();
+
+                    if (reader.Read())
+                        throw new InvalidOperationException("Clientes multiples.");
+                }
+                */
             }
             catch (InvalidOperationException invalid)
             {
@@ -74,7 +74,41 @@ namespace FrbaOfertas.DataModel
 
         public override Usuario Read(Usuario instance, out Exception exError)
         {
-            throw new NotImplementedException();
+            Usuario usuario = new Usuario();
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) + " FROM "+Table + " WHERE usu_username="+instance.id_usuario, (SqlConnection)this.Connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (!reader.Read())
+                            throw new InvalidOperationException("No existe el usuario.");
+
+                        SqlHelper.setearAtributos(reader, allAtributes, usuario);
+                        usuario.restartMList();
+
+                        if (reader.Read())
+                            throw new InvalidOperationException("Usuarios multiples.");
+                    }
+                }
+
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return usuario;
         }
         public override bool Update(Usuario instance, object otro, out Exception exError)
         {

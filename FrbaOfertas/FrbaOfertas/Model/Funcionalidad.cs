@@ -12,6 +12,20 @@ namespace FrbaOfertas.Model
 
         Int32 _fun_codigo;
         String _fun_nombre;
+        private string p1;
+        private int p2;
+
+        public Funcionalidad(string p1, int p2)
+        {
+            // TODO: Complete member initialization
+            this._fun_nombre = p1;
+            this._fun_codigo = p2;
+        }
+
+        public Funcionalidad()
+        {
+            // TODO: Complete member initialization
+        }
 
         [System.ComponentModel.DisplayName("Codigo")]
         public Int32 fun_codigo { get { return this._fun_codigo; } set { this._fun_codigo = value; atributesModify.Add("_fun_codigo"); } }
