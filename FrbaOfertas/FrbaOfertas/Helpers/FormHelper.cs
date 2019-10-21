@@ -28,27 +28,42 @@ namespace FrbaOfertas.Helpers
 
         public static bool noNullList(List<TextBox> textBoxs)
         {
+            String campos="";
             foreach (TextBox textBox in textBoxs)
             {
                 if (!noNull(textBox))
                 {
-                    MessageBox.Show("El campo " + textBox.Tag + " no puede estar vacio.", "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
+                    campos += textBox.Tag+", ";
+                                
                 }
             }
+            if (campos.Count() > 0)
+            {
+                MessageBox.Show("Capos " + campos + " no pueden estar vacios.", "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             return true;
         }
 
         public static bool esNumericoList(List<TextBox> textBoxs)
         {
+            String campos = "";
             foreach (TextBox textBox in textBoxs)
             {
                 if (!esNumerico(textBox) && noNull(textBox))
                 {
-                    MessageBox.Show("El campo " + textBox.Tag + " no es numerico.", "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
+                    campos += textBox.Tag + ", ";
+                    
                 }
             }
+
+            if (campos.Count() > 0)
+            {
+                MessageBox.Show("Campos " + campos + " no son numericos.", "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             return true;
         }
 

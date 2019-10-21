@@ -82,11 +82,9 @@ namespace FrbaOfertas.AbmCliente
         }
 
         private void guardar_Click(object sender, EventArgs e)
-        {           
+        {
 
-            if (!FormHelper.noNullList(noNulos))
-                return;
-            if (!FormHelper.esNumericoList(numericos))
+            if (!FormHelper.noNullList(noNulos) || !FormHelper.esNumericoList(numericos))
                 return;
 
             //List<TextBox> datos = FormHelper.getNoNulos(todos);

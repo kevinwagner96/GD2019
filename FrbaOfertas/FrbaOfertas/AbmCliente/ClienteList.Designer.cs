@@ -219,6 +219,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridClientes);
             this.Name = "ClienteList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Lista de Proveedores";
             this.Load += new System.EventHandler(this.ClienteList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();

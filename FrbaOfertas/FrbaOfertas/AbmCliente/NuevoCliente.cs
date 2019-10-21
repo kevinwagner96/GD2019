@@ -71,9 +71,7 @@ namespace FrbaOfertas.AbmCliente
             Cliente cliente = new Cliente();
             Direccion direccion = new Direccion();
 
-            if (!FormHelper.noNullList(noNulos))
-                return;
-            if (!FormHelper.esNumericoList(numericos))
+            if (!FormHelper.noNullList(noNulos) || !FormHelper.esNumericoList(numericos))
                 return;
 
             List<TextBox> datos = FormHelper.getNoNulos(todos);

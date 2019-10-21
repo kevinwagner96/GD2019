@@ -1,4 +1,5 @@
 ﻿using FrbaOfertas.DataModel;
+using FrbaOfertas.Helpers;
 using FrbaOfertas.Model;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace FrbaOfertas.RegistroUsuario
         UsuarioData data;
         List<TextBox> todos = new List<TextBox>();
         Exception exError = null;
+        List<TextBox> noNulos = new List<TextBox>();
         public Usuario returnUsuario { get; set; }        
         public  Login()
         {
             InitializeComponent();
             data = new UsuarioData(Conexion.getConexion());
+            noNulos.Add(usuario);
+            noNulos.Add(password);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -31,7 +35,8 @@ namespace FrbaOfertas.RegistroUsuario
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //LOGIN
+            if (!FormHelper.noNullList(noNulos))
+                return;
             
             Usuario user = new Usuario(usuario.Text,password.Text);
             Usuario userD = data.Read(user, out exError);
@@ -48,6 +53,11 @@ namespace FrbaOfertas.RegistroUsuario
                 this.Close();
             }
    
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
 
         

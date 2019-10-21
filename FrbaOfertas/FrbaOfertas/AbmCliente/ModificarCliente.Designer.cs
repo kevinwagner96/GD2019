@@ -387,6 +387,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.clie_nombre);
             this.Name = "ModificarCliente";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModificarCliente";
             this.Load += new System.EventHandler(this.ModificarCliente_Load);
             this.ResumeLayout(false);

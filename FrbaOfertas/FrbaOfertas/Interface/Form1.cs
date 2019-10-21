@@ -45,23 +45,17 @@ namespace FrbaOfertas
         private void button1_Click(object sender, EventArgs e)
         {
 
-            ClienteList nc = new ClienteList();
-            nc.ShowDialog();
-            nc.Focus();   
+            launcher(new ClienteList());
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ProveedoresList nc = new ProveedoresList();
-            nc.ShowDialog();
-            nc.Focus(); 
+            launcher(new ProveedoresList());
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            RolesList nc = new RolesList();
-            nc.ShowDialog();
-            nc.Focus(); 
+            launcher(new RolesList());
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -87,44 +81,43 @@ namespace FrbaOfertas
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NuevoCliente nc = new NuevoCliente();
-            nc.MdiParent = this;
-            nc.Show();
+            launcher(new NuevoCliente());
+        }
+
+        private void launcher(Form form){
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
         }
 
         private void listaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClienteList nc = new ClienteList();
-            nc.MdiParent = this;
-            nc.Show();
+            launcher(new ClienteList());
         }
 
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            NuevoProveedor nc = new NuevoProveedor();
-            nc.MdiParent = this;
-            nc.Show();
+            launcher(new NuevoProveedor());
         }
 
         private void listaToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            ProveedoresList nc = new ProveedoresList();
-            nc.MdiParent = this;
-            nc.Show();
+            launcher(new ProveedoresList()); 
         }
 
         private void rolesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            RolesList nc = new RolesList();
-            nc.MdiParent = this;
-            nc.Show();
+            launcher(new RolesList());
         }
 
         private void nuevoToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            NuevoRol nc = new NuevoRol();
-            nc.MdiParent = this;
-            nc.Show();
+            launcher(new NuevoRol());
+        }
+
+        private void listaUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
       

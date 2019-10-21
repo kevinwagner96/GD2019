@@ -44,6 +44,7 @@
             this.usuario.Name = "usuario";
             this.usuario.Size = new System.Drawing.Size(181, 29);
             this.usuario.TabIndex = 0;
+            this.usuario.Tag = "Usuario";
             // 
             // label1
             // 
@@ -74,6 +75,7 @@
             this.password.PasswordChar = '*';
             this.password.Size = new System.Drawing.Size(181, 29);
             this.password.TabIndex = 2;
+            this.password.Tag = "Contraseña";
             // 
             // label3
             // 
@@ -123,6 +125,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

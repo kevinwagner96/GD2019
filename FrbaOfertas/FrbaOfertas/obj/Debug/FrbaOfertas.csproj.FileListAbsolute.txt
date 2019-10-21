@@ -20,7 +20,6 @@ C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug
 C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.ClienteList.resources
 C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.ModificarCliente.resources
 C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.NuevoCliente.resources
-C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.Form1.resources
 C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Form1.resources
 C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Properties.Resources.resources
 C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csproj.GenerateResource.Cache
@@ -32,3 +31,10 @@ A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\Frba
 A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.ModificarRol.resources
 A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.NuevoRol.resources
 A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.RegistroUsuario.Login.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ModificarProveedor.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ProveedoresList.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.NuevoProveedor.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.ModificarRol.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.NuevoRol.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.RolesList.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.RegistroUsuario.Login.resources
