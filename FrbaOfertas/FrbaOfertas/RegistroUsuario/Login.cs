@@ -32,20 +32,22 @@ namespace FrbaOfertas.RegistroUsuario
         private void button2_Click(object sender, EventArgs e)
         {
             //LOGIN
-            /*
-            Usuario user = new Usuario(usuario.Text);
+            
+            Usuario user = new Usuario(usuario.Text,password.Text);
             Usuario userD = data.Read(user, out exError);
             if (exError != null)            
             {
-                MessageBox.Show("No se pudo obtener el usuario, " + exError.Message);
+                MessageBox.Show("Error , " + exError.Message);
                 return;
             }
 
-            if(userD.usu_contrasenia = password)
-            */
-            this.returnUsuario = new Usuario("KEVIN");            
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (userD != null)
+            {     
+                this.returnUsuario = userD;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+   
         }
 
         

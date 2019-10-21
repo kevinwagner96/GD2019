@@ -32,7 +32,8 @@ namespace FrbaOfertas
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            usuarioTool.Text = me.usu_username;
+            usuarioTool.Text = "Usuario: "+ me.usu_username;
+            rolTool.Text = "Rol: ADMIN" ;
 
         }
 
@@ -82,6 +83,48 @@ namespace FrbaOfertas
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NuevoCliente nc = new NuevoCliente();
+            nc.MdiParent = this;
+            nc.Show();
+        }
+
+        private void listaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClienteList nc = new ClienteList();
+            nc.MdiParent = this;
+            nc.Show();
+        }
+
+        private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            NuevoProveedor nc = new NuevoProveedor();
+            nc.MdiParent = this;
+            nc.Show();
+        }
+
+        private void listaToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ProveedoresList nc = new ProveedoresList();
+            nc.MdiParent = this;
+            nc.Show();
+        }
+
+        private void rolesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            RolesList nc = new RolesList();
+            nc.MdiParent = this;
+            nc.Show();
+        }
+
+        private void nuevoToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            NuevoRol nc = new NuevoRol();
+            nc.MdiParent = this;
+            nc.Show();
         }
 
       

@@ -41,10 +41,11 @@ namespace FrbaOfertas.Model
             // TODO: Complete member initialization
         }
 
-        public Usuario(string p)
+        public Usuario(string p,string pass)
         {
             // TODO: Complete member initialization
-            this._usu_username = p;
+            this.usu_username = p;
+            this.usu_contrasenia = pass;
         }
 
         public List<String> getAtributeMList()

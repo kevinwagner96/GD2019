@@ -14,7 +14,7 @@ namespace FrbaOfertas.DataModel
     {
         public UsuarioData(SqlConnection connection) : base(connection) { }
         private String Table = "[GDDS2].[Usuario]";
-        List<String> allAtributes = new List<String>(new String[] { "id_usuario","usu_username", "usu_contrasenia", "usu_cant_intentos_fallidos", "usu_activo" });
+        List<String> allAtributes = new List<String>(new String[] { "id_usuario", "usu_username", "usu_contrasenia", "usu_cant_intentos_fallidos", "usu_activo" });
 
         public override List<Usuario> Select(out Exception exError)
         {
@@ -82,11 +82,11 @@ namespace FrbaOfertas.DataModel
                 if (this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-
-                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) + " FROM "+Table + " WHERE usu_username="+instance.id_usuario, (SqlConnection)this.Connection))
+                using (SqlCommand command2 = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + " FROM  " + Table + " WHERE usu_username='" + instance.usu_username + "'", (SqlConnection)this.Connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = command2.ExecuteReader())
                     {
+
                         if (!reader.Read())
                             throw new InvalidOperationException("No existe el usuario.");
 
@@ -95,9 +95,47 @@ namespace FrbaOfertas.DataModel
 
                         if (reader.Read())
                             throw new InvalidOperationException("Usuarios multiples.");
+                       
                     }
                 }
+                
+                if (usuario.usu_cant_intentos_fallidos < 4)
+                {
+                    using (SqlCommand command = new SqlCommand("GDDS2.existe_usuario", (SqlConnection)this.Connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        SqlParameter parameter1 = new SqlParameter("@Usuario", SqlDbType.NVarChar);
+                        parameter1.Direction = ParameterDirection.Input;
+                        parameter1.Value = instance.usu_username;
+                        SqlParameter parameter2 = new SqlParameter("@Contrasenia", SqlDbType.NVarChar);
+                        parameter2.Direction = ParameterDirection.Input;
+                        parameter2.Value = instance.usu_contrasenia;
+                        SqlParameter parameter3 = new SqlParameter("@resultado", SqlDbType.Bit);
+                        parameter3.Direction = ParameterDirection.Output;
 
+                        command.Parameters.Add(parameter1);
+                        command.Parameters.Add(parameter2);
+                        command.Parameters.Add(parameter3);
+
+                        command.ExecuteNonQuery();
+
+                        if (!Convert.ToBoolean(command.Parameters["@resultado"].Value))
+                            return null;
+
+                        if (!usuario.usu_activo)
+                            throw new InvalidOperationException("Usuario inhabilitado.");
+                        
+
+                        return usuario;
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("Damasiados Intentos fallidos.");
+                }
+                    
+                 
+                
             }
             catch (InvalidOperationException invalid)
             {
@@ -108,7 +146,7 @@ namespace FrbaOfertas.DataModel
                 exError = ex;
             }
 
-            return usuario;
+            return  null;
         }
         public override bool Update(Usuario instance, object otro, out Exception exError)
         {
