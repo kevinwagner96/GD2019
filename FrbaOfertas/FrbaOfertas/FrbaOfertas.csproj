@@ -118,6 +118,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FormHelper.cs" />
+    <Compile Include="Interface\Tus roles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\Tus roles.Designer.cs">
+      <DependentUpon>Tus roles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\DataModel\ClienteData.cs" />
     <Compile Include="Model\DataModel\RolData.cs" />
     <Compile Include="Model\DataModel\FuncionalidadesData.cs" />
@@ -194,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\Tus roles.resx">
+      <DependentUpon>Tus roles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

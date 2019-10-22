@@ -14,6 +14,7 @@ using FrbaOfertas.AbmCliente;
 using FrbaOfertas.AbmProveedor;
 using FrbaOfertas.AbmRol;
 using FrbaOfertas.Model.DataModel;
+using FrbaOfertas.Interface;
 
 
 namespace FrbaOfertas
@@ -21,6 +22,7 @@ namespace FrbaOfertas
     public partial class Form1 : Form
     {        
         RolData rolData;
+        FuncionalidadesData fData;
         Usuario me;
         Rol rol;
         Exception exError = null;
@@ -29,7 +31,7 @@ namespace FrbaOfertas
         {
             InitializeComponent();
             me = usuario;
-
+            fData = new FuncionalidadesData(Conexion.getConexion());
             rolData = new RolData(Conexion.getConexion());
         }
 
@@ -44,16 +46,48 @@ namespace FrbaOfertas
                 return;
             }
 
+            rol = roles.First();
+
             if (roles.Count() > 1)
             {
-                MessageBox.Show("MAS DE UN ROL");
+                Tus_roles formRoles = new Tus_roles(roles);
+                var result = formRoles.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    rol = (Rol)formRoles.seleccionado;
+                }
             }
-            else
-            {
-                rol = roles.First();
-                rolTool.Text = rol.rol_nombre;
-            }
+                       
+            rolTool.Text = rol.rol_nombre;
+            Rol miRol = rolData.Read(rol.id_rol,out exError);
+            habilitarFuncionalidades( miRol.funcionalidades);
+            
 
+        }
+
+        private void habilitarFuncionalidades(List<Funcionalidad> list)
+        {
+            list.ForEach(delegate(Funcionalidad f)
+            {
+                
+                foreach (ToolStripItem item in menuStrip1.Items)
+                {
+                    if (f.fun_nombre == item.Name)
+                    {                        
+                        item.Visible = true;
+                        item.Enabled = true;
+                    }
+                }
+                foreach (ToolStripItem item in operacionesToolStripMenuItem.DropDown.Items)
+                {
+                    if (f.fun_nombre == item.Name)
+                    {                      
+                        item.Visible = true;
+                        item.Enabled = true;
+                    }
+                }
+
+            });
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -135,6 +169,16 @@ namespace FrbaOfertas
         }
 
         private void listaUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comprarOfertaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void canjearCuponToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

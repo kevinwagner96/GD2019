@@ -161,7 +161,14 @@ namespace FrbaOfertas.RegistroUsuario
 
         private void controller()
         {
-            throw new NotImplementedException();
+            Int32 id_user = dataU.Create(new Usuario(usuario.Text, password.Text), getId_rol(text.Text), out exError);
+            if (exError == null)
+            {
+                MessageBox.Show("Usuario  " + usuario.Text + " agregado exitosamente.", "Usuario nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+                MessageBox.Show("Erro al agregar Usuario, " + usuario.Text + " ERROR: " + exError.Message, "Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
