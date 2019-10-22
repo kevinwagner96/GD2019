@@ -14,7 +14,8 @@ namespace FrbaOfertas.Model.DataModel
     {
         public RolData(SqlConnection connection) : base(connection) { }
        List<String> allAtributes = new List<String>( new String[] {"id_rol","rol_nombre","rol_activo"});
-       String Table = "[GDDS2].[Rol]";
+       String RUTable = "[GDDS2].[usuario_x_rol]";
+        String Table = "[GDDS2].[Rol]";
        String RFTable = "[GDDS2].[rol_funcionalidad]";
        String FTable = "[GDDS2].[funcionalidad]";
        
@@ -57,7 +58,42 @@ namespace FrbaOfertas.Model.DataModel
 
        public override List<Rol> FilterSelect(Dictionary<String, String> like, Dictionary<String, Object> exac, out Exception exError)
         {
-            throw new NotImplementedException();
+            List<Rol> returnValue = new List<Rol>();
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("SELECT ["+"Rol"+"]." + SqlHelper.getColumns(allAtributes) + ",[id_usuario] FROM " + Table + " JOIN " + RUTable + " ON " + RUTable + ".[id_rol] = " + Table + ".[id_rol]  WHERE " + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
+                {
+                    foreach (KeyValuePair<String, Object> value in exac)
+                    {
+                        command.Parameters.AddWithValue("@" + value.Key, value.Value);
+                    }
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Rol f = new Rol();
+                            SqlHelper.setearAtributos(reader, allAtributes, f);
+                            returnValue.Add(f);
+                        }
+                    }
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return returnValue;
         }
 
        public override Int32 Create(Rol instance, object otro, out Exception exError)

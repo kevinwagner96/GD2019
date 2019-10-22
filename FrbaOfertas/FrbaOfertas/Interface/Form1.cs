@@ -13,27 +13,46 @@ using FrbaOfertas.Model;
 using FrbaOfertas.AbmCliente;
 using FrbaOfertas.AbmProveedor;
 using FrbaOfertas.AbmRol;
+using FrbaOfertas.Model.DataModel;
 
 
 namespace FrbaOfertas
 {
     public partial class Form1 : Form
-    {
-        UsuarioData usuarioData;
+    {        
+        RolData rolData;
         Usuario me;
+        Rol rol;
         Exception exError = null;
 
         public Form1(Usuario usuario)
         {
             InitializeComponent();
             me = usuario;
-            usuarioData = new UsuarioData(Conexion.getConexion()) ;
+
+            rolData = new RolData(Conexion.getConexion());
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            usuarioTool.Text = "Usuario: "+ me.usu_username;
-            rolTool.Text = "Rol: ADMIN" ;
+            usuarioTool.Text = "Usuario: " + me.usu_username;
+            Dictionary<String,Object> dic =  new Dictionary<String,Object>(){{"id_usuario",me.id_usuario}};
+            List<Rol> roles = rolData.FilterSelect(null,dic,out exError);
+            if (exError != null)
+            {
+                MessageBox.Show("Error , " + exError.Message);
+                return;
+            }
+
+            if (roles.Count() > 1)
+            {
+                MessageBox.Show("MAS DE UN ROL");
+            }
+            else
+            {
+                rol = roles.First();
+                rolTool.Text = rol.rol_nombre;
+            }
 
         }
 

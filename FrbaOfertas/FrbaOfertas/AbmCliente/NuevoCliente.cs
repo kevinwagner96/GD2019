@@ -15,16 +15,27 @@ namespace FrbaOfertas.AbmCliente
 {
     public partial class NuevoCliente : Form
     {
+        
+        public Cliente returnCliente { get; set; }  
+        
         List<TextBox> noNulos= new List<TextBox>();
         List<TextBox> numericos= new List<TextBox>();
         List<TextBox> todos = new List<TextBox>();
         ClienteData dataC;
         DireccionData dataD;
+        bool noDB=false;
         Exception exError = null;
+        public object returnDireccion { get; set; }  
+
+        public NuevoCliente(bool noDB_data)
+        {
+            InitializeComponent();
+            noDB = noDB_data;
+        }
         public NuevoCliente()
         {
             InitializeComponent();
-            
+
         }
 
         private void NuevoCliente_Load(object sender, EventArgs e)
@@ -81,7 +92,14 @@ namespace FrbaOfertas.AbmCliente
 
             cliente.clie_credito = ConfigurationHelper.CreditoInicial;
             cliente.clie_activo = true;
-            
+
+            if (noDB) {
+                returnCliente = cliente;
+                returnDireccion = direccion;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+
             Int32 id = dataC.Create(cliente,direccion, out exError);             
             if (exError == null)
             {

@@ -14,6 +14,7 @@ namespace FrbaOfertas.DataModel
     {
         public UsuarioData(SqlConnection connection) : base(connection) { }
         private String Table = "[GDDS2].[Usuario]";
+        private String RTable = "[GDDS2].[usuario_x_rol]";
         List<String> allAtributes = new List<String>(new String[] { "id_usuario", "usu_username", "usu_contrasenia", "usu_cant_intentos_fallidos", "usu_activo" });
 
         public override List<Usuario> Select(out Exception exError)
@@ -57,12 +58,57 @@ namespace FrbaOfertas.DataModel
             throw new NotImplementedException();
         }
 
-        public override Int32 Create(Usuario instance, out Exception exError)
+        public override Int32 Create(Usuario instance, object id_rol, out Exception exError)
         {
-            throw new NotImplementedException();
+            Int32 modified = -1;
+            SqlTransaction trans;
+            SqlCommand command;
+            exError = null;
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (trans = ((SqlConnection)this.Connection).BeginTransaction())
+                {
+                    try
+                    {
+                        command = new SqlCommand("INSERT INTO " + Table + " ([usu_username],[usu_contrasenia],[usu_cant_intentos_fallidos],[usu_activo])" +
+                               " output INSERTED.id_usuario VALUES('" + instance.usu_username + "', HASHBYTES('SHA2_256', N'" + instance.usu_contrasenia + "'),0,1)", (SqlConnection)this.Connection, trans);
+
+                        modified = (Int32)command.ExecuteScalar();
+
+                        command.CommandText = "INSERT INTO " + RTable + " ([id_usuario],[id_rol])" +
+                                    " output INSERTED.id_usuario VALUES(" + modified.ToString() + "," + id_rol.ToString() + ")";
+                        modified = (Int32)command.ExecuteScalar();
+                        trans.Commit();
+                    }
+                    catch (Exception ex2)
+                    {
+                        try
+                        {
+                            trans.Rollback();
+                            exError = ex2;
+                        }
+                        catch
+                        {
+                            exError = ex2;
+                        }
+
+                    }
+
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            
+
+            return modified;
         }
 
-        public override Int32 Create(Usuario instance, object otro,out Exception exError)
+        public override Int32 Create(Usuario instance,out Exception exError)
         {
             throw new NotImplementedException();
         }
@@ -120,7 +166,9 @@ namespace FrbaOfertas.DataModel
                         command.ExecuteNonQuery();
 
                         if (!Convert.ToBoolean(command.Parameters["@resultado"].Value))
-                            return null;
+                        {
+                            throw new InvalidOperationException("Usuario o contraseña invalido.");                            
+                        }
 
                         if (!usuario.usu_activo)
                             throw new InvalidOperationException("Usuario inhabilitado.");
@@ -171,7 +219,29 @@ namespace FrbaOfertas.DataModel
 
         public override bool Delete(int ID, out Exception exError)
         {
-            throw new NotImplementedException();
+            exError = null;
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("DELETE FROM  " + Table + " WHERE id_usuario=" + ID, (SqlConnection)this.Connection))
+                {
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return true;
         }
 
         public override bool Delete(Usuario instance, out Exception exError)

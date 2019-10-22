@@ -159,6 +159,12 @@
     <Compile Include="RegistroUsuario\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistroUsuario\NuevoUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroUsuario\NuevoUsuario.Designer.cs">
+      <DependentUpon>NuevoUsuario.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AbmCliente\ClienteList.resx">
       <DependentUpon>ClienteList.cs</DependentUpon>
     </EmbeddedResource>
@@ -201,6 +207,9 @@
     </Compile>
     <EmbeddedResource Include="RegistroUsuario\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistroUsuario\NuevoUsuario.resx">
+      <DependentUpon>NuevoUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -66,5 +66,10 @@ namespace FrbaOfertas.AbmRol
                 MessageBox.Show("Erro al agregar Rol, " + exError.Message, "Rol", MessageBoxButtons.OK, MessageBoxIcon.Error);    
 
         }
+
+        private void checkedListFuncionalidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

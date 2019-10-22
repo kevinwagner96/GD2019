@@ -60,6 +60,7 @@
             this.checkedListFuncionalidades.Name = "checkedListFuncionalidades";
             this.checkedListFuncionalidades.Size = new System.Drawing.Size(173, 139);
             this.checkedListFuncionalidades.TabIndex = 5;
+            this.checkedListFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.checkedListFuncionalidades_SelectedIndexChanged);
             // 
             // label1
             // 

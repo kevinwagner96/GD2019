@@ -14,6 +14,7 @@ namespace FrbaOfertas.Model
         private String _usu_username;
         private String _usu_contrasenia;
         private Int32 _usu_cant_intentos_fallidos;
+        
         private Boolean _usu_activo;        
 
         public Int32 id_usuario { get { return this._id_usuario; } set { this._id_usuario = value; atributesModify.Add("id_usuario"); } }

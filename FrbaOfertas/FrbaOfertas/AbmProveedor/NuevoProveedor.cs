@@ -19,13 +19,22 @@ namespace FrbaOfertas.AbmProveedor
         List<TextBox> noNulos= new List<TextBox>();
         List<TextBox> numericos= new List<TextBox>();
         List<TextBox> todos = new List<TextBox>();
+        public object returnDireccion { get; set; }
+        public object returnProveedor { get; set; }  
         ProveedorData dataP;
         DireccionData dataD;
         Exception exError = null;
+        bool noDB=false;
+        public NuevoProveedor(bool db)
+        {
+            InitializeComponent();
+            noDB = db;
+            
+        }
         public NuevoProveedor()
         {
             InitializeComponent();
-            
+
         }
 
         private void NuevoCliente_Load(object sender, EventArgs e)
@@ -68,6 +77,14 @@ namespace FrbaOfertas.AbmProveedor
             FormHelper.setearAtributos(todos, proveedor);
             FormHelper.setearAtributos(todos, direccion);
             proveedor.prov_activo = prov_activo.Checked;
+
+            if (noDB)
+            {
+                returnProveedor= proveedor;
+                returnDireccion = direccion;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
 
             Int32 id = dataP.Create(proveedor, direccion, out exError);
             if (exError == null)
