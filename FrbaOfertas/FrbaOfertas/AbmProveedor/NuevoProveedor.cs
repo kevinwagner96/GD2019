@@ -84,6 +84,7 @@ namespace FrbaOfertas.AbmProveedor
                 returnDireccion = direccion;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
+                return;
             }
 
             Int32 id = dataP.Create(proveedor, direccion, out exError);

@@ -16,6 +16,7 @@ namespace FrbaOfertas.AbmCliente
     public partial class ClienteList : Form
     {
         ClienteData data;
+        public Cliente returnCliente { get; set; }
         List<TextBox> todos = new List<TextBox>();
         Exception exError = null;
 
@@ -25,6 +26,21 @@ namespace FrbaOfertas.AbmCliente
             data = new ClienteData(Conexion.getConexion());
             
         }
+
+        public ClienteList(bool seleccionar)
+        {
+            InitializeComponent();
+            data = new ClienteData(Conexion.getConexion());
+            if (seleccionar)
+            {
+                button1.Visible = false;
+                button2.Visible = false;
+                button3.Visible = false;
+                select.Visible = true;
+            }
+
+        }
+
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -133,6 +149,18 @@ namespace FrbaOfertas.AbmCliente
             }
 
             cargarDataGrid();
+        }
+
+        private void seleccionar_Click(object sender, EventArgs e)
+        {
+            String nombre = dataGridClientes.Rows[dataGridClientes.CurrentCell.RowIndex].Cells["clie_nombre"].Value.ToString();
+            Int32 id = (Int32)dataGridClientes.Rows[dataGridClientes.CurrentCell.RowIndex].Cells["id_cliente"].Value;
+            returnCliente = new Cliente();
+            returnCliente.clie_nombre = nombre;
+            returnCliente.id_cliente = id;
+            this.DialogResult = DialogResult.OK;
+                this.Close();
+                return;
         }
     }
 }

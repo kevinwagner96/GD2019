@@ -98,6 +98,7 @@ namespace FrbaOfertas.AbmCliente
                 returnDireccion = direccion;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
+                return;
             }
 
             Int32 id = dataC.Create(cliente,direccion, out exError);             

@@ -39,7 +39,7 @@ namespace FrbaOfertas.Interface
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text.Count() < 0)
+            if (comboBox1.Text.Count() < 1)
             {
                 MessageBox.Show("Selecciones un rol.");
                 return;

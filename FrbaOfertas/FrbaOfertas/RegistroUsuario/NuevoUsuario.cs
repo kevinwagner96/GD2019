@@ -108,7 +108,7 @@ namespace FrbaOfertas.RegistroUsuario
                 Int32 id_user = dataU.Create(new Usuario(usuario.Text, password.Text), getId_rol(text.Text), out exError);
                 if (exError == null)
                 {
-                    form.returnCliente.id_usuario = id_user;
+                    form.returnCliente.clie_usuario = id_user;
                     dataC.Create(form.returnCliente, form.returnDireccion, out exError);
                     if (exError == null)
                     {

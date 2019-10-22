@@ -13,7 +13,7 @@ namespace FrbaOfertas.Model
 
         private Int32 _id_cliente;
         private Int32 _id_domicilio;
-        private Int32? _id_usuario ;      
+        private Int32? _clie_usuario ;      
         private Int32 _clie_dni;
         private String _clie_nombre;
         private String _clie_apellido;
@@ -28,7 +28,7 @@ namespace FrbaOfertas.Model
         {
             this.id_cliente = p1;
             this.id_domicilio = p2;
-            this.id_usuario = p3;
+            this._clie_usuario = p3;
             this.clie_dni = p4;
             this.clie_nombre = p5;
             this.clie_apellido = p6;
@@ -58,7 +58,7 @@ namespace FrbaOfertas.Model
         [System.ComponentModel.Browsable(false)]
         public Int32 id_domicilio { get { return this._id_domicilio; } set { this._id_domicilio = value; atributesModify.Add("id_domicilio"); } }
         [System.ComponentModel.Browsable(false)]
-        public Int32? id_usuario { get { return this._id_usuario; } set { this._id_usuario = value; atributesModify.Add("id_usuario"); } }
+        public Int32? clie_usuario { get { return this._clie_usuario; } set { this._clie_usuario = value; atributesModify.Add("clie_usuario"); } }
         [System.ComponentModel.DisplayName("DNI")]
         public Int32 clie_dni{ get { return this._clie_dni; }set { this._clie_dni = value; atributesModify.Add("clie_dni"); }}
         [System.ComponentModel.DisplayName("Nombre")]

@@ -98,6 +98,12 @@
     <Compile Include="AbmRol\RolesList.Designer.cs">
       <DependentUpon>RolesList.cs</DependentUpon>
     </Compile>
+    <Compile Include="CargaCredito\CargaDeCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CargaCredito\CargaDeCredito.Designer.cs">
+      <DependentUpon>CargaDeCredito.cs</DependentUpon>
+    </Compile>
     <Compile Include="ComprarOferta\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,12 +111,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
-    <Compile Include="CragaCredito\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CragaCredito\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="CrearOferta\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,7 +124,10 @@
     <Compile Include="Interface\Tus roles.Designer.cs">
       <DependentUpon>Tus roles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Credito.cs" />
     <Compile Include="Model\DataModel\ClienteData.cs" />
+    <Compile Include="Model\DataModel\CreditoData.cs" />
+    <Compile Include="Model\DataModel\TipoPagoData.cs" />
     <Compile Include="Model\DataModel\RolData.cs" />
     <Compile Include="Model\DataModel\FuncionalidadesData.cs" />
     <Compile Include="Model\DataModel\ProveedorData.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="Model\Funcionalidad.cs" />
     <Compile Include="Model\Proveedor.cs" />
     <Compile Include="Model\Rol.cs" />
+    <Compile Include="Model\TipoDePago.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -197,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\RolesList.resx">
       <DependentUpon>RolesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CargaCredito\CargaDeCredito.resx">
+      <DependentUpon>CargaDeCredito.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

@@ -46,6 +46,7 @@
             this.GENERAR_FACTURA = new System.Windows.Forms.ToolStripMenuItem();
             this.INHABILITAR_CUPON = new System.Windows.Forms.ToolStripMenuItem();
             this.CANJEAR_CUPON = new System.Windows.Forms.ToolStripMenuItem();
+            this.COMPRAR_OFERTA = new System.Windows.Forms.ToolStripMenuItem();
             this.ABM_USUARIO = new System.Windows.Forms.ToolStripMenuItem();
             this.listaUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,6 @@
             this.rolTool = new System.Windows.Forms.ToolStripStatusLabel();
             this.close = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.COMPRAR_OFERTA = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -88,14 +88,14 @@
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // listaToolStripMenuItem
             // 
             this.listaToolStripMenuItem.Name = "listaToolStripMenuItem";
-            this.listaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.listaToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.listaToolStripMenuItem.Text = "Lista";
             this.listaToolStripMenuItem.Click += new System.EventHandler(this.listaToolStripMenuItem_Click);
             // 
@@ -114,14 +114,14 @@
             // nuevoToolStripMenuItem1
             // 
             this.nuevoToolStripMenuItem1.Name = "nuevoToolStripMenuItem1";
-            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
             this.nuevoToolStripMenuItem1.Text = "Nuevo";
             this.nuevoToolStripMenuItem1.Click += new System.EventHandler(this.nuevoToolStripMenuItem1_Click);
             // 
             // listaToolStripMenuItem1
             // 
             this.listaToolStripMenuItem1.Name = "listaToolStripMenuItem1";
-            this.listaToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.listaToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
             this.listaToolStripMenuItem1.Text = "Lista";
             this.listaToolStripMenuItem1.Click += new System.EventHandler(this.listaToolStripMenuItem1_Click);
             // 
@@ -139,14 +139,14 @@
             // rolesToolStripMenuItem1
             // 
             this.rolesToolStripMenuItem1.Name = "rolesToolStripMenuItem1";
-            this.rolesToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.rolesToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
             this.rolesToolStripMenuItem1.Text = "Roles";
             this.rolesToolStripMenuItem1.Click += new System.EventHandler(this.rolesToolStripMenuItem1_Click);
             // 
             // nuevoToolStripMenuItem2
             // 
             this.nuevoToolStripMenuItem2.Name = "nuevoToolStripMenuItem2";
-            this.nuevoToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
             this.nuevoToolStripMenuItem2.Text = "Nuevo";
             this.nuevoToolStripMenuItem2.Click += new System.EventHandler(this.nuevoToolStripMenuItem2_Click);
             // 
@@ -171,6 +171,7 @@
             this.GENERAR_OFERTA.Size = new System.Drawing.Size(171, 22);
             this.GENERAR_OFERTA.Text = "Generar Oferta";
             this.GENERAR_OFERTA.Visible = false;
+            this.GENERAR_OFERTA.Click += new System.EventHandler(this.GENERAR_OFERTA_Click);
             // 
             // CARGA_CREDITO
             // 
@@ -179,6 +180,7 @@
             this.CARGA_CREDITO.Size = new System.Drawing.Size(171, 22);
             this.CARGA_CREDITO.Text = "Carga Credito";
             this.CARGA_CREDITO.Visible = false;
+            this.CARGA_CREDITO.Click += new System.EventHandler(this.CARGA_CREDITO_Click);
             // 
             // LISTADO_ESTADISTICO
             // 
@@ -213,6 +215,13 @@
             this.CANJEAR_CUPON.Visible = false;
             this.CANJEAR_CUPON.Click += new System.EventHandler(this.canjearCuponToolStripMenuItem_Click);
             // 
+            // COMPRAR_OFERTA
+            // 
+            this.COMPRAR_OFERTA.Name = "COMPRAR_OFERTA";
+            this.COMPRAR_OFERTA.Size = new System.Drawing.Size(171, 22);
+            this.COMPRAR_OFERTA.Text = "Comprar Oferta";
+            this.COMPRAR_OFERTA.Visible = false;
+            // 
             // ABM_USUARIO
             // 
             this.ABM_USUARIO.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -227,14 +236,14 @@
             // listaUsuariosToolStripMenuItem
             // 
             this.listaUsuariosToolStripMenuItem.Name = "listaUsuariosToolStripMenuItem";
-            this.listaUsuariosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.listaUsuariosToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.listaUsuariosToolStripMenuItem.Text = "Lista";
             this.listaUsuariosToolStripMenuItem.Click += new System.EventHandler(this.listaUsuariosToolStripMenuItem_Click);
             // 
             // nuevoToolStripMenuItem3
             // 
             this.nuevoToolStripMenuItem3.Name = "nuevoToolStripMenuItem3";
-            this.nuevoToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem3.Size = new System.Drawing.Size(109, 22);
             this.nuevoToolStripMenuItem3.Text = "Nuevo";
             // 
             // statusStrip1
@@ -275,13 +284,6 @@
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // COMPRAR_OFERTA
-            // 
-            this.COMPRAR_OFERTA.Name = "COMPRAR_OFERTA";
-            this.COMPRAR_OFERTA.Size = new System.Drawing.Size(171, 22);
-            this.COMPRAR_OFERTA.Text = "Comprar Oferta";
-            this.COMPRAR_OFERTA.Visible = false;
             // 
             // Form1
             // 
