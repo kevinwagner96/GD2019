@@ -111,11 +111,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
-    <Compile Include="CrearOferta\Form1.cs">
+    <Compile Include="CrearOferta\ConfeccionOferta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CrearOferta\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CrearOferta\ConfeccionOferta.Designer.cs">
+      <DependentUpon>ConfeccionOferta.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FormHelper.cs" />
     <Compile Include="Interface\Tus roles.cs">
@@ -124,8 +124,10 @@
     <Compile Include="Interface\Tus roles.Designer.cs">
       <DependentUpon>Tus roles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Compra.cs" />
     <Compile Include="Model\Credito.cs" />
     <Compile Include="Model\DataModel\ClienteData.cs" />
+    <Compile Include="Model\DataModel\OfertaData.cs" />
     <Compile Include="Model\DataModel\CreditoData.cs" />
     <Compile Include="Model\DataModel\TipoPagoData.cs" />
     <Compile Include="Model\DataModel\RolData.cs" />
@@ -156,7 +158,11 @@
     </Compile>
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\Direccion.cs" />
+    <Compile Include="Model\Entrega.cs" />
+    <Compile Include="Model\Factura.cs" />
     <Compile Include="Model\Funcionalidad.cs" />
+    <Compile Include="Model\ItemFactura.cs" />
+    <Compile Include="Model\Oferta.cs" />
     <Compile Include="Model\Proveedor.cs" />
     <Compile Include="Model\Rol.cs" />
     <Compile Include="Model\TipoDePago.cs" />
@@ -204,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CargaCredito\CargaDeCredito.resx">
       <DependentUpon>CargaDeCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrearOferta\ConfeccionOferta.resx">
+      <DependentUpon>ConfeccionOferta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

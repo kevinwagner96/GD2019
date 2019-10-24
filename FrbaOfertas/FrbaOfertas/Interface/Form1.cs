@@ -16,6 +16,7 @@ using FrbaOfertas.AbmRol;
 using FrbaOfertas.Model.DataModel;
 using FrbaOfertas.Interface;
 using FrbaOfertas.CargaCredito;
+using FrbaOfertas.CrearOferta;
 
 
 namespace FrbaOfertas
@@ -25,8 +26,11 @@ namespace FrbaOfertas
         RolData rolData;
         FuncionalidadesData fData;
         ClienteData cData;
+        ProveedorData pData;
         Usuario me;
         Rol rol;
+        Cliente meCliente;
+        Proveedor meProveedor;
         Exception exError = null;
 
         public Form1(Usuario usuario)
@@ -36,6 +40,7 @@ namespace FrbaOfertas
             fData = new FuncionalidadesData(Conexion.getConexion());
             rolData = new RolData(Conexion.getConexion());
             cData = new ClienteData(Conexion.getConexion());
+            pData = new ProveedorData(Conexion.getConexion());
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -64,7 +69,28 @@ namespace FrbaOfertas
             rolTool.Text = rol.rol_nombre;
             Rol miRol = rolData.Read(rol.id_rol,out exError);
             habilitarFuncionalidades( miRol.funcionalidades);
-            
+            loadRol();
+
+        }
+
+        private void loadRol()
+        {
+            if (rol.rol_nombre == "CLIENTE")
+            {
+                Dictionary<String, Object> dic = new Dictionary<String, Object>() { { "clie_usuario", me.id_usuario } };
+                meCliente = cData.FilterSelect(new Dictionary<String, String>(), dic, out exError).First();
+            }
+            if (rol.rol_nombre == "PROVEEDOR")
+            {
+                Dictionary<String, Object> dic = new Dictionary<String, Object>() { { "prove_usuario", me.id_usuario } };
+                meProveedor = pData.FilterSelect(new Dictionary<String, String>(), dic, out exError).First();
+            }
+
+            if (exError != null)
+            {
+                MessageBox.Show("Problemas al cargar su rol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
 
         }
 
@@ -188,15 +214,21 @@ namespace FrbaOfertas
 
         private void GENERAR_OFERTA_Click(object sender, EventArgs e)
         {
+            if (rol.rol_nombre == "PROVEEDOR")
+            {
+                ConfeccionOferta form = new ConfeccionOferta(meProveedor);
+                form.Show();
+                return;
+            }
 
+            CargaDeCredito carg = new CargaDeCredito();
+            carg.Show();
         }
 
         private void CARGA_CREDITO_Click(object sender, EventArgs e)
         {
             if (rol.rol_nombre == "CLIENTE")
             {
-                Dictionary<String,Object> dic =  new Dictionary<String,Object>(){{"clie_usuario",me.id_usuario}};
-                Cliente meCliente = cData.FilterSelect(new Dictionary<String, String>(), dic, out exError).First();
                 CargaDeCredito cc = new CargaDeCredito(meCliente);
                 cc.Show();
                 return;

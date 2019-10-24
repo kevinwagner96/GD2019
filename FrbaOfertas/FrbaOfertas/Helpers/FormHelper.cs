@@ -119,5 +119,19 @@ namespace FrbaOfertas.Helpers
 
             return objeto;
         }
+
+        public static bool esFecha(TextBox text) {
+            DateTime dDate;
+            if (DateTime.TryParse(text.Text, out dDate))
+            {
+                String.Format("{0:d/MM/yyyy}", dDate);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Campo " + text.Tag + " no es fecha.", "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
     }
 }

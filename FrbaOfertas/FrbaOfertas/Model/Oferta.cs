@@ -10,7 +10,7 @@ namespace FrbaOfertas.Model
     {
         public List<String> atributesModify = new List<string>();
 
-        Int32 _id_oferta;
+        String _id_oferta;
         Int32 _id_proveedor;
         String _ofer_descripcion;
         Int32 _ofer_cant_disp;
@@ -23,7 +23,7 @@ namespace FrbaOfertas.Model
 
 
         [System.ComponentModel.Browsable(false)]
-        public Int32 id_oferta { get { return this._id_oferta; } set { this._id_oferta = value; atributesModify.Add("id_oferta"); } }
+        public String id_oferta { get { return this._id_oferta; } set { this._id_oferta = value; atributesModify.Add("id_oferta"); } }
         [System.ComponentModel.Browsable(false)]
         public Int32 id_proveedor { get { return this._id_proveedor; } set { this._id_proveedor = value; atributesModify.Add("id_proveedor"); } }
         [System.ComponentModel.DisplayName("Descripcion")]
@@ -31,7 +31,7 @@ namespace FrbaOfertas.Model
         [System.ComponentModel.DisplayName("Cant. Disponible")]
         public Int32 ofer_cant_disp { get { return this._ofer_cant_disp; } set { this._ofer_cant_disp = value; atributesModify.Add("ofer_cant_disp"); } }
         [System.ComponentModel.DisplayName("Activo")]
-        public Boolean clie_acofer_activotivo { get { return this._ofer_activo; } set { this._ofer_activo = value; atributesModify.Add("ofer_activo"); } }
+        public Boolean ofer_activo { get { return this._ofer_activo; } set { this._ofer_activo = value; atributesModify.Add("ofer_activo"); } }
         [System.ComponentModel.DisplayName("Fecha Publicacion")]
         public DateTime ofer_f_public { get { return this._ofer_f_public; } set { this._ofer_f_public = value; atributesModify.Add("ofer_f_public"); } }
         [System.ComponentModel.DisplayName("Fecha Vencimiento")]

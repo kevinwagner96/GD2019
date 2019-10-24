@@ -12,8 +12,6 @@ namespace FrbaOfertas.Model
 
         Int32 _id_tipo_pago;
         String _tipo_pago_nombre;
-        private string p1;
-        private int p2;
 
         public TipoDePago(string p1, int p2)
         {

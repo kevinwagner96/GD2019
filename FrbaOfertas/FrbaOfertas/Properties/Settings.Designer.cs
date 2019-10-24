@@ -59,5 +59,17 @@ namespace FrbaOfertas.Properties {
                 this["CreditoInicial"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int OfertaTokenSize {
+            get {
+                return ((int)(this["OfertaTokenSize"]));
+            }
+            set {
+                this["OfertaTokenSize"] = value;
+            }
+        }
     }
 }

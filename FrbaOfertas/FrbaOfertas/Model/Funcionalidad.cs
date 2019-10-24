@@ -12,8 +12,7 @@ namespace FrbaOfertas.Model
 
         Int32 _fun_codigo;
         String _fun_nombre;
-        private string p1;
-        private int p2;
+
 
         public Funcionalidad(string p1, int p2)
         {

@@ -12,7 +12,7 @@ namespace FrbaOfertas.Model
 
         private Int32 _id_proveedor;
         private Int32 _id_domicilio;
-        private Int32? _id_usuario;
+        private Int32? _prove_usuario;
         private String _prov_CUIT;
         private String _prov_razon_social;
         private String _prov_email;        
@@ -25,7 +25,7 @@ namespace FrbaOfertas.Model
         [System.ComponentModel.Browsable(false)]
         public Int32 id_domicilio { get { return this._id_domicilio; } set { this._id_domicilio = value; atributesModify.Add("id_domicilio"); } }
         [System.ComponentModel.Browsable(false)]
-        public Int32? id_usuario { get { return this._id_usuario; } set { this._id_usuario = value; atributesModify.Add("id_usuario"); } }
+        public Int32? prove_usuario { get { return this._prove_usuario; } set { this._prove_usuario = value; atributesModify.Add("prove_usuario"); } }
         [System.ComponentModel.DisplayName("CUIT")]
         public String prov_CUIT { get { return this._prov_CUIT; } set { this._prov_CUIT = value; atributesModify.Add("prov_CUIT"); } }
         [System.ComponentModel.DisplayName("Razon Social")]
