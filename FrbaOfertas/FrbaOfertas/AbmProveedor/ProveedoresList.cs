@@ -18,6 +18,7 @@ namespace FrbaOfertas.AbmProveedor
     {
         ProveedorData data;
         List<TextBox> todos = new List<TextBox>();
+        public object returnProveedor { get; set; }
         Exception exError = null;
 
         public ProveedoresList()
@@ -25,6 +26,19 @@ namespace FrbaOfertas.AbmProveedor
             InitializeComponent();
             data = new ProveedorData(Conexion.getConexion());
             
+        }
+
+        public ProveedoresList(bool seleccionar)
+        {
+            InitializeComponent();
+            data = new ProveedorData(Conexion.getConexion());
+            if (seleccionar)
+            {
+                button1.Visible = false;
+                button2.Visible = false;
+                button3.Visible = false;
+                select.Visible = true;
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -139,6 +153,18 @@ namespace FrbaOfertas.AbmProveedor
             }
 
             cargarDataGrid();
+        }
+
+        private void select_Click(object sender, EventArgs e)
+        {
+            String razonSocial = dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["prov_razon_social"].Value.ToString();
+            Int32 id = (Int32)dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["id_proveedor"].Value;
+            returnProveedor = new Proveedor();
+            ((Proveedor)returnProveedor).prov_razon_social = razonSocial;
+            ((Proveedor)returnProveedor).id_proveedor = id;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+            return;
         }
     }
 }

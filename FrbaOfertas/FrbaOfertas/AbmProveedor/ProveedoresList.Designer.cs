@@ -41,6 +41,7 @@
             this.prov_CUIT = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.prov_razon_social = new System.Windows.Forms.TextBox();
+            this.select = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProveedores)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -187,11 +188,24 @@
             this.prov_razon_social.TabIndex = 0;
             this.prov_razon_social.Tag = "LIKE";
             // 
+            // select
+            // 
+            this.select.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.select.Location = new System.Drawing.Point(600, 495);
+            this.select.Name = "select";
+            this.select.Size = new System.Drawing.Size(75, 23);
+            this.select.TabIndex = 6;
+            this.select.Text = "Seleccionar";
+            this.select.UseVisualStyleBackColor = true;
+            this.select.Visible = false;
+            this.select.Click += new System.EventHandler(this.select_Click);
+            // 
             // ProveedoresList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 530);
+            this.Controls.Add(this.select);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -222,5 +236,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox prov_razon_social;
         private System.Windows.Forms.Button buscar;
+        private System.Windows.Forms.Button select;
     }
 }

@@ -16,7 +16,9 @@ using FrbaOfertas.AbmRol;
 using FrbaOfertas.Model.DataModel;
 using FrbaOfertas.Interface;
 using FrbaOfertas.CargaCredito;
+using FrbaOfertas.ComprarOferta;
 using FrbaOfertas.CrearOferta;
+using FrbaOfertas.ConsumirOferta;
 
 
 namespace FrbaOfertas
@@ -209,7 +211,17 @@ namespace FrbaOfertas
 
         private void canjearCuponToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (rol.rol_nombre == "CLIENTE")
+            {
+                CanjearCupon form = new CanjearCupon(meCliente);
+                form.MdiParent = this;
+                form.Show();
+                return;
+            }
 
+            ListadoCupones form2 = new ListadoCupones();
+            form2.MdiParent = this;
+            form2.Show();
         }
 
         private void GENERAR_OFERTA_Click(object sender, EventArgs e)
@@ -217,12 +229,13 @@ namespace FrbaOfertas
             if (rol.rol_nombre == "PROVEEDOR")
             {
                 ConfeccionOferta form = new ConfeccionOferta(meProveedor);
+                form.MdiParent = this;
                 form.Show();
                 return;
             }
 
-            CargaDeCredito carg = new CargaDeCredito();
-            carg.Show();
+            ConfeccionOferta form2 = new ConfeccionOferta();
+            form2.Show();
         }
 
         private void CARGA_CREDITO_Click(object sender, EventArgs e)
@@ -230,11 +243,20 @@ namespace FrbaOfertas
             if (rol.rol_nombre == "CLIENTE")
             {
                 CargaDeCredito cc = new CargaDeCredito(meCliente);
+                cc.MdiParent = this;
                 cc.Show();
                 return;
             }
 
             CargaDeCredito carg = new CargaDeCredito();
+            carg.MdiParent = this;
+            carg.Show();
+        }
+
+        private void COMPRAR_OFERTA_Click(object sender, EventArgs e)
+        {
+            ListadoOfertas carg = new ListadoOfertas();
+            carg.MdiParent = this;
             carg.Show();
         }
 

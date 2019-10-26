@@ -58,6 +58,10 @@ namespace FrbaOfertas.Model.DataModel
         {
             List<Cliente> returnValue = new List<Cliente>();
             exError = null;
+            String and = "";
+
+            if (like.Count() > 0 )
+                and = "AND";
 
             try
             {
@@ -66,7 +70,7 @@ namespace FrbaOfertas.Model.DataModel
 
 
                 using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) +
-                    "FROM "+Table+" WHERE " + SqlHelper.getLikeFilter(like) + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
+                    "FROM "+Table+" WHERE " + SqlHelper.getLikeFilter(like) +and+ SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
                 {
                     foreach (KeyValuePair<String, Object> value in exac)
                     {

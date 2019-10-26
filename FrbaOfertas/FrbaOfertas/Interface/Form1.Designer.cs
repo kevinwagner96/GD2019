@@ -221,6 +221,7 @@
             this.COMPRAR_OFERTA.Size = new System.Drawing.Size(171, 22);
             this.COMPRAR_OFERTA.Text = "Comprar Oferta";
             this.COMPRAR_OFERTA.Visible = false;
+            this.COMPRAR_OFERTA.Click += new System.EventHandler(this.COMPRAR_OFERTA_Click);
             // 
             // ABM_USUARIO
             // 

@@ -49,12 +49,15 @@
             this.label9 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.guardar = new System.Windows.Forms.Button();
+            this.seleecionar_proveedor = new System.Windows.Forms.Button();
+            this.nombre_proveedor = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 163);
+            this.label7.Location = new System.Drawing.Point(12, 188);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(106, 13);
             this.label7.TabIndex = 64;
@@ -62,7 +65,7 @@
             // 
             // ofer_cant_disp
             // 
-            this.ofer_cant_disp.Location = new System.Drawing.Point(108, 160);
+            this.ofer_cant_disp.Location = new System.Drawing.Point(111, 185);
             this.ofer_cant_disp.Name = "ofer_cant_disp";
             this.ofer_cant_disp.Size = new System.Drawing.Size(213, 20);
             this.ofer_cant_disp.TabIndex = 63;
@@ -71,7 +74,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 137);
+            this.label6.Location = new System.Drawing.Point(12, 162);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 62;
@@ -79,7 +82,7 @@
             // 
             // ofer_descripcion
             // 
-            this.ofer_descripcion.Location = new System.Drawing.Point(108, 134);
+            this.ofer_descripcion.Location = new System.Drawing.Point(111, 159);
             this.ofer_descripcion.Name = "ofer_descripcion";
             this.ofer_descripcion.Size = new System.Drawing.Size(213, 20);
             this.ofer_descripcion.TabIndex = 61;
@@ -88,7 +91,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 85);
+            this.label5.Location = new System.Drawing.Point(12, 110);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 60;
@@ -96,7 +99,7 @@
             // 
             // ofer_pr_oferta
             // 
-            this.ofer_pr_oferta.Location = new System.Drawing.Point(108, 82);
+            this.ofer_pr_oferta.Location = new System.Drawing.Point(111, 107);
             this.ofer_pr_oferta.Name = "ofer_pr_oferta";
             this.ofer_pr_oferta.Size = new System.Drawing.Size(213, 20);
             this.ofer_pr_oferta.TabIndex = 59;
@@ -105,7 +108,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 33);
+            this.label14.Location = new System.Drawing.Point(12, 58);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(99, 13);
             this.label14.TabIndex = 56;
@@ -123,7 +126,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 59);
+            this.label8.Location = new System.Drawing.Point(12, 84);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(102, 13);
             this.label8.TabIndex = 67;
@@ -131,7 +134,7 @@
             // 
             // publciacionCalendar
             // 
-            this.publciacionCalendar.Location = new System.Drawing.Point(130, 55);
+            this.publciacionCalendar.Location = new System.Drawing.Point(133, 80);
             this.publciacionCalendar.Name = "publciacionCalendar";
             this.publciacionCalendar.TabIndex = 69;
             this.publciacionCalendar.Visible = false;
@@ -139,7 +142,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(238, 30);
+            this.button1.Location = new System.Drawing.Point(241, 55);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 20);
             this.button1.TabIndex = 70;
@@ -149,7 +152,7 @@
             // 
             // ofer_f_public
             // 
-            this.ofer_f_public.Location = new System.Drawing.Point(109, 30);
+            this.ofer_f_public.Location = new System.Drawing.Point(112, 55);
             this.ofer_f_public.Name = "ofer_f_public";
             this.ofer_f_public.Size = new System.Drawing.Size(123, 20);
             this.ofer_f_public.TabIndex = 68;
@@ -157,7 +160,7 @@
             // 
             // vencimientoCalendar
             // 
-            this.vencimientoCalendar.Location = new System.Drawing.Point(129, 81);
+            this.vencimientoCalendar.Location = new System.Drawing.Point(132, 106);
             this.vencimientoCalendar.Name = "vencimientoCalendar";
             this.vencimientoCalendar.TabIndex = 72;
             this.vencimientoCalendar.Visible = false;
@@ -165,7 +168,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(237, 56);
+            this.button2.Location = new System.Drawing.Point(240, 81);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(84, 20);
             this.button2.TabIndex = 73;
@@ -175,7 +178,7 @@
             // 
             // ofer_f_venc
             // 
-            this.ofer_f_venc.Location = new System.Drawing.Point(108, 56);
+            this.ofer_f_venc.Location = new System.Drawing.Point(111, 81);
             this.ofer_f_venc.Name = "ofer_f_venc";
             this.ofer_f_venc.Size = new System.Drawing.Size(123, 20);
             this.ofer_f_venc.TabIndex = 71;
@@ -184,7 +187,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 111);
+            this.label2.Location = new System.Drawing.Point(12, 136);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 13);
             this.label2.TabIndex = 75;
@@ -192,7 +195,7 @@
             // 
             // ofer_pr_lista
             // 
-            this.ofer_pr_lista.Location = new System.Drawing.Point(108, 108);
+            this.ofer_pr_lista.Location = new System.Drawing.Point(111, 133);
             this.ofer_pr_lista.Name = "ofer_pr_lista";
             this.ofer_pr_lista.Size = new System.Drawing.Size(213, 20);
             this.ofer_pr_lista.TabIndex = 74;
@@ -200,7 +203,7 @@
             // 
             // ofer_cant_x_cli
             // 
-            this.ofer_cant_x_cli.Location = new System.Drawing.Point(109, 186);
+            this.ofer_cant_x_cli.Location = new System.Drawing.Point(112, 211);
             this.ofer_cant_x_cli.Name = "ofer_cant_x_cli";
             this.ofer_cant_x_cli.Size = new System.Drawing.Size(213, 20);
             this.ofer_cant_x_cli.TabIndex = 76;
@@ -209,16 +212,16 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 189);
+            this.label9.Location = new System.Drawing.Point(13, 214);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 13);
+            this.label9.Size = new System.Drawing.Size(78, 13);
             this.label9.TabIndex = 77;
-            this.label9.Text = "Cant. x Cliente *";
+            this.label9.Text = "Cant. x Cliente ";
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(265, 212);
+            this.checkBox1.Location = new System.Drawing.Point(268, 237);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(56, 17);
             this.checkBox1.TabIndex = 37;
@@ -227,7 +230,7 @@
             // 
             // guardar
             // 
-            this.guardar.Location = new System.Drawing.Point(239, 235);
+            this.guardar.Location = new System.Drawing.Point(237, 260);
             this.guardar.Name = "guardar";
             this.guardar.Size = new System.Drawing.Size(84, 20);
             this.guardar.TabIndex = 78;
@@ -235,11 +238,43 @@
             this.guardar.UseVisualStyleBackColor = true;
             this.guardar.Click += new System.EventHandler(this.guardar_Click);
             // 
+            // seleecionar_proveedor
+            // 
+            this.seleecionar_proveedor.Enabled = false;
+            this.seleecionar_proveedor.Location = new System.Drawing.Point(241, 29);
+            this.seleecionar_proveedor.Name = "seleecionar_proveedor";
+            this.seleecionar_proveedor.Size = new System.Drawing.Size(84, 20);
+            this.seleecionar_proveedor.TabIndex = 81;
+            this.seleecionar_proveedor.Text = "Seleccionar";
+            this.seleecionar_proveedor.UseVisualStyleBackColor = true;
+            this.seleecionar_proveedor.Click += new System.EventHandler(this.seleecionar_proveedor_Click);
+            // 
+            // nombre_proveedor
+            // 
+            this.nombre_proveedor.Enabled = false;
+            this.nombre_proveedor.Location = new System.Drawing.Point(112, 29);
+            this.nombre_proveedor.Name = "nombre_proveedor";
+            this.nombre_proveedor.Size = new System.Drawing.Size(123, 20);
+            this.nombre_proveedor.TabIndex = 80;
+            this.nombre_proveedor.Tag = "Proveedor";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 32);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.TabIndex = 79;
+            this.label3.Text = "Proveedor *";
+            // 
             // ConfeccionOferta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(335, 272);
+            this.ClientSize = new System.Drawing.Size(336, 288);
+            this.Controls.Add(this.seleecionar_proveedor);
+            this.Controls.Add(this.nombre_proveedor);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.publciacionCalendar);
             this.Controls.Add(this.vencimientoCalendar);
             this.Controls.Add(this.guardar);
@@ -292,5 +327,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button guardar;
+        private System.Windows.Forms.Button seleecionar_proveedor;
+        private System.Windows.Forms.TextBox nombre_proveedor;
+        private System.Windows.Forms.Label label3;
     }
 }

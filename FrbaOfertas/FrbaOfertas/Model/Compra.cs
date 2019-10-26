@@ -20,12 +20,13 @@ namespace FrbaOfertas.Model
         Boolean _compra_canjeado;
         DateTime _compra_fecha_vencimiento;
 
-        [System.ComponentModel.Browsable(false)]
-        public Int32 id_compra { get { return this._id_compra; } set { this._id_compra = value; atributesModify.Add("id_compra"); } }
+        
         [System.ComponentModel.Browsable(false)]
         public Int32 id_oferta { get { return this._id_oferta; } set { this._id_oferta = value; atributesModify.Add("id_oferta"); } }
         [System.ComponentModel.Browsable(false)]
         public Int32 id_cliente { get { return this._id_cliente; } set { this._id_cliente = value; atributesModify.Add("id_cliente"); } }
+        [System.ComponentModel.DisplayName("IdCompra/Cupon")]
+        public Int32 id_compra { get { return this._id_compra; } set { this._id_compra = value; atributesModify.Add("id_compra"); } }
         [System.ComponentModel.DisplayName("Fecha Compra")]
         public DateTime compra_fecha { get { return this._compra_fecha; } set { this._compra_fecha = value; atributesModify.Add("compra_fecha"); } }
         [System.ComponentModel.DisplayName("Precio Lista")]

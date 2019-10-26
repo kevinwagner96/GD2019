@@ -104,13 +104,31 @@
     <Compile Include="CargaCredito\CargaDeCredito.Designer.cs">
       <DependentUpon>CargaDeCredito.cs</DependentUpon>
     </Compile>
-    <Compile Include="ComprarOferta\Form1.cs">
+    <Compile Include="ComprarOferta\CompraOferta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ComprarOferta\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ComprarOferta\CompraOferta.Designer.cs">
+      <DependentUpon>CompraOferta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComprarOferta\ListadoOfertas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComprarOferta\ListadoOfertas.Designer.cs">
+      <DependentUpon>ListadoOfertas.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
+    <Compile Include="ConsumirOferta\CanjearCupon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsumirOferta\CanjearCupon.Designer.cs">
+      <DependentUpon>CanjearCupon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConsumirOferta\ListadoCupones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsumirOferta\ListadoCupones.Designer.cs">
+      <DependentUpon>ListadoCupones.cs</DependentUpon>
+    </Compile>
     <Compile Include="CrearOferta\ConfeccionOferta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +145,7 @@
     <Compile Include="Model\Compra.cs" />
     <Compile Include="Model\Credito.cs" />
     <Compile Include="Model\DataModel\ClienteData.cs" />
+    <Compile Include="Model\DataModel\CompraData.cs" />
     <Compile Include="Model\DataModel\OfertaData.cs" />
     <Compile Include="Model\DataModel\CreditoData.cs" />
     <Compile Include="Model\DataModel\TipoPagoData.cs" />
@@ -210,6 +229,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CargaCredito\CargaDeCredito.resx">
       <DependentUpon>CargaDeCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComprarOferta\ListadoOfertas.resx">
+      <DependentUpon>ListadoOfertas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConsumirOferta\CanjearCupon.resx">
+      <DependentUpon>CanjearCupon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConsumirOferta\ListadoCupones.resx">
+      <DependentUpon>ListadoCupones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CrearOferta\ConfeccionOferta.resx">
       <DependentUpon>ConfeccionOferta.cs</DependentUpon>

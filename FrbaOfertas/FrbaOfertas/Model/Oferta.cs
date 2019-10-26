@@ -19,10 +19,10 @@ namespace FrbaOfertas.Model
         DateTime _ofer_f_venc;
         Double _ofer_pr_oferta;
         Double _ofer_pr_lista;
-        Int32 _ofer_cant_x_cli;
+        Int32? _ofer_cant_x_cli;
 
 
-        [System.ComponentModel.Browsable(false)]
+        
         public String id_oferta { get { return this._id_oferta; } set { this._id_oferta = value; atributesModify.Add("id_oferta"); } }
         [System.ComponentModel.Browsable(false)]
         public Int32 id_proveedor { get { return this._id_proveedor; } set { this._id_proveedor = value; atributesModify.Add("id_proveedor"); } }
@@ -38,10 +38,10 @@ namespace FrbaOfertas.Model
         public DateTime ofer_f_venc { get { return this._ofer_f_venc; } set { this._ofer_f_venc = value; atributesModify.Add("ofer_f_venc"); } }
         [System.ComponentModel.DisplayName("Precio Oferta")]
         public Double ofer_pr_oferta { get { return this._ofer_pr_oferta; } set { this._ofer_pr_oferta = value; atributesModify.Add("ofer_pr_oferta"); } }
-        [System.ComponentModel.DisplayName("Precio Oferta")]
+        [System.ComponentModel.DisplayName("Precio Lista")]
         public Double ofer_pr_lista { get { return this._ofer_pr_lista; } set { this._ofer_pr_lista = value; atributesModify.Add("ofer_pr_lista"); } }
-        [System.ComponentModel.DisplayName("Cant. Disponible")]
-        public Int32 ofer_cant_x_cli { get { return this._ofer_cant_x_cli; } set { this._ofer_cant_x_cli = value; atributesModify.Add("ofer_cant_x_cli"); } }
+        [System.ComponentModel.DisplayName("Cant. Por Cliente")]
+        public Int32? ofer_cant_x_cli { get { return this._ofer_cant_x_cli; } set { this._ofer_cant_x_cli = value; atributesModify.Add("ofer_cant_x_cli"); } }
 
         public List<String> getAtributeMList()
         {

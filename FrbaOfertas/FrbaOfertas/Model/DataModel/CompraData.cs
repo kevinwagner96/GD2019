@@ -1,26 +1,26 @@
 ﻿using FrbaOfertas.Helpers;
+using FrbaOfertas.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FrbaOfertas.Model.DataModel
 {
-    class OfertaData : DataHelper<Oferta>
+    class CompraData : DataHelper<Compra>
     {
-        public OfertaData(SqlConnection connection) : base(connection) { }
-        List<String> allAtributes = new List<String>(new String[] { "id_oferta", "id_proveedor", "ofer_descripcion", "ofer_cant_disp", "ofer_activo", "ofer_f_public", "ofer_f_venc", "ofer_pr_oferta", "ofer_pr_lista", "ofer_cant_x_cli" });
-       String Table = "[GDDS2].[Oferta]";
+        public CompraData(SqlConnection connection) : base(connection) { }
+        List<String> allAtributes = new List<String>(new String[] { "id_compra", "id_oferta", "id_cliente", "compra_fecha", "compra_precio_lista", "compra_precio_oferta", "compra_cantidad", "compra_canjeado", "compra_fecha_vencimiento"});
+        String Table = "[GDDS2].[Compra]";
 
-       
 
-       public override List<Oferta> Select(out Exception exError)
+
+        public override List<Compra> Select(out Exception exError)
         {
-            List<Oferta> returnValue = new List<Oferta>();
+            List<Compra> returnValue = new List<Compra>();
             exError = null;
 
             try
@@ -35,8 +35,8 @@ namespace FrbaOfertas.Model.DataModel
                     {
                         while (reader.Read())
                         {
-                            Oferta f = new Oferta();
-                            SqlHelper.setearAtributos(reader, allAtributes, f);                         
+                            Compra f = new Compra();
+                            SqlHelper.setearAtributos(reader, allAtributes, f);
                             returnValue.Add(f);
                         }
                     }
@@ -54,10 +54,14 @@ namespace FrbaOfertas.Model.DataModel
             return returnValue;
         }
 
-       public override List<Oferta> FilterSelect(Dictionary<String, String> like, Dictionary<String, Object> exac, out Exception exError)
+        public override List<Compra> FilterSelect(Dictionary<String, String> like, Dictionary<String, Object> exac, out Exception exError)
         {
-            List<Oferta> returnValue = new List<Oferta>();
+            List<Compra> returnValue = new List<Compra>();
             exError = null;
+            String and = "";
+            if (like.Count() > 0 && exac.Count() > 0)
+                and = " AND ";
+
 
             try
             {
@@ -66,7 +70,7 @@ namespace FrbaOfertas.Model.DataModel
 
 
                 using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) +
-                    "FROM " + Table + " WHERE " + SqlHelper.getLikeFilter(like) + " [ofer_f_public]<=@ofer_f_public AND [ofer_f_venc]>=@ofer_f_public AND [ofer_activo]=1 ", (SqlConnection)this.Connection))
+                    "FROM " + Table + " WHERE " + SqlHelper.getLikeFilter(like) +and+ "  [compra_fecha_vencimiento]>=@compra_fecha_vencimiento AND [compra_canjeado]=0 ", (SqlConnection)this.Connection))
                 {
                     foreach (KeyValuePair<String, Object> value in exac)
                     {
@@ -77,7 +81,7 @@ namespace FrbaOfertas.Model.DataModel
                     {
                         while (reader.Read())
                         {
-                            Oferta c = new Oferta();
+                            Compra c = new Compra();
                             SqlHelper.setearAtributos(reader, allAtributes, c);
                             c.restartMList();
                             returnValue.Add(c);
@@ -97,7 +101,7 @@ namespace FrbaOfertas.Model.DataModel
             return returnValue;
         }
 
-       public override Int32 Create(Oferta instance, object otro, out Exception exError)
+        public override Int32 Create(Compra instance, object otro, out Exception exError)
         {
             Int32 modified = -1;
             SqlTransaction trans;
@@ -113,7 +117,7 @@ namespace FrbaOfertas.Model.DataModel
                 {
                     try
                     {
-                        command = new SqlCommand("INSERT INTO " + Table+" (" + SqlHelper.getColumns(instance.getAtributeMList()) + ")" +
+                        command = new SqlCommand("INSERT INTO " + Table + " (" + SqlHelper.getColumns(instance.getAtributeMList()) + ")" +
                                        " VALUES(" + SqlHelper.getValues(instance.getAtributeMList()) + ")", (SqlConnection)this.Connection, trans);
 
                         command.CommandType = System.Data.CommandType.Text;
@@ -152,7 +156,7 @@ namespace FrbaOfertas.Model.DataModel
             return modified;
         }
 
-       public override Int32 Create(Oferta instance, out Exception exError)
+        public override Int32 Create(Compra instance, out Exception exError)
         {
             Int32 modified = -1;
             SqlTransaction trans;
@@ -169,7 +173,7 @@ namespace FrbaOfertas.Model.DataModel
                     try
                     {
                         command = new SqlCommand("INSERT INTO " + Table + " (" + SqlHelper.getColumns(instance.getAtributeMList()) + ")" +
-                                       " output INSERTED.id_oferta VALUES(" + SqlHelper.getValues(instance.getAtributeMList()) + ")", (SqlConnection)this.Connection, trans);
+                                       " output INSERTED.id_Compra VALUES(" + SqlHelper.getValues(instance.getAtributeMList()) + ")", (SqlConnection)this.Connection, trans);
 
                         command.CommandType = System.Data.CommandType.Text;
                         foreach (String value in instance.getAtributeMList())
@@ -207,33 +211,33 @@ namespace FrbaOfertas.Model.DataModel
             return modified;
         }
 
-       public override Oferta Read(int ID, out Exception exError)
-       {
-           throw new NotImplementedException();
-        }
-
-       public override Oferta Read(Oferta instance, out Exception exError)
+        public override Compra Read(int ID, out Exception exError)
         {
             throw new NotImplementedException();
         }
 
-       public override bool Update(Oferta instance, out Exception exError)
-       {
-           throw new NotImplementedException();
-        }
-
-       public override bool Update(Oferta instance, object otro, out Exception exError)
+        public override Compra Read(Compra instance, out Exception exError)
         {
             throw new NotImplementedException();
         }
 
-       public override bool Delete(int ID, out Exception exError)
-       {
-           throw new NotImplementedException();
-       }
-       public override bool Delete(Oferta instance, out Exception exError)
-       {
-           throw new NotImplementedException();
-       }
+        public override bool Update(Compra instance, out Exception exError)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Update(Compra instance, object otro, out Exception exError)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete(int ID, out Exception exError)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool Delete(Compra instance, out Exception exError)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

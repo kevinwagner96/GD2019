@@ -11,12 +11,22 @@ namespace FrbaOfertas.Helpers
     {
         public static bool esNumerico(TextBox textBox)
         {
-            int value;
+            int value;            
             if (!Int32.TryParse(textBox.Text.Trim(), out value))          
                 return false;
             
             return true;
         }
+
+        public static bool esDecimal(TextBox textBox)
+        {            
+            Double d;
+            if (!Double.TryParse(textBox.Text.Trim(), out d))
+                return false;
+
+            return true;
+        }
+
 
         public static bool noNull(TextBox textBox)
         {
@@ -61,6 +71,27 @@ namespace FrbaOfertas.Helpers
             if (campos.Count() > 0)
             {
                 MessageBox.Show("Campos " + campos + " no son numericos.", "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool esDecimalList(List<TextBox> textBoxs)
+        {
+            String campos = "";
+            foreach (TextBox textBox in textBoxs)
+            {
+                if (!esNumerico(textBox) && noNull(textBox))
+                {
+                    campos += textBox.Tag + ", ";
+
+                }
+            }
+
+            if (campos.Count() > 0)
+            {
+                MessageBox.Show("Campos " + campos + " no son decimales.", "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 

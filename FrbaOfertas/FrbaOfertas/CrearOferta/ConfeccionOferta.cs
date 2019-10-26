@@ -1,4 +1,5 @@
-﻿using FrbaOfertas.Helpers;
+﻿using FrbaOfertas.AbmProveedor;
+using FrbaOfertas.Helpers;
 using FrbaOfertas.Model;
 using FrbaOfertas.Model.DataModel;
 using System;
@@ -23,6 +24,7 @@ namespace FrbaOfertas.CrearOferta
         private static Int32 tokenSize = FrbaOfertas.ConfigurationHelper.TokenSize;
         List<TextBox> noNulos = new List<TextBox>();
         List<TextBox> numericos = new List<TextBox>();
+        List<TextBox> decimales = new List<TextBox>();
         List<TextBox> todos = new List<TextBox>();
         List<TipoDePago> listPagos = new List<TipoDePago>();
         Exception exError = null;
@@ -30,18 +32,20 @@ namespace FrbaOfertas.CrearOferta
         public ConfeccionOferta()
         {
             InitializeComponent();
+            seleecionar_proveedor.Enabled = true;
         }
 
         public ConfeccionOferta(object prov)
         {
             InitializeComponent();
             this.proveedor = (Proveedor)prov;
+            nombre_proveedor.Text = proveedor.prov_razon_social;
         }
 
         private void ConfeccionOferta_Load(object sender, EventArgs e)
         {
             oData = new OfertaData(Conexion.getConexion());
-
+            
             foreach (Control x in this.Controls)
             {
                 if (x is TextBox)
@@ -50,16 +54,16 @@ namespace FrbaOfertas.CrearOferta
                 }
             }
 
+            noNulos.Add(nombre_proveedor);
             noNulos.Add(ofer_descripcion);
             noNulos.Add(ofer_cant_disp);
             noNulos.Add(ofer_f_public);
             noNulos.Add(ofer_f_venc);
             noNulos.Add(ofer_pr_lista);
-            noNulos.Add(ofer_pr_oferta);
-            noNulos.Add(ofer_cant_x_cli);
+            noNulos.Add(ofer_pr_oferta);            
             numericos.Add(ofer_cant_disp);
-            numericos.Add(ofer_pr_lista);
-            numericos.Add(ofer_pr_oferta);
+            decimales.Add(ofer_pr_lista);
+            decimales.Add(ofer_pr_oferta);
             numericos.Add(ofer_cant_x_cli);
 
         }
@@ -114,6 +118,11 @@ namespace FrbaOfertas.CrearOferta
                 MessageBox.Show(ofer_f_public.Tag + " es menor a "+ofer_f_venc.Tag);
                 return;
             }
+            if (oferta.ofer_cant_disp < oferta.ofer_cant_x_cli)
+            {
+                MessageBox.Show(ofer_cant_disp.Tag + " es menor a " + ofer_cant_x_cli.Tag);
+                return;
+            }
 
 
             oferta.id_proveedor = proveedor.id_proveedor;
@@ -129,6 +138,17 @@ namespace FrbaOfertas.CrearOferta
             else
                 MessageBox.Show("Erro al ralizar la oferta, " + exError.Message, "Nueva Oferta", MessageBoxButtons.OK, MessageBoxIcon.Error);    
 
+        }
+
+        private void seleecionar_proveedor_Click(object sender, EventArgs e)
+        {
+            ProveedoresList form = new ProveedoresList(true);
+            var result = form.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                this.proveedor = (Proveedor)form.returnProveedor;
+                nombre_proveedor.Text = this.proveedor.prov_razon_social;
+            }
         }
 
         
