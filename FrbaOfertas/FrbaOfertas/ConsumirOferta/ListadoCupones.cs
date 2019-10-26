@@ -1,5 +1,6 @@
-﻿using FrbaCompras.Model.DataModel;
+﻿
 using FrbaOfertas.Model;
+using FrbaOfertas.Model.DataModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

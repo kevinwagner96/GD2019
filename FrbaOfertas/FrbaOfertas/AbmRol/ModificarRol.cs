@@ -86,6 +86,9 @@ namespace FrbaOfertas.AbmRol
                 i++;
             });
          
+
+                           
+
             data.Update(rol,  out exError);
             if (exError == null)
             {

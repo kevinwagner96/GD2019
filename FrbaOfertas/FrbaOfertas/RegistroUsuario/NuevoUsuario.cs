@@ -93,10 +93,12 @@ namespace FrbaOfertas.RegistroUsuario
 
             if (comboBox1.Text == "ADMINISTRADOR")
                 controller();
-            if (comboBox1.Text == "CLIENTE")
+            else if (comboBox1.Text == "CLIENTE")
                 controller(new NuevoCliente(true));
-            if (comboBox1.Text == "PROVEEDOR")
+            else if (comboBox1.Text == "PROVEEDOR")
                 controller(new NuevoProveedor(true));
+            else 
+                controller();
 
         }
 

@@ -98,6 +98,24 @@
     <Compile Include="AbmRol\RolesList.Designer.cs">
       <DependentUpon>RolesList.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmUsuario\ModificarUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmUsuario\ModificarUsuario.Designer.cs">
+      <DependentUpon>ModificarUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmUsuario\NuevoUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmUsuario\NuevoUsuario.Designer.cs">
+      <DependentUpon>NuevoUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmUsuario\UsuariosList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmUsuario\UsuariosList.Designer.cs">
+      <DependentUpon>UsuariosList.cs</DependentUpon>
+    </Compile>
     <Compile Include="CargaCredito\CargaDeCredito.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +244,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\RolesList.resx">
       <DependentUpon>RolesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmUsuario\ModificarUsuario.resx">
+      <DependentUpon>ModificarUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmUsuario\NuevoUsuario.resx">
+      <DependentUpon>NuevoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmUsuario\UsuariosList.resx">
+      <DependentUpon>UsuariosList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CargaCredito\CargaDeCredito.resx">
       <DependentUpon>CargaDeCredito.cs</DependentUpon>

@@ -56,7 +56,16 @@ namespace FrbaOfertas
                 return;
             }
 
-            rol = roles.First();
+            try
+            {
+                rol = roles.First();
+            }
+            catch (Exception ex) {
+                MessageBox.Show("No, tiene un rol asignado. Contacte al administrador.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+                return;
+            } 
 
             if (roles.Count() > 1)
             {
@@ -90,7 +99,8 @@ namespace FrbaOfertas
 
             if (exError != null)
             {
-                MessageBox.Show("Problemas al cargar su rol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Problemas al cargar su rol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
 
@@ -201,7 +211,9 @@ namespace FrbaOfertas
 
         private void listaUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            UsuariosList form2 = new UsuariosList();
+            form2.MdiParent = this;
+            form2.Show();
         }
 
         private void comprarOfertaToolStripMenuItem_Click(object sender, EventArgs e)

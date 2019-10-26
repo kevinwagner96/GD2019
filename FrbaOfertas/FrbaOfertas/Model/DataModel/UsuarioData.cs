@@ -15,7 +15,7 @@ namespace FrbaOfertas.DataModel
         public UsuarioData(SqlConnection connection) : base(connection) { }
         private String Table = "[GDDS2].[Usuario]";
         private String RTable = "[GDDS2].[usuario_x_rol]";
-        List<String> allAtributes = new List<String>(new String[] { "id_usuario", "usu_username", "usu_contrasenia", "usu_cant_intentos_fallidos", "usu_activo" });
+        List<String> allAtributes = new List<String>(new String[] { "id_usuario", "usu_username", "usu_cant_intentos_fallidos", "usu_activo" });
 
         public override List<Usuario> Select(out Exception exError)
         {
@@ -27,19 +27,23 @@ namespace FrbaOfertas.DataModel
                 if (this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                /*
-                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) + " FROM "FROM "+Table + " WHERE usu_username="+instance.id_usuario, (SqlConnection)this.Connection))
+                
+                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) + " FROM "+Table+"JOIN [GD2C2019].[GDDS2].[usuario_x_rol] ON [usuario_x_rol].id_usuario = [Usuario].id_usuario"+
+                        "JOIN [GD2C2019].[GDDS2].[Rol] ON [usuario_x_rol].id_rol = [Rol].id_rol" , (SqlConnection)this.Connection))
                 {
-                    if (!reader.Read())
-                        throw new InvalidOperationException("No existe el cliente.");
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
 
-                    SqlHelper.setearAtributos(reader, allAtributes, d);
-                    d.restartMList();
-
-                    if (reader.Read())
-                        throw new InvalidOperationException("Clientes multiples.");
+                        while (reader.Read())
+                        {
+                            Usuario c = new Usuario();
+                            SqlHelper.setearAtributos(reader, allAtributes, c);
+                            c.restartMList();
+                            returnValue.Add(c);
+                        }
+                    }
                 }
-                */
+                
             }
             catch (InvalidOperationException invalid)
             {

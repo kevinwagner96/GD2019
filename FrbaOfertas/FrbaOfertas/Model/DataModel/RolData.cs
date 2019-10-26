@@ -251,6 +251,15 @@ namespace FrbaOfertas.Model.DataModel
                         command.CommandText = "DELETE FROM " + RFTable + " WHERE id_rol=" + instance.id_rol;
 
                         command.ExecuteNonQuery();
+
+                        if (!instance.rol_activo)
+                        {
+                            command.CommandText = "DELETE FROM " + RUTable + " WHERE id_rol=" + instance.id_rol;
+                            command.ExecuteNonQuery();
+                        }
+
+
+
                         if (instance.funcionalidades.Count() > 0)
                         {
                             command.CommandText = "INSERT INTO  " + RFTable + " ([id_rol],[func_codigo])" +
@@ -306,6 +315,12 @@ namespace FrbaOfertas.Model.DataModel
 
 
                 using (SqlCommand command = new SqlCommand("UPDATE  " + Table + " SET [rol_activo]=0 WHERE id_rol=" + ID, (SqlConnection)this.Connection))
+                {
+
+                    command.ExecuteNonQuery();
+                }
+
+                using (SqlCommand command = new SqlCommand("DELETE FROM  " + RUTable + " WHERE id_rol=" + ID, (SqlConnection)this.Connection))
                 {
 
                     command.ExecuteNonQuery();
