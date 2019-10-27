@@ -743,11 +743,16 @@ exec migrarOfertas
 drop procedure migrarOfertas
 
 GO
-/*select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha,(select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null  
+
+-- carga de compras
+--Se realizo esta consulta:
+/*(select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null  
 union
-select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha ,(select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni ) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is null and m1.Oferta_Codigo not in (select distinct m1.Oferta_Codigo from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null   )
-*/ -- query que retorna todas las compras hechas, tanto las que fueron entregadas como las que no. me gustaria que en la ultima columna pueda transformar el null de los clientes que canjean los productos en el codigo de cliente que compraron, incluso usando "isnull" devuelve null esas columnas .
-/*create procedure migrarComprasEntregas
+select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha ,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is null and m1.Oferta_Codigo not in (select distinct m1.Oferta_Codigo from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null   ))
+*/
+--tiempo en migrar: 5" 55'
+--se debe optimizar la forma en que evalua si fue canjeado o mo
+create procedure migrarComprasEntregas
 as begin
 declare @ofertaCodigo nvarchar(50)
 declare @idCliente int
@@ -758,9 +763,11 @@ declare @fecha_entrega datetime
 declare @id_cliente_destino int
 declare @id_compra int
 set @id_compra = 1
-declare cursor_compras cursor for (select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha,(select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null  
+declare cursor_compras cursor fast_forward for (select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null  
 union
-select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha ,(select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni ) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is null and m1.Oferta_Codigo not in (select distinct m1.Oferta_Codigo from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null   ))
+select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha ,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is null and m1.Oferta_Codigo not in (select distinct m1.Oferta_Codigo from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null   ))
+
+
 open cursor_compras 
 fetch cursor_compras into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
 while (@@FETCH_STATUS = 0)
@@ -771,9 +778,6 @@ SET IDENTITY_INSERT GDDS2.[Compra] on
 insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado)
 values (@id_compra,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,1)
 SET IDENTITY_INSERT GDDS2.[Compra] off
-
-if (@id_cliente_destino is null)
-set @id_cliente_destino = @idCliente
 
 insert into GDDS2.Entrega(ent_fecha,id_compra,id_cliente)
 values (@fecha_entrega,@id_compra,@id_cliente_destino)
@@ -795,7 +799,14 @@ close cursor_compras
 deallocate cursor_compras
 
 end
-*/
+
+exec migrarComprasEntregas
+drop procedure migrarComprasEntregas
+
+Go
+
+
+
 create procedure GDDS2.existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(50), @resultado bit OUTPUT
 AS
 BEGIN
@@ -814,4 +825,3 @@ BEGIN
 	end
 END
 
-*/
