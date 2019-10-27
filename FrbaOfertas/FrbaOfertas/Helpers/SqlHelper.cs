@@ -65,7 +65,10 @@ namespace FrbaOfertas.Helpers
             String returned = "";
             foreach (String value in list)
             {
-                returned += "[" + value + "]=@" + value + ",";
+                if (value != "usu_contrasenia")
+                    returned += "[" + value + "]=@" + value + ",";
+                else
+                    returned += "[" + value + "]=HASHBYTES('SHA2_256',@" + value + "),";
             }
 
             return returned.Remove(returned.Length - 1);

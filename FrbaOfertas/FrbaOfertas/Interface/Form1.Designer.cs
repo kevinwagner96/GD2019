@@ -237,15 +237,16 @@
             // listaUsuariosToolStripMenuItem
             // 
             this.listaUsuariosToolStripMenuItem.Name = "listaUsuariosToolStripMenuItem";
-            this.listaUsuariosToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.listaUsuariosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.listaUsuariosToolStripMenuItem.Text = "Lista";
             this.listaUsuariosToolStripMenuItem.Click += new System.EventHandler(this.listaUsuariosToolStripMenuItem_Click);
             // 
             // nuevoToolStripMenuItem3
             // 
             this.nuevoToolStripMenuItem3.Name = "nuevoToolStripMenuItem3";
-            this.nuevoToolStripMenuItem3.Size = new System.Drawing.Size(109, 22);
+            this.nuevoToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.nuevoToolStripMenuItem3.Text = "Nuevo";
+            this.nuevoToolStripMenuItem3.Click += new System.EventHandler(this.nuevoToolStripMenuItem3_Click);
             // 
             // statusStrip1
             // 

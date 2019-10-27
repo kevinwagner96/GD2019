@@ -14,11 +14,12 @@ namespace FrbaOfertas.Model
         private String _usu_username;
         private String _usu_contrasenia;
         private Int32 _usu_cant_intentos_fallidos;
+        private List<Rol> _roles = new List<Rol>() ;
         
         private Boolean _usu_activo;        
 
         public Int32 id_usuario { get { return this._id_usuario; } set { this._id_usuario = value; atributesModify.Add("id_usuario"); } }
-        [System.ComponentModel.DisplayName("Nombre")]
+        [System.ComponentModel.DisplayName("Username")]
         public String usu_username { get { return this._usu_username; } set { this._usu_username = value; atributesModify.Add("usu_username"); } }
         [System.ComponentModel.DisplayName("Contraseña")]
         public String usu_contrasenia { get { return this._usu_contrasenia; } set { this._usu_contrasenia = value; atributesModify.Add("usu_contrasenia"); } }
@@ -26,6 +27,7 @@ namespace FrbaOfertas.Model
         public Int32 usu_cant_intentos_fallidos { get { return this._usu_cant_intentos_fallidos; } set { this._usu_cant_intentos_fallidos = value; atributesModify.Add("usu_cant_intentos_fallidos"); } }
         [System.ComponentModel.DisplayName("Activo")]
         public Boolean usu_activo { get { return this._usu_activo; } set { this._usu_activo = value; atributesModify.Add("usu_activo"); } }
+        public List<Rol> roles { get { return this._roles; } set { this._roles = value; } }
 
         public Usuario(string user, String p2, bool p3)
         {

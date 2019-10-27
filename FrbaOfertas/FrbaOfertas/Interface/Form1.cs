@@ -89,12 +89,28 @@ namespace FrbaOfertas
             if (rol.rol_nombre == "CLIENTE")
             {
                 Dictionary<String, Object> dic = new Dictionary<String, Object>() { { "clie_usuario", me.id_usuario } };
-                meCliente = cData.FilterSelect(new Dictionary<String, String>(), dic, out exError).First();
+                try
+                {
+                    meCliente = cData.FilterSelect(new Dictionary<String, String>(), dic, out exError).First();
+                }catch(Exception ex){
+                    MessageBox.Show("Su usuario cliente, no tiene un cliente asignado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
             }
             if (rol.rol_nombre == "PROVEEDOR")
             {
                 Dictionary<String, Object> dic = new Dictionary<String, Object>() { { "prove_usuario", me.id_usuario } };
+                try
+                {
                 meProveedor = pData.FilterSelect(new Dictionary<String, String>(), dic, out exError).First();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Su usuario proveedor, no tiene un proveedor asignado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
             }
 
             if (exError != null)
@@ -270,6 +286,13 @@ namespace FrbaOfertas
             ListadoOfertas carg = new ListadoOfertas();
             carg.MdiParent = this;
             carg.Show();
+        }
+
+        private void nuevoToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            NuevoUsuario form = new NuevoUsuario();
+            form.Parent = this.Parent;
+            form.Show();
         }
 
       

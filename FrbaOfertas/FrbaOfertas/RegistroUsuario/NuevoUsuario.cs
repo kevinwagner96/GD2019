@@ -46,7 +46,8 @@ namespace FrbaOfertas.RegistroUsuario
 
             roles.ForEach(delegate(Rol f)
             {
-                comboBox1.Items.Add(f.rol_nombre);
+                if(f.rol_nombre != "ADMINISTRADOR")
+                    comboBox1.Items.Add(f.rol_nombre);
             });
 
 

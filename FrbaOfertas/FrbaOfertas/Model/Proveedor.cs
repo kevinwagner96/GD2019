@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FrbaOfertas.Model
 {
-    class Proveedor
+    public class Proveedor
     {
         public List<String> atributesModify = new List<string>();
 
@@ -21,7 +21,7 @@ namespace FrbaOfertas.Model
         private String _prov_contacto;
         private Boolean _activo;
 
-        public Int32 id_proveedor { get { return this._id_proveedor; } set { this._id_proveedor = value; atributesModify.Add("id_proveedor"); } }
+        public Int32 id_proveedor { get { return this._id_proveedor; } set { this._id_proveedor = value; } }
         [System.ComponentModel.Browsable(false)]
         public Int32 id_domicilio { get { return this._id_domicilio; } set { this._id_domicilio = value; atributesModify.Add("id_domicilio"); } }
         [System.ComponentModel.Browsable(false)]

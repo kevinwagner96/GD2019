@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FrbaOfertas.Model
 {
-    class Factura
+    public class Factura
     {
         Int32 _id_fact;
         Int32 _id_proveedor;

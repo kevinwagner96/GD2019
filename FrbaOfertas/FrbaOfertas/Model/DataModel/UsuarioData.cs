@@ -27,9 +27,8 @@ namespace FrbaOfertas.DataModel
                 if (this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                
-                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) + " FROM "+Table+"JOIN [GD2C2019].[GDDS2].[usuario_x_rol] ON [usuario_x_rol].id_usuario = [Usuario].id_usuario"+
-                        "JOIN [GD2C2019].[GDDS2].[Rol] ON [usuario_x_rol].id_rol = [Rol].id_rol" , (SqlConnection)this.Connection))
+
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + " FROM " + Table, (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -82,9 +81,19 @@ namespace FrbaOfertas.DataModel
 
                         modified = (Int32)command.ExecuteScalar();
 
-                        command.CommandText = "INSERT INTO " + RTable + " ([id_usuario],[id_rol])" +
-                                    " output INSERTED.id_usuario VALUES(" + modified.ToString() + "," + id_rol.ToString() + ")";
-                        modified = (Int32)command.ExecuteScalar();
+                        if (instance.roles.Count() > 0)
+                        {
+                            command.CommandText = "INSERT INTO  " + RTable + " ([id_usuario],[id_rol])" +
+                                        "  output INSERTED.id_rol VALUES";
+                            instance.roles.ForEach(delegate(Rol f)
+                            {
+                                command.CommandText += "(" + modified + "," + f.id_rol.ToString() + "),";
+                            });
+
+                            command.CommandText = command.CommandText.Remove(command.CommandText.Length - 1);
+                            //modified = 
+                            command.ExecuteScalar();
+                        }
                         trans.Commit();
                     }
                     catch (Exception ex2)
@@ -119,7 +128,40 @@ namespace FrbaOfertas.DataModel
 
         public override Usuario Read(int ID, out Exception exError)
         {
-            throw new NotImplementedException();
+            Usuario usuario = new Usuario();
+            exError = null;
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (SqlCommand command2 = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + " FROM  " + Table + " WHERE id_usuario='" + ID + "'", (SqlConnection)this.Connection))
+                {
+                    using (SqlDataReader reader = command2.ExecuteReader())
+                    {
+
+                        if (!reader.Read())
+                            throw new InvalidOperationException("No existe el usuario.");
+
+                        SqlHelper.setearAtributos(reader, allAtributes, usuario);
+                        usuario.restartMList();
+
+                        if (reader.Read())
+                            throw new InvalidOperationException("Usuarios multiples.");
+
+                    }
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+              
+            return usuario;
         }
 
         public override Usuario Read(Usuario instance, out Exception exError)
@@ -206,19 +248,69 @@ namespace FrbaOfertas.DataModel
         }
         public override bool Update(Usuario instance, out Exception exError)
         {
-            throw new NotImplementedException();
-            /*
-             * SqlCommand tCommand = new SqlCommand();
-                tCommand.Connection = new SqlConnection("YourConnectionString");
-                tCommand.CommandText = "UPDATE players SET name = @name, score = @score, active = @active WHERE jerseyNum = @jerseyNum";
+            SqlTransaction trans;
+            SqlCommand command;            
+            exError = null;
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
 
-                tCommand.Parameters.Add(new SqlParameter("@name", System.Data.SqlDbType.VarChar).Value = "Smith, Steve");
-                tCommand.Parameters.Add(new SqlParameter("@score", System.Data.SqlDbType.Int).Value = "42");
-                tCommand.Parameters.Add(new SqlParameter("@active", System.Data.SqlDbType.Bit).Value = true);
-                tCommand.Parameters.Add(new SqlParameter("@jerseyNum", System.Data.SqlDbType.Int).Value = "99");
+                using (trans = ((SqlConnection)this.Connection).BeginTransaction())
+                {
+                    try
+                    {
+                        command = new SqlCommand("UPDATE " + Table + " SET " + SqlHelper.getUpdate(instance.getAtributeMList()) +
+                                                    " WHERE id_usuario=" + instance.id_usuario, (SqlConnection)this.Connection, trans);
+                        command.CommandType = System.Data.CommandType.Text;
+                        foreach (String value in instance.getAtributeMList())
+                        {
+                            command.Parameters.AddWithValue("@" + value, instance.getMethodString(value));
+                        }
 
-                tCommand.ExecuteNonQuery();
-             * */
+                        command.ExecuteNonQuery();
+
+                        command.CommandText = "DELETE " + RTable + " WHERE id_usuario=" + instance.id_usuario;
+                        command.ExecuteNonQuery();
+
+                        if (instance.roles.Count() > 0)
+                        {
+                            command.CommandText = "INSERT INTO  " + RTable + " ([id_usuario],[id_rol])" +
+                                        "  output INSERTED.id_rol VALUES";
+                            instance.roles.ForEach(delegate(Rol f)
+                            {
+                                command.CommandText += "(" + instance.id_usuario.ToString() + "," + f.id_rol.ToString() + "),";
+                            });
+
+                            command.CommandText = command.CommandText.Remove(command.CommandText.Length - 1);
+                            Int32 modified = (Int32)command.ExecuteScalar();
+                        }
+
+                        trans.Commit();
+                    }
+                    catch (Exception ex2)
+                    {
+                        try
+                        {
+                            exError = ex2;
+                            trans.Rollback();
+                        }
+                        catch
+                        {
+                            exError = ex2;
+                        }
+
+                    }
+
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+
+
+            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)

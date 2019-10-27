@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FrbaOfertas.Model
 {
-    class TipoDePago
+    public class TipoDePago
     {
         public List<String> atributesModify = new List<string>();
 

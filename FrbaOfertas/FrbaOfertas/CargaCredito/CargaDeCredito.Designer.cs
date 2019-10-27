@@ -99,6 +99,7 @@
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 31;
             this.label2.Text = "Cliente *";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
@@ -117,6 +118,7 @@
             this.clie_nombre.Size = new System.Drawing.Size(123, 20);
             this.clie_nombre.TabIndex = 29;
             this.clie_nombre.Tag = "Cliente";
+            this.clie_nombre.TextChanged += new System.EventHandler(this.clie_nombre_TextChanged);
             // 
             // seleccionar
             // 

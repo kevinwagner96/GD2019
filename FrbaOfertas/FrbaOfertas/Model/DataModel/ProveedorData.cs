@@ -211,7 +211,54 @@ namespace FrbaOfertas.Model.DataModel
 
         public override bool Update(Proveedor instance, out Exception exError)
         {
-            throw new NotImplementedException();
+            SqlTransaction trans;
+            SqlCommand command;            
+            exError = null;
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (trans = ((SqlConnection)this.Connection).BeginTransaction())
+                {
+                    try
+                    {
+                        command = new SqlCommand("UPDATE " + Table + " SET " + SqlHelper.getUpdate(instance.getAtributeMList()) +
+                                                        " WHERE id_proveedor=" + instance.id_proveedor, (SqlConnection)this.Connection, trans);
+                        command.CommandType = System.Data.CommandType.Text;
+                        foreach (String value in instance.getAtributeMList())
+                        {
+                            command.Parameters.AddWithValue("@" + value, instance.getMethodString(value));
+                        }
+
+                        command.ExecuteNonQuery();
+
+
+                        trans.Commit();
+                    }
+                    catch (Exception ex2)
+                    {
+                        try
+                        {
+                            exError = ex2;
+                            trans.Rollback();
+                        }
+                        catch
+                        {
+                            exError = ex2;
+                        }
+
+                    }
+
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+
+
+            return true;
         }
 
         public override bool Update(Proveedor instance,object otro ,out Exception exError)

@@ -98,6 +98,12 @@
     <Compile Include="AbmRol\RolesList.Designer.cs">
       <DependentUpon>RolesList.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmUsuario\Asignaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmUsuario\Asignaciones.Designer.cs">
+      <DependentUpon>Asignaciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmUsuario\ModificarUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -244,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\RolesList.resx">
       <DependentUpon>RolesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmUsuario\Asignaciones.resx">
+      <DependentUpon>Asignaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmUsuario\ModificarUsuario.resx">
       <DependentUpon>ModificarUsuario.cs</DependentUpon>

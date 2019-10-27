@@ -133,5 +133,15 @@ namespace FrbaOfertas.CargaCredito
                 clie_nombre.Text = this.cliente.clie_nombre;
             }
         }
+
+        private void clie_nombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

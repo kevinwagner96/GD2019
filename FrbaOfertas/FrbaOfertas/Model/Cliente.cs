@@ -54,7 +54,7 @@ namespace FrbaOfertas.Model
         }
 
         
-        public Int32 id_cliente { get { return this._id_cliente; } set { this._id_cliente = value; atributesModify.Add("id_cliente"); } }
+        public Int32 id_cliente { get { return this._id_cliente; } set { this._id_cliente = value;  } }
         [System.ComponentModel.Browsable(false)]
         public Int32 id_domicilio { get { return this._id_domicilio; } set { this._id_domicilio = value; atributesModify.Add("id_domicilio"); } }
         [System.ComponentModel.Browsable(false)]

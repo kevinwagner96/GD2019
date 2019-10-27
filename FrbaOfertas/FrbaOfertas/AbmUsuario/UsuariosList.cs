@@ -84,8 +84,8 @@ namespace FrbaOfertas.AbmProveedor
         private void button3_Click(object sender, EventArgs e)
         {
            
-            Int32 id = (Int32) dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["id_proveedor"].Value;
-            ModificarProveedor modificarProveedor = new ModificarProveedor(id);
+            Int32 id = (Int32) dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["id_usuario"].Value;
+            ModificarUsuario modificarProveedor = new ModificarUsuario(id);
             modificarProveedor.ShowDialog();
             modificarProveedor.Focus();
             cargarDataGrid();

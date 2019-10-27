@@ -1,4 +1,5 @@
-﻿using FrbaOfertas.DataModel;
+﻿using FrbaOfertas.AbmUsuario;
+using FrbaOfertas.DataModel;
 using FrbaOfertas.Helpers;
 using FrbaOfertas.Model;
 using FrbaOfertas.Model.DataModel;
@@ -21,8 +22,13 @@ namespace FrbaOfertas.AbmProveedor
         List<TextBox> numericos= new List<TextBox>();
         List<TextBox> todos = new List<TextBox>();
         public object returnUsuario { get; set; }
+        Usuario usuario;
+
+        List<Rol> roles;
        
         UsuarioData uData;
+
+        RolData rData;
         
         Exception exError = null;
         bool noDB=false;
@@ -40,16 +46,8 @@ namespace FrbaOfertas.AbmProveedor
 
         private void NuevoCliente_Load(object sender, EventArgs e)
         {
-            noNulos.Add(prov_razon_social);
-            noNulos.Add(prov_CUIT);
-            noNulos.Add(prov_rubro);
-            noNulos.Add(prov_contacto);
-            noNulos.Add(dom_calle);
-            noNulos.Add(dom_ciudad);
-            numericos.Add(prov_CUIT);
-            numericos.Add(dom_numero);
-            numericos.Add(dom_depto);
-            numericos.Add(dom_piso);
+            noNulos.Add(usu_username);
+            noNulos.Add(usu_contrasenia);            
 
             foreach (Control x in this.Controls)
             {
@@ -60,6 +58,14 @@ namespace FrbaOfertas.AbmProveedor
             }
 
             uData = new UsuarioData(Conexion.getConexion());
+            rData = new RolData(Conexion.getConexion());
+
+            roles = rData.Select(out exError);            
+            roles.ForEach(delegate(Rol rol)
+            {
+                checkedListRoles.Items.Add(rol.rol_nombre);
+
+            });
            
 
            
@@ -67,8 +73,9 @@ namespace FrbaOfertas.AbmProveedor
 
         private void guardar_Click(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario();
-       
+            usuario = new Usuario();
+            Boolean rolCliente = false;
+            Boolean rolProveedor = false;
 
             if (!FormHelper.noNullList(noNulos) || !FormHelper.esNumericoList(numericos))
                 return;
@@ -87,10 +94,33 @@ namespace FrbaOfertas.AbmProveedor
                 return;
             }
 
-            //Int32 id = uData.Create(usuario, rol, out exError);
+            Int32 i = 0;
+            roles.ForEach(delegate(Rol f)
+            {
+                if (checkedListRoles.GetItemChecked(i))
+                {
+                    usuario.roles.Add(f);
+                    if (f.rol_nombre == "CLIENTE")
+                    {
+                        rolCliente = true;
+                    }
+                    else if (f.rol_nombre == "PROVEEDOR")
+                    {
+                        rolProveedor = true;
+                    }
+                }
+
+                i++;
+            });
+
+            Int32 id = uData.Create(usuario, usuario.roles, out exError);
             if (exError == null)
             {
                 MessageBox.Show("Usuario  " + usuario.usu_username + " agregado exitosamente.", "Usuario nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                if (!asignarRoles(rolCliente, rolProveedor,id))
+                    return;
+
                 this.Close();
             }
             else
@@ -99,6 +129,44 @@ namespace FrbaOfertas.AbmProveedor
             
         }
 
+
+        private bool asignarRoles(bool rolCliente, bool rolProveedor,int id_usuario)
+        {
+            ClienteData cData = new ClienteData(Conexion.getConexion());
+            ProveedorData pData = new ProveedorData(Conexion.getConexion());
+
+            Dictionary<String, Object> clie = new Dictionary<String, Object>() { { "clie_usuario", usuario.id_usuario } };
+            Dictionary<String, Object> prov = new Dictionary<String, Object>() { { "prove_usuario", usuario.id_usuario } };
+
+            List<Cliente> clientes = cData.FilterSelect(new Dictionary<String, String>(), clie, out exError);
+            List<Proveedor> proveedores = pData.FilterSelect(new Dictionary<String, String>(), prov, out exError);
+
+            if (clientes.Count() > 0)
+                rolCliente = false;
+
+            if (proveedores.Count() > 0)
+                rolCliente = false;
+
+            if (rolCliente || rolProveedor)
+            {
+                Asignaciones asignaciones = new Asignaciones(rolCliente, rolProveedor, id_usuario);
+                asignaciones.Parent = this.Parent;
+                var result = asignaciones.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+
+        }
         
 
        
