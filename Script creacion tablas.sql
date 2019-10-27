@@ -14,6 +14,7 @@ BEGIN
 EXEC ('CREATE SCHEMA [GDDS2] AUTHORIZATION [gdCupon2019]')
 END
 
+
 CREATE TABLE [GDDS2].[Cliente](
 	[id_cliente] [int] IDENTITY(1,1) NOT NULL,
 	[clie_usuario] [int],
@@ -33,6 +34,29 @@ CREATE TABLE [GDDS2].[Cliente](
 ) ON [PRIMARY]
 
 GO
+/****** Object:  Table [GDDS2].[Rubro]    Script Date: 10/10/2019 18:55:19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE TABLE [GDDS2].[Rubro](
+[rubr_id] [int] IDENTITY(1,1) NOT NULL,
+[rubr_detalle] [nvarchar] (50) NOT NULL,
+CONSTRAINT [Rubro_pk] PRIMARY KEY CLUSTERED
+(
+    [rubr_id] ASC       
+	 ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+
+
+
 
 /****** Object:  Table [GDDS2].[Compra]    Script Date: 10/10/2019 18:55:19 ******/
 SET ANSI_NULLS ON
@@ -58,6 +82,8 @@ CREATE TABLE [GDDS2].[Compra](
 ) ON [PRIMARY]
 
 GO
+
+
 
 /****** Object:  Table [GDDS2].[credito]    Script Date: 10/10/2019 18:55:19 ******/
 SET ANSI_NULLS ON
@@ -173,6 +199,9 @@ CREATE TABLE [GDDS2].[funcionalidad](
 
 GO
 
+
+
+
 /****** Object:  Table [GDDS2].[Item_factura]    Script Date: 10/10/2019 18:55:19 ******/
 SET ANSI_NULLS ON
 GO
@@ -235,7 +264,7 @@ CREATE TABLE [GDDS2].[Proveedor](
 	[prov_razon_social] [nvarchar] (50) unique NOT NULL,
 	[prov_email] [nvarchar](50) NULL,
 	[prov_telefono] [nvarchar](50) NULL,
-	[prov_rubro] [nvarchar](50) NOT NULL,
+	[rubr_id] [int] NOT NULL,
 	[prov_contacto] [nvarchar](50) NULL,
 	[prov_activo] [bit] NOT NULL,
  CONSTRAINT [Proveedor_pk] PRIMARY KEY CLUSTERED 
@@ -433,6 +462,16 @@ GO
 ALTER TABLE [GDDS2].[Proveedor] CHECK CONSTRAINT [Domicilio_Proveedor_fk]
 GO
 
+ALTER TABLE [GDDS2].[Proveedor]  WITH CHECK ADD  CONSTRAINT [Rubro_Proveedor_fk] FOREIGN KEY([rubr_id])
+REFERENCES [GDDS2].[Rubro] ([rubr_id])
+GO
+
+ALTER TABLE [GDDS2].[Proveedor] CHECK CONSTRAINT [Rubro_Proveedor_fk]
+GO
+
+
+
+
 ALTER TABLE [GDDS2].[Proveedor]  WITH CHECK ADD  CONSTRAINT [Usuario_Proveedor_fk] FOREIGN KEY([prove_usuario])
 REFERENCES [GDDS2].[Usuario] ([id_usuario])
 GO
@@ -545,7 +584,7 @@ declare @ciudad nvarchar(50)
 declare @contador int 
 set @contador = 1
 
-declare cursorClientes cursor fast_forward for (select distinct Cli_Nombre, Cli_Apellido,Cli_Dni,Cli_Direccion,Cli_Telefono,Cli_Mail,Cli_Fecha_Nac,Cli_Ciudad from gd_esquema.Maestra)
+declare cursorClientes cursor fast_forward for (select distinct Cli_Nombre, Cli_Apellido,Cli_Dni,Cli_Direccion,Cli_Telefono,Cli_Mail,Cli_Fecha_Nac,Cli_Ciudad from gd_esquema.Maestra where Cli_Nombre is not null)
 open cursorClientes 
 fetch cursorClientes into @nombre,@apellido,@dni,@direccion_string,@telefono,@email,@fechaNac,@ciudad
 
@@ -573,6 +612,37 @@ exec cargarClientes
 drop procedure cargarClientes
 GO
 
+--cargo los rubros
+
+create procedure migrarRubros
+as begin
+
+declare @contador int
+declare @detalle nvarchar(50)
+set @contador = 1
+declare c cursor fast_forward for (select distinct Provee_Rubro from gd_esquema.Maestra where Provee_Rubro is not null)
+open c
+fetch next from c into @detalle
+while (@@FETCH_STATUS = 0)
+begin
+SET IDENTITY_INSERT GDDS2.[Rubro] ON
+insert into GDDS2.[Rubro](rubr_id,rubr_detalle)
+values (@contador,@detalle)
+SET IDENTITY_INSERT GDDS2.[Rubro] OFF
+set @contador = @contador + 1
+fetch next from c into @detalle
+end
+close c
+deallocate c
+
+end
+Go
+
+exec migrarRubros
+drop procedure migrarRubros
+Go
+
+
 --cargo los proveedore con respectivos domicilio
 create procedure cargarProveedores
 as begin
@@ -581,11 +651,11 @@ declare @domicilio_string nvarchar(50)
 declare @ciudad nvarchar(50)
 declare @telefono nvarchar(50)
 declare @cuit nvarchar(20)
-declare @rubro nvarchar(50)
+declare @rubro int
 declare @contador int
 set @contador = (select count(id_domicilio)from GDDS2.Domicilio)+1
 
-declare cursorProveedores cursor fast_forward for (select distinct isnull(Provee_RS,'--'),isnull(Provee_Dom,'--'),isnull(Provee_Ciudad,'--'),isnull(Provee_Telefono,0),isnull(Provee_CUIT,'--'),isnull(Provee_Rubro,'--') from gd_esquema.Maestra)
+declare cursorProveedores cursor fast_forward for (select distinct Provee_RS,Provee_Dom,Provee_Ciudad,Provee_Telefono,Provee_CUIT,rubr_id from gd_esquema.Maestra join GDDS2.Rubro on rubr_detalle = Provee_Rubro where Provee_RS is not null )
 open cursorProveedores
 fetch cursorProveedores into @razon_social,@domicilio_string,@ciudad,@telefono,@cuit,@rubro
 while (@@FETCH_STATUS = 0)
@@ -596,7 +666,7 @@ values (@contador,@domicilio_string,@ciudad)
 
 SET IDENTITY_INSERT GDDS2.[Domicilio] OFF
 
-insert into GDDS2.[Proveedor] (id_domicilio,prov_CUIT,prov_razon_social,prov_telefono,prov_rubro,prov_activo)
+insert into GDDS2.[Proveedor] (id_domicilio,prov_CUIT,prov_razon_social,prov_telefono,rubr_id,prov_activo)
 values (@contador,@cuit,@razon_social,@telefono,@rubro,1)
 set @contador = @contador + 1
 fetch cursorProveedores into @razon_social,@domicilio_string,@ciudad,@telefono,@cuit,@rubro
@@ -743,3 +813,5 @@ BEGIN
 		end
 	end
 END
+
+*/
