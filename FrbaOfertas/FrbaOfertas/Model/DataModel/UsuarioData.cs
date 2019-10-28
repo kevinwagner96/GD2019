@@ -58,7 +58,41 @@ namespace FrbaOfertas.DataModel
 
         public override List<Usuario> FilterSelect(Dictionary<String, String> like, Dictionary<String, Object> exac, out Exception exError)
         {
-            throw new NotImplementedException();
+            List<Usuario> returnValue = new List<Usuario>();
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + " FROM " + Table+" WHERE [usu_activo]=1", (SqlConnection)this.Connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            Usuario c = new Usuario();
+                            SqlHelper.setearAtributos(reader, allAtributes, c);
+                            c.restartMList();
+                            returnValue.Add(c);
+                        }
+                    }
+                }
+
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return returnValue;
         }
 
         public override Int32 Create(Usuario instance, object id_rol, out Exception exError)
@@ -322,7 +356,7 @@ namespace FrbaOfertas.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("DELETE FROM  " + Table + " WHERE id_usuario=" + ID, (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("UPDATE  " + Table + " SET [usu_activo]=0 WHERE id_usuario=" + ID, (SqlConnection)this.Connection))
                 {
 
                     command.ExecuteNonQuery();

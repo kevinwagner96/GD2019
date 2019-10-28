@@ -93,10 +93,10 @@ namespace FrbaOfertas.AbmProveedor
 
         private void button2_Click(object sender, EventArgs e)
         {
-            String nombre = dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["prov_razon_social"].Value.ToString();
-            Int32 id = (Int32)dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["id_proveedor"].Value;
+            
+            Int32 id = (Int32)dataGridProveedores.Rows[dataGridProveedores.CurrentCell.RowIndex].Cells["id_usuario"].Value;
 
-            DialogResult result = MessageBox.Show("Seguro quiere eliminar al proveedor " + nombre + ".", "Proveedor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Seguro quiere eliminar al usuario .", "Usuario", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 data.Delete(id, out exError);

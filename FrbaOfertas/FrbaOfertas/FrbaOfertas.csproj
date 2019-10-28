@@ -98,6 +98,12 @@
     <Compile Include="AbmRol\RolesList.Designer.cs">
       <DependentUpon>RolesList.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRubro\NuevoRubro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRubro\NuevoRubro.Designer.cs">
+      <DependentUpon>NuevoRubro.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmUsuario\Asignaciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,8 @@
     <Compile Include="Model\Credito.cs" />
     <Compile Include="Model\DataModel\ClienteData.cs" />
     <Compile Include="Model\DataModel\CompraData.cs" />
+    <Compile Include="Model\DataModel\EntregaData.cs" />
+    <Compile Include="Model\DataModel\FacturaData.cs" />
     <Compile Include="Model\DataModel\OfertaData.cs" />
     <Compile Include="Model\DataModel\CreditoData.cs" />
     <Compile Include="Model\DataModel\TipoPagoData.cs" />

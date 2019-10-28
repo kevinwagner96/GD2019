@@ -96,6 +96,43 @@ namespace FrbaOfertas.Model.DataModel
             return returnValue;
         }
 
+       public List<Rol> SelectActivos( out Exception exError)
+       {
+           List<Rol> returnValue = new List<Rol>();
+           exError = null;
+
+           try
+           {
+               if (this.Connection.State != ConnectionState.Open)
+                   this.Connection.Open();
+
+
+               using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) + " FROM " + Table + " WHERE [rol_activo]=1", (SqlConnection)this.Connection))
+               {
+
+                   using (SqlDataReader reader = command.ExecuteReader())
+                   {
+                       while (reader.Read())
+                       {
+                           Rol f = new Rol();
+                           SqlHelper.setearAtributos(reader, allAtributes, f);
+                           returnValue.Add(f);
+                       }
+                   }
+               }
+           }
+           catch (InvalidOperationException invalid)
+           {
+               exError = invalid;
+           }
+           catch (Exception ex)
+           {
+               exError = ex;
+           }
+
+           return returnValue;
+       }
+
        public override Int32 Create(Rol instance, object otro, out Exception exError)
         {
             Int32 modified = -1;

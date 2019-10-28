@@ -78,6 +78,20 @@ namespace FrbaOfertas.AbmProveedor
             FormHelper.setearAtributos(todos, direccion);
             proveedor.prov_activo = prov_activo.Checked;
 
+            Dictionary<String, Object> exac = new Dictionary<string, Object>() { { "prov_razon_social", proveedor.prov_razon_social } };
+            if (dataP.FilterSelect(new Dictionary<String, String>(), exac, out exError).Count() > 0)
+            {
+                MessageBox.Show("Erro al agregar proveedor, ya existe la razon social", "Proveedor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Dictionary<String, Object> exac2 = new Dictionary<string, Object>() { { "prov_CUIT", proveedor.prov_CUIT } };
+            if (dataP.FilterSelect(new Dictionary<String, String>(), exac2, out exError).Count() > 0)
+            {
+                MessageBox.Show("Erro al agregar proveedor, ya existe el CUIT", "Proveedor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (noDB)
             {
                 returnProveedor= proveedor;

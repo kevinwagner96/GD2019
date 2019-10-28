@@ -60,7 +60,9 @@ namespace FrbaOfertas.AbmProveedor
             uData = new UsuarioData(Conexion.getConexion());
             rData = new RolData(Conexion.getConexion());
 
-            roles = rData.Select(out exError);            
+
+            
+            roles = rData.SelectActivos(out exError);     // solo los activos       
             roles.ForEach(delegate(Rol rol)
             {
                 checkedListRoles.Items.Add(rol.rol_nombre);

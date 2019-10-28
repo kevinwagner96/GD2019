@@ -92,35 +92,40 @@ namespace FrbaOfertas.Helpers
 
                 try
                 {
-                    if (objeto.GetType().GetProperty(atribute).PropertyType == typeof(String))
-                        objeto.GetType().GetProperty(atribute).SetValue(objeto, (String) reader.GetValue(reader.GetOrdinal(atribute)));
-                    else if (objeto.GetType().GetProperty(atribute).PropertyType == typeof(Int32))
+                    if (!reader.IsDBNull(reader.GetOrdinal(atribute)))
                     {
-                        try
+                        var param = objeto.GetType().GetProperty(atribute);
+                        if (param.PropertyType == typeof(String))
+                            param.SetValue(objeto, (String)reader.GetValue(reader.GetOrdinal(atribute)));
+                        else if (param.PropertyType == typeof(Int32))
                         {
-                            objeto.GetType().GetProperty(atribute).SetValue(objeto, reader.GetInt32(reader.GetOrdinal(atribute)));
+                            try
+                            {
+                                param.SetValue(objeto, reader.GetInt32(reader.GetOrdinal(atribute)));
+                            }
+                            catch
+                            {
+                                param.SetValue(objeto, (Int32)reader.GetDecimal(reader.GetOrdinal(atribute)));
+                            }
                         }
-                        catch
-                        {
-                            objeto.GetType().GetProperty(atribute).SetValue(objeto, (Int32)reader.GetDecimal(reader.GetOrdinal(atribute)));
-                        }
+                        else if (param.PropertyType == typeof(Int32?))
+                            param.SetValue(objeto, (Int32?)reader.GetValue(reader.GetOrdinal(atribute)));
+                        else if (param.PropertyType == typeof(DateTime))
+                            param.SetValue(objeto, reader.GetDateTime(reader.GetOrdinal(atribute)));
+                        else if (objeto.GetType().GetProperty(atribute).PropertyType == typeof(Double))
+                            param.SetValue(objeto, (Double)reader.GetDecimal(reader.GetOrdinal(atribute)));
+                        else if (objeto.GetType().GetProperty(atribute).PropertyType == typeof(Boolean))
+                            param.SetValue(objeto, (Boolean)reader.GetValue(reader.GetOrdinal(atribute)));
+
                     }
-                    else if (objeto.GetType().GetProperty(atribute).PropertyType == typeof(Int32?))
-                        objeto.GetType().GetProperty(atribute).SetValue(objeto, (Int32?)reader.GetValue(reader.GetOrdinal(atribute)));
-                    else if (objeto.GetType().GetProperty(atribute).PropertyType == typeof(DateTime))
-                        objeto.GetType().GetProperty(atribute).SetValue(objeto, reader.GetDateTime(reader.GetOrdinal(atribute)));
-                    else if (objeto.GetType().GetProperty(atribute).PropertyType == typeof(Double))
-                        objeto.GetType().GetProperty(atribute).SetValue(objeto, (Double)reader.GetDecimal(reader.GetOrdinal(atribute)));
-                    else if (objeto.GetType().GetProperty(atribute).PropertyType == typeof(Boolean))
-                        objeto.GetType().GetProperty(atribute).SetValue(objeto, (Boolean)reader.GetValue(reader.GetOrdinal(atribute)));
-
-
                 }
                 catch { }
             }
 
             return objeto;
         }
+
+ 
 
         public static string CalculateMD5Hash(string input)
         {

@@ -79,6 +79,12 @@ namespace FrbaOfertas
                        
             rolTool.Text = rol.rol_nombre;
             Rol miRol = rolData.Read(rol.id_rol,out exError);
+            if (!miRol.rol_activo)
+            {
+                MessageBox.Show("Su rol de usuario, no esta activo.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
             habilitarFuncionalidades( miRol.funcionalidades);
             loadRol();
 
@@ -92,6 +98,12 @@ namespace FrbaOfertas
                 try
                 {
                     meCliente = cData.FilterSelect(new Dictionary<String, String>(), dic, out exError).First();
+                    if (!meCliente.clie_activo)
+                    {
+                        MessageBox.Show("Su usuario cliente, esta inhabilitado, no podra cargar credito y comprar ofertas.", "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CARGA_CREDITO.Enabled = false;
+                        COMPRAR_OFERTA.Enabled = false;
+                    }
                 }catch(Exception ex){
                     MessageBox.Show("Su usuario cliente, no tiene un cliente asignado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.DialogResult = DialogResult.OK;
@@ -242,6 +254,14 @@ namespace FrbaOfertas
             if (rol.rol_nombre == "CLIENTE")
             {
                 CanjearCupon form = new CanjearCupon(meCliente);
+                form.MdiParent = this;
+                form.Show();
+                return;
+            }
+
+            if (rol.rol_nombre == "PROVEEDOR")
+            {
+                CanjearCupon form = new CanjearCupon(meProveedor);
                 form.MdiParent = this;
                 form.Show();
                 return;

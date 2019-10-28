@@ -14,8 +14,10 @@ namespace FrbaOfertas.Model.DataModel
     {
         public ClienteData(SqlConnection connection) : base(connection) { }
         List<String> allAtributes = new List<String>(new String[] { "id_cliente", "id_domicilio", "clie_usuario", "clie_dni", "clie_nombre", "clie_apellido", "clie_email", "clie_telefono", "clie_fecha_nac", "clie_credito", "clie_activo" });
+        List<String> conUsername = new List<String>(new String[] { "id_cliente", "id_domicilio", "clie_usuario", "usu_username", "clie_dni", "clie_nombre", "clie_apellido", "clie_email", "clie_telefono", "clie_fecha_nac", "clie_credito", "clie_activo" });
         String Table = "[GDDS2].[Cliente]";
         String DTable = "[GDDS2].[Domicilio]";
+        String UTable = "[GDDS2].[Usuario]";
 
         public override List<Cliente> Select(out Exception exError)
         {
@@ -26,18 +28,17 @@ namespace FrbaOfertas.Model.DataModel
             {
                 if (this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
-                
 
-                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) +" FROM "+Table, (SqlConnection)this.Connection))
+
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(conUsername) + " FROM " + Table + " LEFT JOIN " + UTable + " ON " + UTable + ".[id_usuario]=" + Table + ".[clie_usuario] ", (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            Cliente c = new Cliente();
-                            SqlHelper.setearAtributos(reader, allAtributes, c);
-                            c.restartMList();
-                            returnValue.Add(c);
+
+                            returnValue.Add( new Cliente(reader));
+                            
                         }
                     }
                 }
@@ -60,7 +61,7 @@ namespace FrbaOfertas.Model.DataModel
             exError = null;
             String and = "";
 
-            if (like.Count() > 0 )
+            if (like.Count() > 0 && exac.Count() > 0)
                 and = "AND";
 
             try
@@ -69,8 +70,8 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) +
-                    "FROM "+Table+" WHERE " + SqlHelper.getLikeFilter(like) +and+ SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(conUsername) +
+                    " FROM " + Table + " LEFT JOIN " + UTable + " ON " + UTable + ".[id_usuario]=" + Table + ".[clie_usuario] WHERE " + SqlHelper.getLikeFilter(like) + and + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
                 {
                     foreach (KeyValuePair<String, Object> value in exac)
                     {
@@ -81,10 +82,7 @@ namespace FrbaOfertas.Model.DataModel
                     {
                         while (reader.Read())
                         {
-                            Cliente c = new Cliente();
-                            SqlHelper.setearAtributos(reader, allAtributes, c);
-                            c.restartMList();
-                            returnValue.Add(c);
+                            returnValue.Add(new Cliente(reader));
                         }
                     }
                 }

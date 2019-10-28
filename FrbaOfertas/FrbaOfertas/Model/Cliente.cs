@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FrbaOfertas.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -13,7 +15,8 @@ namespace FrbaOfertas.Model
 
         private Int32 _id_cliente;
         private Int32 _id_domicilio;
-        private Int32? _clie_usuario ;      
+        private Int32? _clie_usuario ;
+        private String _usu_username;
         private Int32 _clie_dni;
         private String _clie_nombre;
         private String _clie_apellido;
@@ -39,6 +42,36 @@ namespace FrbaOfertas.Model
             this._activo = p10;
         }
 
+        public Cliente(SqlDataReader reader)
+        {
+            try
+            {
+                id_cliente = reader.GetInt32(0);
+                id_domicilio = reader.GetInt32(1);
+                if(!reader.IsDBNull(2))
+                    clie_usuario = reader.GetInt32(2);
+                if (!reader.IsDBNull(3))
+                    usu_username = reader.GetString(3);
+                clie_dni = (Int32)reader.GetDecimal(4);
+                clie_nombre = reader.GetString(5);
+                clie_apellido = reader.GetString(6);
+                if (!reader.IsDBNull(7))
+                    clie_email = reader.GetString(7);
+                if (!reader.IsDBNull(8))
+                    clie_telefono = reader.GetString(8);
+                clie_fecha_nac = reader.GetDateTime(9);
+                clie_credito = Decimal.ToDouble(reader.GetDecimal(10));
+                clie_activo = reader.GetBoolean(11);
+            }
+            catch{ }
+
+
+        }
+        public String getColumns()
+        {
+           return SqlHelper.getColumns( new List<String>(new String[] { "id_cliente", "id_domicilio", "clie_usuario", "usu_username", "clie_dni", "clie_nombre", "clie_apellido", "clie_email", "clie_telefono", "clie_fecha_nac", "clie_credito", "clie_activo" }));
+        }
+
         public Cliente()
         {
             // TODO: Complete member initialization
@@ -59,6 +92,8 @@ namespace FrbaOfertas.Model
         public Int32 id_domicilio { get { return this._id_domicilio; } set { this._id_domicilio = value; atributesModify.Add("id_domicilio"); } }
         [System.ComponentModel.Browsable(false)]
         public Int32? clie_usuario { get { return this._clie_usuario; } set { this._clie_usuario = value; atributesModify.Add("clie_usuario"); } }
+        [System.ComponentModel.DisplayName("Username")]
+        public String usu_username { get { return this._usu_username; } set { this._usu_username = value; } }
         [System.ComponentModel.DisplayName("DNI")]
         public Int32 clie_dni{ get { return this._clie_dni; }set { this._clie_dni = value; atributesModify.Add("clie_dni"); }}
         [System.ComponentModel.DisplayName("Nombre")]

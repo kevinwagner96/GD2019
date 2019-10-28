@@ -93,6 +93,13 @@ namespace FrbaOfertas.AbmCliente
             cliente.clie_credito = ConfigurationHelper.CreditoInicial;
             cliente.clie_activo = true;
 
+            Dictionary<String, Object> exac = new Dictionary<string, Object>(){{"clie_dni",cliente.clie_dni}};
+            if(dataC.FilterSelect(new Dictionary<String,String>(),exac,out exError).Count()>0){
+                MessageBox.Show("Erro al agregar cliente, ya existe el DNI","Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                return;
+            }
+
+
             if (noDB) {
                 returnCliente = cliente;
                 returnDireccion = direccion;

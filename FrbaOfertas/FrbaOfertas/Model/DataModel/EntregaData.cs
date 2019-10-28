@@ -34,7 +34,7 @@ namespace FrbaOfertas.Model.DataModel
         }
 
         public override Int32 Create(Entrega instance,object otro, out Exception exError)
-        {
+        {/*
             Int32 modified = -1;
             SqlTransaction trans;
             SqlCommand command;
@@ -92,8 +92,10 @@ namespace FrbaOfertas.Model.DataModel
             }
 
 
-            return modified;
+            return modified;*/
+            throw new NotImplementedException();
         }
+
 
         public override Entrega Read(int ID, out Exception exError)
         {

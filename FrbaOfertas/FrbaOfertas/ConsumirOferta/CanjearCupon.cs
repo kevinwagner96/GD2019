@@ -16,6 +16,7 @@ namespace FrbaOfertas.ConsumirOferta
     {
         private static DateTime fecha = FrbaOfertas.ConfigurationHelper.FechaActual;
         Cliente cliente;
+        Proveedor proveedor;
         Compra compra;
 
 
@@ -32,6 +33,14 @@ namespace FrbaOfertas.ConsumirOferta
             InitializeComponent();
             this.compra =(Compra) compra;
             id_compra.Text = this.compra.id_compra.ToString();
+            seleccionar.Enabled = true;
+        }
+
+        public CanjearCupon(Proveedor proveedor)
+        {
+            InitializeComponent();
+            this.proveedor = proveedor;
+            id_compra.Enabled = true;
             seleccionar.Enabled = true;
         }
 
@@ -53,6 +62,12 @@ namespace FrbaOfertas.ConsumirOferta
 
         private void id_compra_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void guardar_Click(object sender, EventArgs e)
+        {
+            //COMPROBAR PROVEEDOR
 
         }
     }

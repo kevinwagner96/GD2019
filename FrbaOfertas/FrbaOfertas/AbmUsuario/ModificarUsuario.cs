@@ -62,7 +62,7 @@ namespace FrbaOfertas.AbmProveedor
             }
             FormHelper.setearTextBoxs(todos, usuario);
 
-            roles = rData.Select(out exError);
+            roles = rData.SelectActivos(out exError);
             int i = 0;
             roles.ForEach(delegate(Rol rol)
             {

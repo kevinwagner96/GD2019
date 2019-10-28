@@ -13,9 +13,12 @@ namespace FrbaOfertas.Model.DataModel
     class ProveedorData : DataHelper<Proveedor>
     {
         public ProveedorData(SqlConnection connection) : base(connection) { }
-        List<String> allAtributes = new List<String>(new String[] { "id_proveedor", "id_domicilio", "prove_usuario", "prov_CUIT", "prov_razon_social", "prov_email", "prov_telefono", "prov_rubro", "prov_contacto", "prov_activo" });
+        List<String> allAtributes = new List<String>(new String[] { "id_proveedor", "id_domicilio", "prove_usuario", "prov_CUIT", "prov_razon_social", "prov_email", "prov_telefono",  "prov_contacto", "prov_activo", "rubr_id" });
+        List<String> conUsername = new List<String>(new String[] { "id_proveedor", "id_domicilio", "prove_usuario", "usu_username", "prov_CUIT", "prov_razon_social", "prov_email", "prov_telefono", "prov_contacto", "prov_activo", "rubr_detalle" });
        String Table = "[GDDS2].[Proveedor]";
+       String RTable = "[GDDS2].[Rubro]";
        String DTable = "[GDDS2].[Domicilio]";
+       String UTable = "[GDDS2].[Usuario]";
 
         public override List<Proveedor> Select(out Exception exError)
         {
@@ -26,18 +29,49 @@ namespace FrbaOfertas.Model.DataModel
             {
                 if (this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
-                
 
-                using (SqlCommand command = new SqlCommand("SELECT "+ SqlHelper.getColumns(allAtributes) +"FROM "+Table, (SqlConnection)this.Connection))
+
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(conUsername) + "FROM " + Table + "  LEFT JOIN " + UTable + " ON " + UTable + ".[id_usuario]=" + Table + ".[prove_usuario]  JOIN  " + RTable + " ON " + RTable + ".[rubr_id]=" + Table + ".[rubr_id] ", (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            Proveedor c = new Proveedor();
-                            SqlHelper.setearAtributos(reader, allAtributes, c);
-                            c.restartMList();
-                            returnValue.Add(c);
+                            returnValue.Add(new Proveedor(reader));
+                        }
+                    }
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return returnValue;
+        }
+
+        public Dictionary<Int32,String> Rubros(out Exception exError)
+        {
+            Dictionary<Int32, String> returnValue = new Dictionary<Int32, String>();
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("SELECT [rubr_id],[rubr_detalle] FROM [GDDS2].[Rubro]", (SqlConnection)this.Connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            returnValue.Add(reader.GetInt32(0),reader.GetString(1));
                         }
                     }
                 }
@@ -58,6 +92,11 @@ namespace FrbaOfertas.Model.DataModel
         {
             List<Proveedor> returnValue = new List<Proveedor>();
             exError = null;
+            String and = "";
+
+            if (like.Count() > 0 && exac.Count() > 0)
+                and = "AND";
+
 
             try
             {
@@ -65,8 +104,9 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) +
-                    "FROM "+Table+" WHERE " + SqlHelper.getLikeFilter(like) + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
+
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(conUsername) +
+                    "FROM " + Table + "  LEFT JOIN " + UTable + " ON " + UTable + ".[id_usuario]=" + Table + ".[prove_usuario]  WHERE " + SqlHelper.getLikeFilter(like) + and + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
                 {
                     foreach (KeyValuePair<String, Object> value in exac)
                     {
@@ -77,10 +117,9 @@ namespace FrbaOfertas.Model.DataModel
                     {
                         while (reader.Read())
                         {
-                            Proveedor c = new Proveedor();
-                            SqlHelper.setearAtributos(reader, allAtributes, c);
-                            c.restartMList();
-                            returnValue.Add(c);
+                            returnValue.Add(new Proveedor(reader));
+                            
+                           
                         }
                     }
                 }
@@ -176,14 +215,15 @@ namespace FrbaOfertas.Model.DataModel
                     this.Connection.Open();
 
 
-                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM " + Table + " WHERE id_proveedor=" + ID, (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(allAtributes) + "FROM " + Table + "  WHERE id_proveedor=" + ID, (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (!reader.Read())        
                             throw new InvalidOperationException("No existe el proveedor.");
-                                                
+
                         SqlHelper.setearAtributos(reader, allAtributes, proveedor);
+                        
                         proveedor.restartMList();
 
                         if (reader.Read())

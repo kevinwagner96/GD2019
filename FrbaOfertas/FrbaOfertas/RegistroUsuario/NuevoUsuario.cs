@@ -42,7 +42,7 @@ namespace FrbaOfertas.RegistroUsuario
 
         private void NuevoUsuario_Load(object sender, EventArgs e)
         {
-            roles = data.Select(out exError);
+            roles = data.SelectActivos(out exError);
 
             roles.ForEach(delegate(Rol f)
             {

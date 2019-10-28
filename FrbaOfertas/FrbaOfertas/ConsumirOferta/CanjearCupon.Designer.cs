@@ -122,6 +122,7 @@
             this.guardar.TabIndex = 51;
             this.guardar.Text = "Aceptar";
             this.guardar.UseVisualStyleBackColor = true;
+            this.guardar.Click += new System.EventHandler(this.guardar_Click);
             // 
             // CanjearCupon
             // 
