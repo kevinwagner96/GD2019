@@ -692,14 +692,14 @@ declare @id_tipo_pago int
 declare cursorCargaCredito cursor fast_forward for( select  distinct id_cliente,Carga_Fecha,id_tipo_pago,Carga_Credito from gd_esquema.Maestra join GDDS2.Cliente on clie_dni = Cli_Dni join GDDS2.Tipo_pago tp on tp.tipo_pago_nombre = Tipo_Pago_Desc  where Carga_Fecha is not null and Tipo_Pago_Desc is not null )
 open cursorCargaCredito
 
-fetch cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
+fetch next from cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
 while (@@FETCH_STATUS = 0)
 begin
 
 insert into GDDS2.[credito](id_cliente,id_tipo_pago,cred_fecha,cred_monto)
 values (@id_cliente,@id_tipo_pago,@fecha,@carga_credito)
 
-fetch cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
+fetch next from cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
 end
 close cursorCargaCredito
 deallocate cursorCargaCredito
@@ -744,15 +744,9 @@ drop procedure migrarOfertas
 
 GO
 
--- carga de compras
---Se realizo esta consulta:
-/*(select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null  
-union
-select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha ,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is null and m1.Oferta_Codigo not in (select distinct m1.Oferta_Codigo from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null   ))
-*/
---tiempo en migrar: 5" 55'
---se debe optimizar la forma en que evalua si fue canjeado o mo
-create procedure migrarComprasEntregas
+-- carga de compras que fueron entregadas, 2' 32"
+ 
+create procedure migrarComprasEntregadas
 as begin
 declare @ofertaCodigo nvarchar(50)
 declare @idCliente int
@@ -761,52 +755,112 @@ declare @precioFicticio decimal (12,2)
 declare @ofertaPrecio decimal(12,2)
 declare @fecha_entrega datetime
 declare @id_cliente_destino int
-declare @id_compra int
-set @id_compra = 1
-declare cursor_compras cursor fast_forward for (select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null  
-union
-select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha ,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is null and m1.Oferta_Codigo not in (select distinct m1.Oferta_Codigo from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null   ))
-
-
-open cursor_compras 
-fetch cursor_compras into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
+declare @contador int
+set @contador = 1
+declare c cursor fast_forward for (select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m1.Oferta_Entregado_Fecha,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = m1.Cli_Dni  where m1.Oferta_Fecha_Compra is not null and m1.Oferta_Entregado_Fecha is not null)
+open c
+fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
 while (@@FETCH_STATUS = 0)
-BEGIN ---BEGIN DE CURSOR
-if (@fecha_entrega is not null)
 begin
 SET IDENTITY_INSERT GDDS2.[Compra] on
 insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado)
-values (@id_compra,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,1)
+values (@contador,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,1)
 SET IDENTITY_INSERT GDDS2.[Compra] off
 
 insert into GDDS2.Entrega(ent_fecha,id_compra,id_cliente)
-values (@fecha_entrega,@id_compra,@id_cliente_destino)
-end --FIN DE IF
+values (@fecha_entrega,@contador,@id_cliente_destino)
+set @contador  = @contador +1
+fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
+end
+close c
+deallocate c
+end
+GO
+exec migrarComprasEntregadas
+drop procedure migrarComprasEntregadas
+GO
 
-else
- 
+--carga de compras no entregadas
+-- duracion 34"
+alter procedure migrarComprasSinEntregas
+as begin
+declare @ofertaCodigo nvarchar(50)
+declare @idCliente int
+declare @fechaCompra datetime
+declare @precioFicticio decimal (12,2)
+declare @ofertaPrecio decimal(12,2)
+declare @fecha_entrega datetime
+declare @id_cliente_destino int
+declare @contador int
+set @contador = (select count(*) from GDDS2.Compra)+1
+declare c cursor fast_forward for (select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m1.Oferta_Entregado_Fecha,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ),id_cliente) cliente_destino   from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = m1.Cli_Dni   where m1.Oferta_Fecha_Compra is not null and m1.Oferta_Entregado_Fecha is  null and cast(m1.Oferta_Codigo as nvarchar(50))+cast(id_cliente as nvarchar(50))+cast(m1.Oferta_Fecha_Compra as nvarchar(50)) not  in (select distinct( cast(id_oferta as nvarchar(50))+cast(id_cliente as nvarchar(50))+cast(compra_fecha as nvarchar(50))) from GDDS2.Compra)  )
+open c
+fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
+while (@@FETCH_STATUS = 0)
 begin
 SET IDENTITY_INSERT GDDS2.[Compra] on
 insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado)
-values (@id_compra,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,0)
+values (@contador,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,0)
 SET IDENTITY_INSERT GDDS2.[Compra] off
-end --FIN DE ELSE
-set @id_compra = @id_compra + 1
 
-fetch cursor_compras into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
-end --FIN CURSOR
-close cursor_compras
-deallocate cursor_compras
+
+set @contador = @contador + 1
+fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
+end
+close c
+deallocate c
 
 end
 
-exec migrarComprasEntregas
-drop procedure migrarComprasEntregas
+GO
+exec migrarComprasSinEntregas
+drop procedure migrarComprasSinEntregas
+GO 
 
-Go
+--migrarFacturas, duracion 1 seg
+create procedure cargarFactura
+as begin
+declare @idFactura int, @idProveedor int , @fechaDeFacturacion datetime
+
+declare c cursor fast_forward for (select distinct Factura_Nro,(select id_proveedor from GDDS2.Proveedor where prov_CUIT = Provee_CUIT),Factura_Fecha from gd_esquema.Maestra where Factura_Nro is not null)
+open c
+fetch next from c into @idFactura,@idProveedor,@fechaDeFacturacion 
+while (@@FETCH_STATUS = 0)
+begin
+SET IDENTITY_INSERT GDDS2.[Factura] on
+insert into GDDS2.Factura (id_fact,id_proveedor,fact_fecha)
+values (@idFactura,@idProveedor,@fechaDeFacturacion)
+SET IDENTITY_INSERT GDDS2.[Factura] off
+fetch next from c into @idFactura,@idProveedor,@fechaDeFacturacion 
+end
+close c
+deallocate c
+end
+
+GO
+exec cargarFactura
+drop procedure cargarFactura
+GO
+--cargarItemFactura, duracion  1'30"
+create procedure cargarItemFactura
+as begin
+declare @idFactura int, @idCompra int, @precioDeOferta decimal(12,2), @fechaDeCompra datetime
+declare c cursor fast_forward for (select   f.id_fact,co.id_compra,Oferta_Precio,co.compra_fecha from gd_esquema.Maestra join GDDS2.Factura f on Factura_Nro = f.id_fact join GDDS2.Cliente cli on cli.clie_dni = Cli_Dni join GDDS2.Compra co on (cast(co.id_oferta as nvarchar(50))+cast(co.id_cliente as nvarchar(50))+cast(co.compra_fecha as nvarchar(50)) )= (cast(Oferta_Codigo as nvarchar(50))+cast(cli.id_cliente as nvarchar(50))+ cast(Oferta_Fecha_Compra as nvarchar(50))))
+open c
+fetch next from c into @idFactura, @idCompra,@precioDeOferta,@fechaDeCompra
+while (@@FETCH_STATUS = 0)
+begin
+insert into GDDS2.Item_factura (id_fact,id_compra,item_precio,item_fecha_compra)
+values(@idFactura,@idCompra,@precioDeOferta,@fechaDeCompra)
+fetch next from c into @idFactura, @idCompra,@precioDeOferta,@fechaDeCompra
+end
+close c
+deallocate c
+
+end
 
 
-
+--procedure login- existe usuario
 create procedure GDDS2.existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(50), @resultado bit OUTPUT
 AS
 BEGIN
