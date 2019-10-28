@@ -763,8 +763,8 @@ fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@of
 while (@@FETCH_STATUS = 0)
 begin
 SET IDENTITY_INSERT GDDS2.[Compra] on
-insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado)
-values (@contador,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,1)
+insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado, compra_cantidad)
+values (@contador,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,1,1)
 SET IDENTITY_INSERT GDDS2.[Compra] off
 
 insert into GDDS2.Entrega(ent_fecha,id_compra,id_cliente)
@@ -782,7 +782,7 @@ GO
 
 --carga de compras no entregadas
 -- duracion 34"
-alter procedure migrarComprasSinEntregas
+create procedure migrarComprasSinEntregas
 as begin
 declare @ofertaCodigo nvarchar(50)
 declare @idCliente int
@@ -799,8 +799,8 @@ fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@of
 while (@@FETCH_STATUS = 0)
 begin
 SET IDENTITY_INSERT GDDS2.[Compra] on
-insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado)
-values (@contador,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,0)
+insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado,compra_cantidad)
+values (@contador,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,0,1)
 SET IDENTITY_INSERT GDDS2.[Compra] off
 
 
@@ -817,35 +817,42 @@ exec migrarComprasSinEntregas
 drop procedure migrarComprasSinEntregas
 GO 
 
+
+
 --migrarFacturas, duracion 1 seg
+
 create procedure cargarFactura
 as begin
-declare @idFactura int, @idProveedor int , @fechaDeFacturacion datetime
+declare @idFactura int, @idProveedor int , @fechaDeFacturacion datetime,@total decimal(12,2)
 
-declare c cursor fast_forward for (select distinct Factura_Nro,(select id_proveedor from GDDS2.Proveedor where prov_CUIT = Provee_CUIT),Factura_Fecha from gd_esquema.Maestra where Factura_Nro is not null)
+declare c cursor fast_forward for (select distinct Factura_Nro,(select id_proveedor from GDDS2.Proveedor where prov_CUIT = Provee_CUIT),Factura_Fecha, sum(Oferta_Precio) from gd_esquema.Maestra where Factura_Nro is not null group by Factura_Nro,Factura_Fecha,Provee_CUIT)
 open c
-fetch next from c into @idFactura,@idProveedor,@fechaDeFacturacion 
+fetch next from c into @idFactura,@idProveedor,@fechaDeFacturacion,@total 
 while (@@FETCH_STATUS = 0)
 begin
 SET IDENTITY_INSERT GDDS2.[Factura] on
-insert into GDDS2.Factura (id_fact,id_proveedor,fact_fecha)
-values (@idFactura,@idProveedor,@fechaDeFacturacion)
+insert into GDDS2.Factura (id_fact,id_proveedor,fact_fecha,fact_importe)
+values (@idFactura,@idProveedor,@fechaDeFacturacion,@total)
 SET IDENTITY_INSERT GDDS2.[Factura] off
-fetch next from c into @idFactura,@idProveedor,@fechaDeFacturacion 
+fetch next from c into @idFactura,@idProveedor,@fechaDeFacturacion ,@total
 end
 close c
 deallocate c
 end
 
+
+
 GO
 exec cargarFactura
 drop procedure cargarFactura
 GO
+
 --cargarItemFactura, duracion  1'30"
+
 create procedure cargarItemFactura
 as begin
 declare @idFactura int, @idCompra int, @precioDeOferta decimal(12,2), @fechaDeCompra datetime
-declare c cursor fast_forward for (select   f.id_fact,co.id_compra,Oferta_Precio,co.compra_fecha from gd_esquema.Maestra join GDDS2.Factura f on Factura_Nro = f.id_fact join GDDS2.Cliente cli on cli.clie_dni = Cli_Dni join GDDS2.Compra co on (cast(co.id_oferta as nvarchar(50))+cast(co.id_cliente as nvarchar(50))+cast(co.compra_fecha as nvarchar(50)) )= (cast(Oferta_Codigo as nvarchar(50))+cast(cli.id_cliente as nvarchar(50))+ cast(Oferta_Fecha_Compra as nvarchar(50))))
+declare c cursor fast_forward for ( select f.id_fact,co.id_compra,Oferta_Precio,co.compra_fecha from gd_esquema.Maestra join GDDS2.Factura f on Factura_Nro = f.id_fact join GDDS2.Cliente cli on cli.clie_dni = Cli_Dni join GDDS2.Compra co on (cast(co.id_oferta as nvarchar(50))+cast(co.id_cliente as nvarchar(50))+cast(co.compra_fecha as nvarchar(50)) )= (cast(Oferta_Codigo as nvarchar(50))+cast(cli.id_cliente as nvarchar(50))+ cast(Oferta_Fecha_Compra as nvarchar(50))))
 open c
 fetch next from c into @idFactura, @idCompra,@precioDeOferta,@fechaDeCompra
 while (@@FETCH_STATUS = 0)
@@ -858,7 +865,10 @@ close c
 deallocate c
 
 end
-
+GO
+exec cargarItemFactura
+drop procedure cargarItemFactura
+Go
 
 --procedure login- existe usuario
 create procedure GDDS2.existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(50), @resultado bit OUTPUT
