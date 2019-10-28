@@ -74,6 +74,8 @@
             // rol_activo
             // 
             this.rol_activo.AutoSize = true;
+            this.rol_activo.Checked = true;
+            this.rol_activo.CheckState = System.Windows.Forms.CheckState.Checked;
             this.rol_activo.Location = new System.Drawing.Point(231, 192);
             this.rol_activo.Name = "rol_activo";
             this.rol_activo.Size = new System.Drawing.Size(56, 17);

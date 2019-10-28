@@ -35,12 +35,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buscar = new System.Windows.Forms.Button();
             this.limpiar = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.prov_email = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.prov_CUIT = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.prov_razon_social = new System.Windows.Forms.TextBox();
+            this.usu_username = new System.Windows.Forms.TextBox();
             this.select = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProveedores)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -103,12 +99,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.buscar);
             this.groupBox1.Controls.Add(this.limpiar);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.prov_email);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.prov_CUIT);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.prov_razon_social);
+            this.groupBox1.Controls.Add(this.usu_username);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(744, 43);
@@ -138,55 +130,22 @@
             this.limpiar.UseVisualStyleBackColor = true;
             this.limpiar.Click += new System.EventHandler(this.limpiar_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(345, 19);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Email";
-            // 
-            // prov_email
-            // 
-            this.prov_email.Location = new System.Drawing.Point(383, 16);
-            this.prov_email.Name = "prov_email";
-            this.prov_email.Size = new System.Drawing.Size(93, 20);
-            this.prov_email.TabIndex = 6;
-            this.prov_email.Tag = "LIKE";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(197, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "CUIT";
-            // 
-            // prov_CUIT
-            // 
-            this.prov_CUIT.Location = new System.Drawing.Point(235, 16);
-            this.prov_CUIT.Name = "prov_CUIT";
-            this.prov_CUIT.Size = new System.Drawing.Size(93, 20);
-            this.prov_CUIT.TabIndex = 2;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 13);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Razon Social";
+            this.label1.Text = "Username";
             // 
-            // prov_razon_social
+            // usu_username
             // 
-            this.prov_razon_social.Location = new System.Drawing.Point(81, 16);
-            this.prov_razon_social.Name = "prov_razon_social";
-            this.prov_razon_social.Size = new System.Drawing.Size(100, 20);
-            this.prov_razon_social.TabIndex = 0;
-            this.prov_razon_social.Tag = "LIKE";
+            this.usu_username.Location = new System.Drawing.Point(81, 16);
+            this.usu_username.Name = "usu_username";
+            this.usu_username.Size = new System.Drawing.Size(100, 20);
+            this.usu_username.TabIndex = 0;
+            this.usu_username.Tag = "LIKE";
             // 
             // select
             // 
@@ -229,12 +188,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button limpiar;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox prov_email;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox prov_CUIT;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox prov_razon_social;
+        private System.Windows.Forms.TextBox usu_username;
         private System.Windows.Forms.Button buscar;
         private System.Windows.Forms.Button select;
     }

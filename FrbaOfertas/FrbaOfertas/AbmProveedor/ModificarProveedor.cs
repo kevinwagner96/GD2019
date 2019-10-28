@@ -1,4 +1,5 @@
-﻿using FrbaOfertas.Helpers;
+﻿using FrbaOfertas.AbmRubro;
+using FrbaOfertas.Helpers;
 using FrbaOfertas.Model;
 using FrbaOfertas.Model.DataModel;
 using System;
@@ -129,6 +130,27 @@ namespace FrbaOfertas.AbmProveedor
                     return entry.Key;
             }
             return 0;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            NuevoRubro form = new NuevoRubro();
+            form.Parent = this.Parent;
+            var dialog = form.ShowDialog();
+            if(dialog == DialogResult.OK)
+            {
+                KeyValuePair<Int32, String> kv = dataP.CreateRubro(form.rubro, out exError);
+                if (exError != null)
+                {
+                    MessageBox.Show("Error al agreagar el rubro.", "Proveedor nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else 
+                {
+                    rubros.Add(kv.Key , kv.Value);
+                    rubrosComboBox.Items.Add(kv.Value);
+                }
+
+            }
         }
 
         

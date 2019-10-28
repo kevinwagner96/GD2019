@@ -56,11 +56,9 @@ namespace FrbaOfertas.AbmProveedor
         }
 
         private void ClienteList_Load(object sender, EventArgs e)
-        {
+        {                        
             
-            todos.Add(prov_CUIT);
-            todos.Add(prov_email);
-            todos.Add(prov_razon_social);
+            todos.Add(usu_username);
             
                 
             cargarDataGrid();

@@ -88,6 +88,38 @@ namespace FrbaOfertas.Model.DataModel
             return returnValue;
         }
 
+        public KeyValuePair<Int32, String> CreateRubro(String rubro,out Exception exError)
+        {
+            KeyValuePair<Int32, String> returnValue = new KeyValuePair<Int32, String>(0,"") ;
+            exError = null;
+            Int32 key;
+
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("INSERT  INTO [GDDS2].[Rubro] ([rubr_detalle]) output INSERTED.rubr_id VALUES ('" + rubro + "')", (SqlConnection)this.Connection))
+                {
+                    key= (Int32)command.ExecuteScalar();
+                }
+
+                returnValue = new KeyValuePair<int, string>(key, rubro);
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+            return returnValue;
+        }
+
         public override List<Proveedor> FilterSelect(Dictionary<String, String> like, Dictionary<String, Object> exac, out Exception exError)
         {
             List<Proveedor> returnValue = new List<Proveedor>();
@@ -105,8 +137,9 @@ namespace FrbaOfertas.Model.DataModel
 
 
 
-                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(conUsername) +
-                    "FROM " + Table + "  LEFT JOIN " + UTable + " ON " + UTable + ".[id_usuario]=" + Table + ".[prove_usuario]  WHERE " + SqlHelper.getLikeFilter(like) + and + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
+                using (SqlCommand command = new SqlCommand("SELECT " + SqlHelper.getColumns(conUsername) + "FROM " + Table + "  LEFT JOIN " 
+                    + UTable + " ON " + UTable + ".[id_usuario]=" + Table + ".[prove_usuario]  JOIN  " + 
+                    RTable + " ON " + RTable + ".[rubr_id]=" + Table + ".[rubr_id] WHERE " + SqlHelper.getLikeFilter(like) + and + SqlHelper.getExactFilter(exac), (SqlConnection)this.Connection))
                 {
                     foreach (KeyValuePair<String, Object> value in exac)
                     {

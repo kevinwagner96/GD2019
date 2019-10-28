@@ -259,6 +259,9 @@
     <EmbeddedResource Include="AbmRol\RolesList.resx">
       <DependentUpon>RolesList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmRubro\NuevoRubro.resx">
+      <DependentUpon>NuevoRubro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmUsuario\Asignaciones.resx">
       <DependentUpon>Asignaciones.cs</DependentUpon>
     </EmbeddedResource>

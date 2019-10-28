@@ -15,14 +15,14 @@ namespace FrbaOfertas.Model
 
         private Int32 _id_cliente;
         private Int32 _id_domicilio;
-        private Int32? _clie_usuario ;
-        private String _usu_username;
+        private Int32? _clie_usuario ;        
         private Int32 _clie_dni;
         private String _clie_nombre;
         private String _clie_apellido;
         private String _clie_email ;
         private String _clie_telefono;
         private DateTime _clie_fecha_nac;
+        private String _usu_username;
         private Double _credito;
         private Boolean _activo;
 
@@ -91,9 +91,7 @@ namespace FrbaOfertas.Model
         [System.ComponentModel.Browsable(false)]
         public Int32 id_domicilio { get { return this._id_domicilio; } set { this._id_domicilio = value; atributesModify.Add("id_domicilio"); } }
         [System.ComponentModel.Browsable(false)]
-        public Int32? clie_usuario { get { return this._clie_usuario; } set { this._clie_usuario = value; atributesModify.Add("clie_usuario"); } }
-        [System.ComponentModel.DisplayName("Username")]
-        public String usu_username { get { return this._usu_username; } set { this._usu_username = value; } }
+        public Int32? clie_usuario { get { return this._clie_usuario; } set { this._clie_usuario = value; atributesModify.Add("clie_usuario"); } }        
         [System.ComponentModel.DisplayName("DNI")]
         public Int32 clie_dni{ get { return this._clie_dni; }set { this._clie_dni = value; atributesModify.Add("clie_dni"); }}
         [System.ComponentModel.DisplayName("Nombre")]
@@ -108,6 +106,8 @@ namespace FrbaOfertas.Model
         public DateTime clie_fecha_nac { get { return this._clie_fecha_nac; } set { this._clie_fecha_nac = value; atributesModify.Add("clie_fecha_nac"); } }
         [System.ComponentModel.DisplayName("Credito")]
         public Double clie_credito { get { return this._credito; } set { this._credito = value; atributesModify.Add("clie_credito"); } }
+        [System.ComponentModel.DisplayName("Username")]
+        public String usu_username { get { return this._usu_username; } set { this._usu_username = value; } }
         [System.ComponentModel.DisplayName("Activo")]
         public Boolean clie_activo { get { return this._activo; } set { this._activo = value; atributesModify.Add("clie_activo"); } }
 

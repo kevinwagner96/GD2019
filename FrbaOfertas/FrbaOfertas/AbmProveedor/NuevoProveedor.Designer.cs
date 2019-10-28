@@ -285,6 +285,8 @@
             // prov_activo
             // 
             this.prov_activo.AutoSize = true;
+            this.prov_activo.Checked = true;
+            this.prov_activo.CheckState = System.Windows.Forms.CheckState.Checked;
             this.prov_activo.Location = new System.Drawing.Point(269, 369);
             this.prov_activo.Name = "prov_activo";
             this.prov_activo.Size = new System.Drawing.Size(56, 17);

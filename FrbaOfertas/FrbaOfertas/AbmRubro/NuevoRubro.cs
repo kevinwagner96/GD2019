@@ -12,9 +12,24 @@ namespace FrbaOfertas.AbmRubro
 {
     public partial class NuevoRubro : Form
     {
+        public String  rubro;
         public NuevoRubro()
         {
             InitializeComponent();
+        }
+
+        private void guardar_Click(object sender, EventArgs e)
+        {
+            if (rubr_detalle.Text.Count() == 0)
+            {
+                MessageBox.Show("Rubro es vacio.", "Rubro nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            rubro = rubr_detalle.Text;
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }
