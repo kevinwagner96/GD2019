@@ -19,6 +19,7 @@ using FrbaOfertas.CargaCredito;
 using FrbaOfertas.ComprarOferta;
 using FrbaOfertas.CrearOferta;
 using FrbaOfertas.ConsumirOferta;
+using FrbaOfertas.Facturar;
 
 
 namespace FrbaOfertas
@@ -312,6 +313,13 @@ namespace FrbaOfertas
         {
             NuevoUsuario form = new NuevoUsuario();
             form.Parent = this.Parent;
+            form.Show();
+        }
+
+        private void GENERAR_FACTURA_Click(object sender, EventArgs e)
+        {
+            NuevaFactura form = new NuevaFactura();
+            form.MdiParent = this;
             form.Show();
         }
 

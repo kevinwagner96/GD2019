@@ -165,6 +165,18 @@
     <Compile Include="CrearOferta\ConfeccionOferta.Designer.cs">
       <DependentUpon>ConfeccionOferta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Facturar\FacturarListado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturar\FacturarListado.Designer.cs">
+      <DependentUpon>FacturarListado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facturar\NuevaFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturar\NuevaFactura.Designer.cs">
+      <DependentUpon>NuevaFactura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\FormHelper.cs" />
     <Compile Include="Interface\Tus roles.cs">
       <SubType>Form</SubType>
@@ -186,12 +198,6 @@
     <Compile Include="Model\DataModel\ProveedorData.cs" />
     <Compile Include="Model\DataModel\DireccionData.cs" />
     <Compile Include="Model\DataModel\UsuarioData.cs" />
-    <Compile Include="Facturar\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Facturar\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Interface\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +294,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrearOferta\ConfeccionOferta.resx">
       <DependentUpon>ConfeccionOferta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturar\FacturarListado.resx">
+      <DependentUpon>FacturarListado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturar\NuevaFactura.resx">
+      <DependentUpon>NuevaFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

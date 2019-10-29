@@ -32,14 +32,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buscar = new System.Windows.Forms.Button();
-            this.limpiar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.usu_username = new System.Windows.Forms.TextBox();
             this.select = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProveedores)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridProveedores
@@ -52,11 +46,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridProveedores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridProveedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridProveedores.Location = new System.Drawing.Point(12, 61);
+            this.dataGridProveedores.Location = new System.Drawing.Point(12, 12);
             this.dataGridProveedores.MultiSelect = false;
             this.dataGridProveedores.Name = "dataGridProveedores";
             this.dataGridProveedores.ReadOnly = true;
-            this.dataGridProveedores.Size = new System.Drawing.Size(744, 428);
+            this.dataGridProveedores.Size = new System.Drawing.Size(744, 477);
             this.dataGridProveedores.TabIndex = 0;
             this.dataGridProveedores.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -93,60 +87,6 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.buscar);
-            this.groupBox1.Controls.Add(this.limpiar);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.usu_username);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(744, 43);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filtros";
-            // 
-            // buscar
-            // 
-            this.buscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buscar.Location = new System.Drawing.Point(582, 14);
-            this.buscar.Name = "buscar";
-            this.buscar.Size = new System.Drawing.Size(75, 23);
-            this.buscar.TabIndex = 8;
-            this.buscar.Text = "Buscar";
-            this.buscar.UseVisualStyleBackColor = true;
-            this.buscar.Click += new System.EventHandler(this.buscar_Click);
-            // 
-            // limpiar
-            // 
-            this.limpiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.limpiar.Location = new System.Drawing.Point(663, 14);
-            this.limpiar.Name = "limpiar";
-            this.limpiar.Size = new System.Drawing.Size(75, 23);
-            this.limpiar.TabIndex = 5;
-            this.limpiar.Text = "Limpiar";
-            this.limpiar.UseVisualStyleBackColor = true;
-            this.limpiar.Click += new System.EventHandler(this.limpiar_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Username";
-            // 
-            // usu_username
-            // 
-            this.usu_username.Location = new System.Drawing.Point(81, 16);
-            this.usu_username.Name = "usu_username";
-            this.usu_username.Size = new System.Drawing.Size(100, 20);
-            this.usu_username.TabIndex = 0;
-            this.usu_username.Tag = "LIKE";
-            // 
             // select
             // 
             this.select.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -165,7 +105,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 530);
             this.Controls.Add(this.select);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -174,8 +113,6 @@
             this.Text = "Lista de Usuarios";
             this.Load += new System.EventHandler(this.ClienteList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProveedores)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -186,11 +123,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button limpiar;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox usu_username;
-        private System.Windows.Forms.Button buscar;
         private System.Windows.Forms.Button select;
     }
 }

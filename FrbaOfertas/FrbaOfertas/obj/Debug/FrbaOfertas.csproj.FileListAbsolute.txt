@@ -82,3 +82,5 @@ A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfert
 A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.UsuariosList.resources
 A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmUsuario.Asignaciones.resources
 A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRubro.NuevoRubro.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Facturar.FacturarListado.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Facturar.NuevaFactura.resources
