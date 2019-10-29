@@ -121,7 +121,7 @@ GO
 
 CREATE TABLE [GDDS2].[Domicilio](
 	[id_domicilio] [int] IDENTITY(1,1) NOT NULL,
-	[dom_calle] [nvarchar](50) NOT NULL,
+	[dom_calle] [nvarchar](255) NOT NULL,
 	[dom_numero] [nvarchar](50) NULL,
 	[dom_depto] [int] NULL,
 	[dom_piso] [int] NULL,
@@ -570,7 +570,7 @@ values ('Efectivo'),('Crédito'),('Débito')
 GO
 -- inserto clientes, junto con sus domicilios
 
-
+/*
 create procedure cargarClientes
 as begin
 declare @nombre nvarchar(50)
@@ -609,12 +609,21 @@ deallocate cursorClientes
 end
 GO
 
+
+
+
 exec cargarClientes
 drop procedure cargarClientes
 GO
+*/
+insert into GDDS2.Domicilio(dom_calle,dom_ciudad)
+select distinct Cli_Direccion,Cli_Ciudad from gd_esquema.Maestra where Cli_Direccion is not null
+
+insert into GDDS2.[Cliente](id_domicilio,clie_dni,clie_nombre,clie_apellido,clie_email,clie_telefono,clie_fecha_nac,clie_activo,clie_credito)
+(select distinct  id_domicilio,Cli_Dni,Cli_Nombre, Cli_Apellido,Cli_Mail, Cli_Telefono,Cli_Fecha_Nac,1,0 from gd_esquema.Maestra join GDDS2.Domicilio on dom_calle+dom_ciudad = Cli_Direccion+Cli_Ciudad  where Cli_Nombre is not null)
 
 --cargo los rubros
-
+/*
 create procedure migrarRubros
 as begin
 
@@ -642,9 +651,13 @@ Go
 exec migrarRubros
 drop procedure migrarRubros
 Go
+*/
+insert into GDDS2.[Rubro](rubr_detalle)
+select distinct Provee_Rubro from gd_esquema.Maestra where Provee_Rubro is not null
 
 
 --cargo los proveedore con respectivos domicilio
+/*
 create procedure cargarProveedores
 as begin
 declare @razon_social nvarchar(50)
@@ -679,9 +692,15 @@ GO
 exec cargarProveedores 
 drop procedure cargarProveedores
 GO
+*/
+insert into GDDS2.Domicilio (dom_calle,dom_ciudad)
+select distinct Provee_Dom,Provee_Ciudad from gd_esquema.Maestra where Provee_Dom is not null
 
+insert into GDDS2.Proveedor (id_domicilio,prov_CUIT,prov_razon_social,prov_telefono,rubr_id,prov_activo)
+(select distinct id_domicilio,Provee_CUIT,Provee_RS,Provee_Telefono,rubr_id,1 from gd_esquema.Maestra join GDDS2.Rubro on rubr_detalle = Provee_Rubro join GDDS2.Domicilio on dom_calle+dom_ciudad = Provee_Dom+Provee_Ciudad where Provee_RS is not null )
 -- migrando los registros de cargas de credito
 --en la tabla maestra solo un cliente realiza cargas, DNI: 83183632
+/*
 create procedure migrarCargasDeCredito
 as begin
 declare @fecha datetime
@@ -710,7 +729,13 @@ GO
 exec migrarCargasDeCredito
 drop procedure migrarCargasDeCredito
 GO
+*/
+insert into GDDS2.[credito](id_cliente,id_tipo_pago,cred_fecha,cred_monto)
+ select  distinct id_cliente,id_tipo_pago,Carga_Fecha,Carga_Credito from gd_esquema.Maestra join GDDS2.Cliente on clie_dni = Cli_Dni join GDDS2.Tipo_pago tp on tp.tipo_pago_nombre = Tipo_Pago_Desc  where Carga_Fecha is not null and Tipo_Pago_Desc is not null 
+
+
 --migramos las ofertas y linkeadas a cada proveedor
+/*
 create procedure migrarOfertas
 as begin
 declare @cod_proveedor int
@@ -744,6 +769,14 @@ exec migrarOfertas
 drop procedure migrarOfertas
 
 GO
+*/
+
+insert into GDDS2.[Oferta](id_oferta,id_proveedor,ofer_descripcion,ofer_f_public,ofer_f_venc,ofer_pr_oferta,ofer_pr_lista,ofer_cant_disp,ofer_activo)
+select distinct Oferta_Codigo,id_proveedor,Oferta_Descripcion,Oferta_Fecha,Oferta_Fecha_Venc,Oferta_Precio,Oferta_Precio_Ficticio,Oferta_Cantidad,1 from gd_esquema.Maestra join GDDS2.Proveedor on prov_CUIT = Provee_CUIT
+
+
+GO
+
 
 -- carga de compras que fueron entregadas, 2' 32"
  
@@ -783,6 +816,7 @@ GO
 
 --carga de compras no entregadas
 -- duracion 34"
+
 create procedure migrarComprasSinEntregas
 as begin
 declare @ofertaCodigo nvarchar(50)
@@ -849,7 +883,7 @@ drop procedure cargarFactura
 GO
 
 --cargarItemFactura, duracion  1'30"
-
+/*
 create procedure cargarItemFactura
 as begin
 declare @idFactura int, @idCompra int, @precioDeOferta decimal(12,2), @fechaDeCompra datetime
@@ -870,7 +904,13 @@ GO
 exec cargarItemFactura
 drop procedure cargarItemFactura
 Go
+*/
+insert into GDDS2.Item_factura (id_fact,id_compra,item_precio,item_fecha_compra)
+select f.id_fact,co.id_compra,Oferta_Precio,co.compra_fecha from gd_esquema.Maestra join GDDS2.Factura f on Factura_Nro = f.id_fact join GDDS2.Cliente cli on cli.clie_dni = Cli_Dni join GDDS2.Compra co on (cast(co.id_oferta as nvarchar(50))+cast(co.id_cliente as nvarchar(50))+cast(co.compra_fecha as nvarchar(50)) )= (cast(Oferta_Codigo as nvarchar(50))+cast(cli.id_cliente as nvarchar(50))+ cast(Oferta_Fecha_Compra as nvarchar(50)))
 
+
+
+GO
 --procedure login- existe usuario
 create procedure GDDS2.existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(50), @resultado bit OUTPUT
 AS
