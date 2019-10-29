@@ -607,6 +607,7 @@ close cursorClientes
 deallocate cursorClientes
 
 end
+GO
 
 exec cargarClientes
 drop procedure cargarClientes
@@ -674,7 +675,7 @@ end
 close cursorProveedores
 deallocate cursorProveedores
 end
-
+GO
 exec cargarProveedores 
 drop procedure cargarProveedores
 GO
@@ -705,7 +706,7 @@ close cursorCargaCredito
 deallocate cursorCargaCredito
 
 end
-
+GO
 exec migrarCargasDeCredito
 drop procedure migrarCargasDeCredito
 GO
@@ -738,7 +739,7 @@ end
 close cursor_oferta
 deallocate cursor_oferta
 end
-
+GO
 exec migrarOfertas
 drop procedure migrarOfertas
 
@@ -889,3 +890,4 @@ BEGIN
 	end
 END
 
+GO
