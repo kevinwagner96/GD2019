@@ -737,3 +737,96 @@ BEGIN
 END
 
 GO
+--metodos de compras
+create function [GDDS2].cantidadDeArticulosVendidos(@idCliente int, @idOferta nvarchar(50))
+returns int
+as begin
+declare @cantidad int
+set @cantidad = isnull((select sum(compra_cantidad) from GDDS2.Compra where id_cliente = @idCliente and @idOferta = id_oferta),0)
+return @cantidad
+
+end
+
+GO
+
+create function [GDDS2].hayStockDisponible(@idOferta nvarchar(50),@cantidad int)
+returns bit
+as begin
+declare @estado bit
+if ((select ofer_cant_disp from GDDS2.Oferta where id_oferta = @idOferta) >= @cantidad)
+begin
+set @estado = 1
+end
+else 
+begin
+set @estado = 0
+end
+return @estado
+end
+GO
+
+
+
+create function [GDDS2].poseeSaldoSuficiente(@idCliente int, @idOferta nvarchar(50),@cantidad int)
+returns bit
+as begin
+declare @totalPrecio decimal(12,2), @estado bit,@saldoCliente decimal(12,2)
+set @totalPrecio = isnull((select ofer_pr_oferta from GDDS2.Oferta where id_oferta = @idOferta ),0) * @cantidad
+set @saldoCliente = (select clie_credito from GDDS2.Cliente where id_cliente = @idCliente)
+if (@totalPrecio <= @saldoCliente )
+begin
+set @estado = 1
+end
+else
+begin
+set @estado = 0
+end
+return @estado
+end
+GO
+
+create procedure [GDDS2].realizarCompra(@idCliente int ,@idOferta nvarchar(50),@cantidad int)
+as begin
+declare @cantidadMaximaPorCliente int, @importe decimal(12,2)
+set @cantidadMaximaPorCliente = (select ofer_cant_x_cli from GDDS2.Oferta where id_oferta = @idOferta)
+if (@cantidadMaximaPorCliente < (GDDS2.cantidadDeArticulosVendidos(@idCliente,@idOferta) + @cantidad)     )
+begin
+RAISERROR('El cliente no puede adquirir la cantidad seleccionada del producto',1,1)
+end
+
+
+if (GDDS2.poseeSaldoSuficiente(@idCliente,@idOferta,@cantidad) = 0)
+begin
+RAISERROR('Saldo insuficiente',1,1)
+end
+
+if(GDDS2.hayStockDisponible(@idOferta,@cantidad) = 0)
+begin
+RAISERROR('No hay Stock disponible',1,1)
+end
+
+declare @precioLista decimal(12,2)
+declare @precioOferta decimal (12,2)
+declare @fecha_vencimiento datetime
+set @precioLista = (select ofer_pr_lista from GDDS2.Oferta where id_oferta = @idOferta)
+set @precioOferta = (select ofer_pr_oferta from GDDS2.Oferta where id_oferta = @idOferta)
+set @importe =  isnull((select ofer_pr_oferta from GDDS2.Oferta where id_oferta = @idOferta ),0) * @cantidad
+update Cliente
+set clie_credito = clie_credito - @importe
+where id_cliente = @idCliente
+
+
+insert into Compra(id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_cantidad,compra_canjeado,compra_fecha_vencimiento)
+values(@idOferta,@idCliente,GETDATE(),@precioLista,@precioOferta,@cantidad,0,dateadd(DAY,14,GETDATE()))
+
+update Oferta
+set ofer_cant_disp = ofer_cant_disp - @cantidad
+where id_oferta = @idOferta
+
+
+
+
+
+end
+
+GO
