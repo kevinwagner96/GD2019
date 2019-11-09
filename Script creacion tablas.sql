@@ -785,7 +785,7 @@ return @estado
 end
 GO
 
-create procedure [GDDS2].realizarCompra(@idCliente int ,@idOferta nvarchar(50),@cantidad int)
+create procedure [GDDS2].realizarCompra(@idCliente int ,@idOferta nvarchar(50),@cantidad int,@codigoCuponResultante int output)
 as begin
 declare @cantidadMaximaPorCliente int, @importe decimal(12,2)
 set @cantidadMaximaPorCliente = (select ofer_cant_x_cli from GDDS2.Oferta where id_oferta = @idOferta)
@@ -807,25 +807,30 @@ end
 
 declare @precioLista decimal(12,2)
 declare @precioOferta decimal (12,2)
-declare @fecha_vencimiento datetime
+declare @nuevoCodigo int
 set @precioLista = (select ofer_pr_lista from GDDS2.Oferta where id_oferta = @idOferta)
 set @precioOferta = (select ofer_pr_oferta from GDDS2.Oferta where id_oferta = @idOferta)
 set @importe =  isnull((select ofer_pr_oferta from GDDS2.Oferta where id_oferta = @idOferta ),0) * @cantidad
+set @nuevoCodigo = (select count(distinct id_compra) from GDDS2.Compra)+1
 update Cliente
 set clie_credito = clie_credito - @importe
 where id_cliente = @idCliente
 
 
-insert into Compra(id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_cantidad,compra_canjeado,compra_fecha_vencimiento)
-values(@idOferta,@idCliente,GETDATE(),@precioLista,@precioOferta,@cantidad,0,dateadd(DAY,14,GETDATE()))
+SET IDENTITY_INSERT GDDS2.[Compra] on
+
+insert into Compra(id_compra,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_cantidad,compra_canjeado,compra_fecha_vencimiento)
+values(@nuevoCodigo,@idOferta,@idCliente,GETDATE(),@precioLista,@precioOferta,@cantidad,0,dateadd(DAY,14,GETDATE()))
+
+SET IDENTITY_INSERT GDDS2.[Compra] off
 
 update Oferta
 set ofer_cant_disp = ofer_cant_disp - @cantidad
 where id_oferta = @idOferta
 
 
-
-
+set @codigoCuponResultante = @nuevoCodigo
+return
 
 end
 
