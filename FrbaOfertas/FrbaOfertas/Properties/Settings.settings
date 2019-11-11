@@ -1,7 +1,18 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FrbaOfertas.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConexionString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server=localhost\SQLSERVER2012;Database=GD2C2019;User Id=gdCupon2019;Password=gd2019</Value>
+    </Setting>
+    <Setting Name="Fecha" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2020-02-01</Value>
+    </Setting>
+    <Setting Name="CreditoInicial" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">200</Value>
+    </Setting>
+    <Setting Name="OfertaTokenSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">7</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

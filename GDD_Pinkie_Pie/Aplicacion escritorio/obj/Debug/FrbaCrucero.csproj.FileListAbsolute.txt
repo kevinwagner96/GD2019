@@ -64,3 +64,39 @@ C:\Users\usuario\Desktop\Gestion2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\De
 C:\Users\usuario\Desktop\Gestion2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.PagoReserva.PagoReserva.resources
 C:\Users\usuario\Desktop\Gestion2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.Properties.Resources.resources
 C:\Users\usuario\Desktop\Gestion2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.csproj.GenerateResource.Cache
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\bin\Debug\FrbaCrucero.exe.config
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.exe
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.pdb
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\bin\Debug\FrbaCrucero.exe
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\bin\Debug\FrbaCrucero.pdb
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.csprojResolveAssemblyReference.cache
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmCrucero.AltaCruceros.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmCrucero.BajaServicio.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmCrucero.ListaDeCruceros.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmCrucero.ModificarCrucero.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmRecorrido.CrearRecorrido.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmRecorrido.ListaDeRecorridos.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmRecorrido.ModificarRecorrido.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmRol.CrearRol.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmRol.ListadoRoles.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.AbmRol.ModificarRol.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.CompraPasaje.ComprarReservarViaje.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.CompraReservaPasaje.Confirmacion.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.CompraReservaPasaje.DatosPersonales.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.CompraReservaPasaje.MedioDePago.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.CompraReservaPasaje.SeleccionarViaje.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.GeneracionViaje.Cruceros.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.GeneracionViaje.GenerarViaje.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.GeneracionViaje.Recorridos.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.Inicial.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.Acceso.Login.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.FormTemplate.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.Acceso.EnrutarFuncion.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.Acceso.EnrutarRoles.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.ListadoEstadistico.ListadoEstadistico.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.PagoReserva.PagoReserva.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.Properties.Resources.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.csproj.GenerateResource.Cache
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\bin\Debug\FrbaCrucero.exe.config
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.exe
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\GDD_Pinkie_Pie\Aplicacion escritorio\obj\Debug\FrbaCrucero.pdb

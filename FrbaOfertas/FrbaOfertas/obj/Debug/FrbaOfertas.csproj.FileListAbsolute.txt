@@ -1,2 +1,86 @@
 C:\Users\Matias\Desktop\Groupon2019\src\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe.config
 C:\Users\Kevin\Documents\Aplicacion\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe.config
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe.config
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csprojResolveAssemblyReference.cache
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Properties.Resources.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csproj.GenerateResource.Cache
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.pdb
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.exe
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.pdb
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Form1.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.ClienteList.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.NuevoCliente.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe.config
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.exe
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.pdb
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.pdb
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csprojResolveAssemblyReference.cache
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.ClienteList.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.ModificarCliente.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.NuevoCliente.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Form1.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Properties.Resources.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csproj.GenerateResource.Cache
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.ModificarCliente.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ModificarProveedor.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ProveedoresList.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.NuevoProveedor.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.RolesList.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.ModificarRol.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.NuevoRol.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.RegistroUsuario.Login.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ModificarProveedor.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ProveedoresList.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.NuevoProveedor.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.ModificarRol.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.NuevoRol.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.RolesList.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.RegistroUsuario.Login.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.RegistroUsuario.NuevoUsuario.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.RegistroUsuario.NuevoUsuario.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Interface.Tus_roles.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CargaCredito.CargaDeCredito.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\New folder\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Interface.Tus_roles.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe.config
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.pdb
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.ClienteList.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.ModificarCliente.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmCliente.NuevoCliente.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ModificarProveedor.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ProveedoresList.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.NuevoProveedor.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.ModificarRol.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.NuevoRol.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRol.RolesList.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CargaCredito.CargaDeCredito.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Form1.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Interface.Tus_roles.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Properties.Resources.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.RegistroUsuario.Login.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.RegistroUsuario.NuevoUsuario.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csproj.GenerateResource.Cache
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.exe
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.pdb
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CrearOferta.ConfeccionOferta.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csprojResolveAssemblyReference.cache
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.ComprarOferta.ListadoOfertas.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.ConsumirOferta.ListadoCupones.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.ConsumirOferta.CanjearCupon.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CargaCredito.CargaDeCredito.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.ComprarOferta.ListadoOfertas.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.ConsumirOferta.CanjearCupon.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.ConsumirOferta.ListadoCupones.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CrearOferta.ConfeccionOferta.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ModificarUsuario.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.NuevoUsuario.resources
+C:\Users\Kevin\Documents\GestionDeDatos\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.UsuariosList.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.ModificarUsuario.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.NuevoUsuario.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmProveedor.UsuariosList.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmUsuario.Asignaciones.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.AbmRubro.NuevoRubro.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Facturar.FacturarListado.resources
+A:\02.08.2019\GitHubRepository\GestionDeDatos\24.10\GD2019\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Facturar.NuevaFactura.resources
