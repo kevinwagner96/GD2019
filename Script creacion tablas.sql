@@ -718,7 +718,7 @@ select f.id_fact,co.id_compra,Oferta_Precio,co.compra_fecha from gd_esquema.Maes
 
 GO
 --procedure login- existe usuario
-create procedure GDDS2.existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(50), @resultado bit OUTPUT
+create procedure [GDDS2].existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(50), @resultado bit OUTPUT
 AS
 BEGIN
 	declare @hash binary(32) = (select HASHBYTES('SHA2_256', @Contrasenia))
@@ -837,7 +837,7 @@ end
 GO
 
 create trigger [GDDS2].cargaCredito on GDDS2.credito for INSERT
-as 
+as begin
 declare @id_carga_credito int, @idCliente int ,@cred_monto decimal(12,2)
 declare c cursor for (select id_carga_credito,id_cliente,cred_monto from inserted)
 open c 
@@ -862,7 +862,7 @@ as begin
 declare @idOferta nvarchar(50)
 set @idOferta = (select id_oferta from GDDS2.Compra where id_compra = @idCompra)
 declare @estado bit
-if(@idOferta in (select id_oferta from GDDS2.Oferta where id_proveedor = @idProveedor)
+if(@idOferta in (select id_oferta from GDDS2.Oferta where id_proveedor = @idProveedor))
 begin
 set @estado = 1
 end
@@ -872,6 +872,7 @@ set @estado = 0
 end
 return @estado
 end
+
 GO
 
 
