@@ -836,11 +836,10 @@ end
 
 GO
 
-create trigger [GDDS2].cargaCredito on GDDS2.credito
-	for INSERT
+create trigger [GDDS2].cargaCredito on GDDS2.credito for INSERT
 as 
 declare @id_carga_credito int, @idCliente int ,@cred_monto decimal(12,2)
-declare c cursor for (select id_acrga_credito,id_cliente,cred_monto from inserted)
+declare c cursor for (select id_carga_credito,id_cliente,cred_monto from inserted)
 open c 
 fetch next from c into @id_carga_credito,@idCliente,@cred_monto 
 while (@@FETCH_STATUS = 0)
@@ -857,7 +856,7 @@ end
 GO
 
 
-create function [GDDS2].compraNoPerteceAProveedor(@idProveedor int, @idCompra int)
+create function [GDDS2].compraPerteceAProveedor(@idProveedor int, @idCompra int)
 returns bit
 as begin
 declare @idOferta nvarchar(50)
@@ -878,16 +877,13 @@ GO
 
 create procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int)
 as begin
-if (GDDS2.compraNoPerteceAProveedor(@idProveedor, @idCompra))
+if (GDDS2.compraPerteceAProveedor(@idProveedor, @idCompra) = 0)
 begin
 RAISERROR('El codigo de compra no pertenece al proveedor',1,1)
 end
 
-set @nuevoCodigo = (select count(distinct id_entrega) from GDDS2.Entrega)+1
-SET IDENTITY_INSERT GDDS2.[Entrega] on
-insert into GDDS2.Entrega (id_entrega,ent_fecha,id_compra,id_cliente)
-values (@nuevoCodigo,GETDATE(),@idCompra,@idCliente)
-SET IDENTITY_INSERT GDDS2.[Entrega] off
+insert into GDDS2.Entrega (ent_fecha,id_compra,id_cliente)
+values (GETDATE(),@idCompra,@idCliente)
 
 update Compra
 set compra_canjeado = 1 
@@ -895,4 +891,33 @@ where id_compra = @idCompra
 end
 
 GO
+
+
+--funciones de listados estadisticos, ambos reciben 2 fechas q seran ingresadas desde la aplicacion
+
+
+create function [GDDS2].listadoEstadisticoProveedoresMayorDescuento(@fecha1 datetime , @fecha2 datetime)
+returns table
+as 
+return 
+select TOP 5 prov.id_proveedor PROVEEDOR,ru.rubr_detalle RUBRO,prov_razon_social RAZON_SOCIAL, prov.prov_CUIT CUIT, prov.prov_email EMAIL, prov.prov_telefono TELEFONO, prov.prov_contacto CONTACTO,(select  top 1(convert( nvarchar(10),cast(((ofe.ofer_pr_lista - ofe.ofer_pr_oferta )/ofe.ofer_pr_lista)*100 as decimal(12,2) ))+'%') from GDDS2.Proveedor p2 join GDDS2.Oferta ofe on ofe.id_proveedor = p2.id_proveedor where p2.id_proveedor =prov.id_proveedor  order by 1 desc) PORCENTAJE_MAS_ALTO
+from GDDS2.Proveedor prov join GDDS2.Rubro ru on ru.rubr_id = prov.rubr_id 
+where prov.prov_activo = 1 
+order by 8 desc
+
+GO
+
+create function [GDDS2].listadoEstadisticoMayorFacturacion(@fecha1 datetime, @fecha2 datetime)
+returns table
+as 
+return 
+select TOP 5 prov.id_proveedor PROVEEDOR,ru.rubr_detalle RUBRO,prov_razon_social RAZON_SOCIAL, prov.prov_CUIT CUIT, prov.prov_email EMAIL, prov.prov_telefono TELEFONO, prov.prov_contacto CONTACTO, (select isnull(sum(f.fact_importe),0) from GDDS2.Factura f where f.id_proveedor = prov.id_proveedor and f.fact_fecha between @fecha1 and @fecha2) TOTAL_FACTURADO
+from GDDS2.Proveedor prov join GDDS2.Rubro ru on ru.rubr_id = prov.rubr_id 
+where prov.prov_activo = 1 
+order by 8 desc
+
+GO
+
+
+
 
