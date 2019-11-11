@@ -44,62 +44,269 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\Form1.cs">
+    <Compile Include="AbmCliente\ClienteList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmCliente\ClienteList.Designer.cs">
+      <DependentUpon>ClienteList.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmProveedor\Form1.cs">
+    <Compile Include="AbmCliente\ModificarCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmProveedor\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmCliente\ModificarCliente.Designer.cs">
+      <DependentUpon>ModificarCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Form1.cs">
+    <Compile Include="AbmCliente\NuevoCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmCliente\NuevoCliente.Designer.cs">
+      <DependentUpon>NuevoCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="ComprarOferta\Form1.cs">
+    <Compile Include="AbmProveedor\ModificarProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ComprarOferta\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmProveedor\ModificarProveedor.Designer.cs">
+      <DependentUpon>ModificarProveedor.cs</DependentUpon>
     </Compile>
-    <Compile Include="CragaCredito\Form1.cs">
+    <Compile Include="AbmProveedor\ProveedoresList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CragaCredito\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmProveedor\ProveedoresList.Designer.cs">
+      <DependentUpon>ProveedoresList.cs</DependentUpon>
     </Compile>
-    <Compile Include="CrearOferta\Form1.cs">
+    <Compile Include="AbmProveedor\NuevoProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CrearOferta\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmProveedor\NuevoProveedor.Designer.cs">
+      <DependentUpon>NuevoProveedor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Facturar\Form1.cs">
+    <Compile Include="AbmRol\ModificarRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturar\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmRol\ModificarRol.Designer.cs">
+      <DependentUpon>ModificarRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="AbmRol\NuevoRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="AbmRol\NuevoRol.Designer.cs">
+      <DependentUpon>NuevoRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\RolesList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\RolesList.Designer.cs">
+      <DependentUpon>RolesList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRubro\NuevoRubro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRubro\NuevoRubro.Designer.cs">
+      <DependentUpon>NuevoRubro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmUsuario\Asignaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmUsuario\Asignaciones.Designer.cs">
+      <DependentUpon>Asignaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmUsuario\ModificarUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmUsuario\ModificarUsuario.Designer.cs">
+      <DependentUpon>ModificarUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmUsuario\NuevoUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmUsuario\NuevoUsuario.Designer.cs">
+      <DependentUpon>NuevoUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmUsuario\UsuariosList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmUsuario\UsuariosList.Designer.cs">
+      <DependentUpon>UsuariosList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CargaCredito\CargaDeCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CargaCredito\CargaDeCredito.Designer.cs">
+      <DependentUpon>CargaDeCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComprarOferta\CompraOferta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComprarOferta\CompraOferta.Designer.cs">
+      <DependentUpon>CompraOferta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComprarOferta\ListadoOfertas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComprarOferta\ListadoOfertas.Designer.cs">
+      <DependentUpon>ListadoOfertas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Conexion.cs" />
+    <Compile Include="ConsumirOferta\CanjearCupon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsumirOferta\CanjearCupon.Designer.cs">
+      <DependentUpon>CanjearCupon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConsumirOferta\ListadoCupones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsumirOferta\ListadoCupones.Designer.cs">
+      <DependentUpon>ListadoCupones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrearOferta\ConfeccionOferta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearOferta\ConfeccionOferta.Designer.cs">
+      <DependentUpon>ConfeccionOferta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facturar\FacturarListado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturar\FacturarListado.Designer.cs">
+      <DependentUpon>FacturarListado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facturar\NuevaFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturar\NuevaFactura.Designer.cs">
+      <DependentUpon>NuevaFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\FormHelper.cs" />
+    <Compile Include="Interface\Tus roles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\Tus roles.Designer.cs">
+      <DependentUpon>Tus roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Compra.cs" />
+    <Compile Include="Model\Credito.cs" />
+    <Compile Include="Model\DataModel\ClienteData.cs" />
+    <Compile Include="Model\DataModel\CompraData.cs" />
+    <Compile Include="Model\DataModel\EntregaData.cs" />
+    <Compile Include="Model\DataModel\FacturaData.cs" />
+    <Compile Include="Model\DataModel\OfertaData.cs" />
+    <Compile Include="Model\DataModel\CreditoData.cs" />
+    <Compile Include="Model\DataModel\TipoPagoData.cs" />
+    <Compile Include="Model\DataModel\RolData.cs" />
+    <Compile Include="Model\DataModel\FuncionalidadesData.cs" />
+    <Compile Include="Model\DataModel\ProveedorData.cs" />
+    <Compile Include="Model\DataModel\DireccionData.cs" />
+    <Compile Include="Model\DataModel\UsuarioData.cs" />
+    <Compile Include="Interface\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ConfigurationHelper.cs" />
+    <Compile Include="Helpers\DataHelper.cs" />
+    <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="ListadoEstadistico\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListadoEstadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Cliente.cs" />
+    <Compile Include="Model\Direccion.cs" />
+    <Compile Include="Model\Entrega.cs" />
+    <Compile Include="Model\Factura.cs" />
+    <Compile Include="Model\Funcionalidad.cs" />
+    <Compile Include="Model\ItemFactura.cs" />
+    <Compile Include="Model\Oferta.cs" />
+    <Compile Include="Model\Proveedor.cs" />
+    <Compile Include="Model\Rol.cs" />
+    <Compile Include="Model\TipoDePago.cs" />
+    <Compile Include="Model\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistroUsuario\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroUsuario\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroUsuario\NuevoUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroUsuario\NuevoUsuario.Designer.cs">
+      <DependentUpon>NuevoUsuario.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AbmCliente\ClienteList.resx">
+      <DependentUpon>ClienteList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\ModificarCliente.resx">
+      <DependentUpon>ModificarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\NuevoCliente.resx">
+      <DependentUpon>NuevoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmProveedor\ModificarProveedor.resx">
+      <DependentUpon>ModificarProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmProveedor\ProveedoresList.resx">
+      <DependentUpon>ProveedoresList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmProveedor\NuevoProveedor.resx">
+      <DependentUpon>NuevoProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\ModificarRol.resx">
+      <DependentUpon>ModificarRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\NuevoRol.resx">
+      <DependentUpon>NuevoRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\RolesList.resx">
+      <DependentUpon>RolesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRubro\NuevoRubro.resx">
+      <DependentUpon>NuevoRubro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmUsuario\Asignaciones.resx">
+      <DependentUpon>Asignaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmUsuario\ModificarUsuario.resx">
+      <DependentUpon>ModificarUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmUsuario\NuevoUsuario.resx">
+      <DependentUpon>NuevoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmUsuario\UsuariosList.resx">
+      <DependentUpon>UsuariosList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CargaCredito\CargaDeCredito.resx">
+      <DependentUpon>CargaDeCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComprarOferta\ListadoOfertas.resx">
+      <DependentUpon>ListadoOfertas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConsumirOferta\CanjearCupon.resx">
+      <DependentUpon>CanjearCupon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConsumirOferta\ListadoCupones.resx">
+      <DependentUpon>ListadoCupones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrearOferta\ConfeccionOferta.resx">
+      <DependentUpon>ConfeccionOferta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturar\FacturarListado.resx">
+      <DependentUpon>FacturarListado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturar\NuevaFactura.resx">
+      <DependentUpon>NuevaFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\Tus roles.resx">
+      <DependentUpon>Tus roles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -108,7 +315,14 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RegistroUsuario\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistroUsuario\NuevoUsuario.resx">
+      <DependentUpon>NuevoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

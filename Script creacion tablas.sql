@@ -1,3 +1,4 @@
+
 USE [GD2C2019]
 GO
 
@@ -564,7 +565,7 @@ go
 
 --insertamos los tipos de pago,cod de c/u 1,2,y 3 respectivamente
 insert into GDDS2.[Tipo_pago](tipo_pago_nombre)
-values ('Efectivo'),('Crédito'),('Débito')
+values ('Efectivo'),('CrÃ©dito'),('DÃ©bito')
 GO
 -- inserto clientes, junto con sus domicilios
 
@@ -835,3 +836,4 @@ return
 end
 
 GO
+
