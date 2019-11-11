@@ -835,3 +835,64 @@ return
 end
 
 GO
+
+create trigger [GDDS2].cargaCredito on GDDS2.credito
+	for INSERT
+as 
+declare @id_carga_credito int, @idCliente int ,@cred_monto decimal(12,2)
+declare c cursor for (select id_acrga_credito,id_cliente,cred_monto from inserted)
+open c 
+fetch next from c into @id_carga_credito,@idCliente,@cred_monto 
+while (@@FETCH_STATUS = 0)
+begin
+update Cliente
+set clie_credito = clie_credito + @cred_monto 
+where id_cliente = @idCliente
+fetch next from c into @id_carga_credito,@idCliente,@cred_monto
+end
+close c
+deallocate c
+end
+
+GO
+
+
+create function [GDDS2].compraNoPerteceAProveedor(@idProveedor int, @idCompra int)
+returns bit
+as begin
+declare @idOferta nvarchar(50)
+set @idOferta = (select id_oferta from GDDS2.Compra where id_compra = @idCompra)
+declare @estado bit
+if(@idOferta in (select id_oferta from GDDS2.Oferta where id_proveedor = @idProveedor)
+begin
+set @estado = 1
+end
+else 
+begin
+set @estado = 0
+end
+return @estado
+end
+GO
+
+
+create procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int)
+as begin
+if (GDDS2.compraNoPerteceAProveedor(@idProveedor, @idCompra))
+begin
+RAISERROR('El codigo de compra no pertenece al proveedor',1,1)
+end
+
+set @nuevoCodigo = (select count(distinct id_entrega) from GDDS2.Entrega)+1
+SET IDENTITY_INSERT GDDS2.[Entrega] on
+insert into GDDS2.Entrega (id_entrega,ent_fecha,id_compra,id_cliente)
+values (@nuevoCodigo,GETDATE(),@idCompra,@idCliente)
+SET IDENTITY_INSERT GDDS2.[Entrega] off
+
+update Compra
+set compra_canjeado = 1 
+where id_compra = @idCompra
+end
+
+GO
+
