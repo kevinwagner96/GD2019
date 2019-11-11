@@ -1,3 +1,4 @@
+
 USE [GD2C2019]
 GO
 
@@ -13,6 +14,7 @@ IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'GDDS2')
 BEGIN
 EXEC ('CREATE SCHEMA [GDDS2] AUTHORIZATION [gdCupon2019]')
 END
+
 
 CREATE TABLE [GDDS2].[Cliente](
 	[id_cliente] [int] IDENTITY(1,1) NOT NULL,
@@ -33,6 +35,29 @@ CREATE TABLE [GDDS2].[Cliente](
 ) ON [PRIMARY]
 
 GO
+/****** Object:  Table [GDDS2].[Rubro]    Script Date: 10/10/2019 18:55:19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE TABLE [GDDS2].[Rubro](
+[rubr_id] [int] IDENTITY(1,1) NOT NULL,
+[rubr_detalle] [nvarchar] (50) NOT NULL,
+CONSTRAINT [Rubro_pk] PRIMARY KEY CLUSTERED
+(
+    [rubr_id] ASC       
+	 ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+
+
+
 
 /****** Object:  Table [GDDS2].[Compra]    Script Date: 10/10/2019 18:55:19 ******/
 SET ANSI_NULLS ON
@@ -58,6 +83,8 @@ CREATE TABLE [GDDS2].[Compra](
 ) ON [PRIMARY]
 
 GO
+
+
 
 /****** Object:  Table [GDDS2].[credito]    Script Date: 10/10/2019 18:55:19 ******/
 SET ANSI_NULLS ON
@@ -95,7 +122,7 @@ GO
 
 CREATE TABLE [GDDS2].[Domicilio](
 	[id_domicilio] [int] IDENTITY(1,1) NOT NULL,
-	[dom_calle] [nvarchar](50) NOT NULL,
+	[dom_calle] [nvarchar](255) NOT NULL,
 	[dom_numero] [nvarchar](50) NULL,
 	[dom_depto] [int] NULL,
 	[dom_piso] [int] NULL,
@@ -173,6 +200,9 @@ CREATE TABLE [GDDS2].[funcionalidad](
 
 GO
 
+
+
+
 /****** Object:  Table [GDDS2].[Item_factura]    Script Date: 10/10/2019 18:55:19 ******/
 SET ANSI_NULLS ON
 GO
@@ -235,7 +265,7 @@ CREATE TABLE [GDDS2].[Proveedor](
 	[prov_razon_social] [nvarchar] (50) unique NOT NULL,
 	[prov_email] [nvarchar](50) NULL,
 	[prov_telefono] [nvarchar](50) NULL,
-	[prov_rubro] [nvarchar](50) NOT NULL,
+	[rubr_id] [int] NOT NULL,
 	[prov_contacto] [nvarchar](50) NULL,
 	[prov_activo] [bit] NOT NULL,
  CONSTRAINT [Proveedor_pk] PRIMARY KEY CLUSTERED 
@@ -433,6 +463,16 @@ GO
 ALTER TABLE [GDDS2].[Proveedor] CHECK CONSTRAINT [Domicilio_Proveedor_fk]
 GO
 
+ALTER TABLE [GDDS2].[Proveedor]  WITH CHECK ADD  CONSTRAINT [Rubro_Proveedor_fk] FOREIGN KEY([rubr_id])
+REFERENCES [GDDS2].[Rubro] ([rubr_id])
+GO
+
+ALTER TABLE [GDDS2].[Proveedor] CHECK CONSTRAINT [Rubro_Proveedor_fk]
+GO
+
+
+
+
 ALTER TABLE [GDDS2].[Proveedor]  WITH CHECK ADD  CONSTRAINT [Usuario_Proveedor_fk] FOREIGN KEY([prove_usuario])
 REFERENCES [GDDS2].[Usuario] ([id_usuario])
 GO
@@ -489,16 +529,14 @@ VALUES (8,'ABM_USUARIO');
 INSERT INTO GDDS2.[funcionalidad](func_codigo, func_nombre)
 VALUES (9,'GENERAR_FACTURA');
 INSERT INTO GDDS2.[funcionalidad](func_codigo, func_nombre)
-VALUES (10,'INHABILITAR_CUPON');
-INSERT INTO GDDS2.[funcionalidad](func_codigo, func_nombre)
-VALUES (11,'CANJEAR_CUPON');
+VALUES (10,'CANJEAR_CUPON');
 
 
 -- Inserto roles
 SET IDENTITY_INSERT GDDS2.[Rol] ON
 
 INSERT INTO GDDS2.[Rol](id_rol,rol_nombre,rol_activo)
-VALUES (1,'ADMINISTRADOR',1), (2,'CLIENTE',1), (3,'PORVEEDOR',1);
+VALUES (1,'ADMINISTRADOR',1), (2,'CLIENTE',1), (3,'PROVEEDOR',1);
 
 SET IDENTITY_INSERT GDDS2.[Rol] OFF
 
@@ -522,162 +560,55 @@ VALUES (1,1)
 -- Cargo relaciones en al tabla intermedia
 
 INSERT INTO GDDS2.[rol_funcionalidad](id_rol,func_codigo)
-VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(2,2),(2,6),(2,11), (3,5),(3,9),(3,10)
+VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(2,2),(2,6),(3,5),(3,9),(3,10)
 go
 
 --insertamos los tipos de pago,cod de c/u 1,2,y 3 respectivamente
 insert into GDDS2.[Tipo_pago](tipo_pago_nombre)
-values ('Efectivo'),('Crédito'),('Débito')
+values ('Efectivo'),('CrÃ©dito'),('DÃ©bito')
 GO
 -- inserto clientes, junto con sus domicilios
 
 
-create procedure cargarClientes
-as begin
-declare @nombre nvarchar(50)
-declare @apellido nvarchar(50)
-declare @dni numeric(18,0)
-declare @direccion_string nvarchar(50)
-declare @telefono nvarchar(50)
-declare  @email nvarchar(50)
-declare @fechaNac datetime
-declare @ciudad nvarchar(50)
-declare @contador int 
-set @contador = 1
-
-declare cursorClientes cursor fast_forward for (select distinct Cli_Nombre, Cli_Apellido,Cli_Dni,Cli_Direccion,Cli_Telefono,Cli_Mail,Cli_Fecha_Nac,Cli_Ciudad from gd_esquema.Maestra)
-open cursorClientes 
-fetch cursorClientes into @nombre,@apellido,@dni,@direccion_string,@telefono,@email,@fechaNac,@ciudad
-
-while(@@FETCH_STATUS = 0)
-begin
-
-SET IDENTITY_INSERT GDDS2.[Domicilio] ON
-insert into GDDS2.[Domicilio](id_domicilio,dom_calle,dom_ciudad)
-values (@contador,@direccion_string,@ciudad)
-
-SET IDENTITY_INSERT GDDS2.[Domicilio] OFF
+insert into GDDS2.Domicilio(dom_calle,dom_ciudad)
+select distinct Cli_Direccion,Cli_Ciudad from gd_esquema.Maestra where Cli_Direccion is not null
 
 insert into GDDS2.[Cliente](id_domicilio,clie_dni,clie_nombre,clie_apellido,clie_email,clie_telefono,clie_fecha_nac,clie_activo,clie_credito)
-values(@contador,@dni,@nombre,@apellido,@email,@telefono,@fechaNac,1,0)
-set @contador = @contador + 1
-fetch cursorClientes into @nombre,@apellido,@dni,@direccion_string,@telefono,@email,@fechaNac,@ciudad
+(select distinct  id_domicilio,Cli_Dni,Cli_Nombre, Cli_Apellido,Cli_Mail, Cli_Telefono,Cli_Fecha_Nac,1,0 from gd_esquema.Maestra join GDDS2.Domicilio on dom_calle+dom_ciudad = Cli_Direccion+Cli_Ciudad  where Cli_Nombre is not null)
 
-end
-close cursorClientes
-deallocate cursorClientes
+--cargo los rubros
 
-end
+insert into GDDS2.[Rubro](rubr_detalle)
+select distinct Provee_Rubro from gd_esquema.Maestra where Provee_Rubro is not null
 
-exec cargarClientes
-drop procedure cargarClientes
-GO
 
 --cargo los proveedore con respectivos domicilio
-create procedure cargarProveedores
-as begin
-declare @razon_social nvarchar(50)
-declare @domicilio_string nvarchar(50)
-declare @ciudad nvarchar(50)
-declare @telefono nvarchar(50)
-declare @cuit nvarchar(20)
-declare @rubro nvarchar(50)
-declare @contador int
-set @contador = (select count(id_domicilio)from GDDS2.Domicilio)+1
 
-declare cursorProveedores cursor fast_forward for (select distinct isnull(Provee_RS,'--'),isnull(Provee_Dom,'--'),isnull(Provee_Ciudad,'--'),isnull(Provee_Telefono,0),isnull(Provee_CUIT,'--'),isnull(Provee_Rubro,'--') from gd_esquema.Maestra)
-open cursorProveedores
-fetch cursorProveedores into @razon_social,@domicilio_string,@ciudad,@telefono,@cuit,@rubro
-while (@@FETCH_STATUS = 0)
-begin
-SET IDENTITY_INSERT GDDS2.[Domicilio] ON
-insert into GDDS2.[Domicilio](id_domicilio,dom_calle,dom_ciudad)
-values (@contador,@domicilio_string,@ciudad)
+insert into GDDS2.Domicilio (dom_calle,dom_ciudad)
+select distinct Provee_Dom,Provee_Ciudad from gd_esquema.Maestra where Provee_Dom is not null
 
-SET IDENTITY_INSERT GDDS2.[Domicilio] OFF
-
-insert into GDDS2.[Proveedor] (id_domicilio,prov_CUIT,prov_razon_social,prov_telefono,prov_rubro,prov_activo)
-values (@contador,@cuit,@razon_social,@telefono,@rubro,1)
-set @contador = @contador + 1
-fetch cursorProveedores into @razon_social,@domicilio_string,@ciudad,@telefono,@cuit,@rubro
-end
-close cursorProveedores
-deallocate cursorProveedores
-end
-
-exec cargarProveedores 
-drop procedure cargarProveedores
-GO
-
+insert into GDDS2.Proveedor (id_domicilio,prov_CUIT,prov_razon_social,prov_telefono,rubr_id,prov_activo)
+(select distinct id_domicilio,Provee_CUIT,Provee_RS,Provee_Telefono,rubr_id,1 from gd_esquema.Maestra join GDDS2.Rubro on rubr_detalle = Provee_Rubro join GDDS2.Domicilio on dom_calle+dom_ciudad = Provee_Dom+Provee_Ciudad where Provee_RS is not null )
 -- migrando los registros de cargas de credito
 --en la tabla maestra solo un cliente realiza cargas, DNI: 83183632
-create procedure migrarCargasDeCredito
-as begin
-declare @fecha datetime
-declare @carga_credito numeric(18,2)
-declare @id_cliente int
-declare @id_tipo_pago int
-
-
-declare cursorCargaCredito cursor fast_forward for( select  distinct id_cliente,Carga_Fecha,id_tipo_pago,Carga_Credito from gd_esquema.Maestra join GDDS2.Cliente on clie_dni = Cli_Dni join GDDS2.Tipo_pago tp on tp.tipo_pago_nombre = Tipo_Pago_Desc  where Carga_Fecha is not null and Tipo_Pago_Desc is not null )
-open cursorCargaCredito
-
-fetch cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
-while (@@FETCH_STATUS = 0)
-begin
 
 insert into GDDS2.[credito](id_cliente,id_tipo_pago,cred_fecha,cred_monto)
-values (@id_cliente,@id_tipo_pago,@fecha,@carga_credito)
+ select  distinct id_cliente,id_tipo_pago,Carga_Fecha,Carga_Credito from gd_esquema.Maestra join GDDS2.Cliente on clie_dni = Cli_Dni join GDDS2.Tipo_pago tp on tp.tipo_pago_nombre = Tipo_Pago_Desc  where Carga_Fecha is not null and Tipo_Pago_Desc is not null 
 
-fetch cursorCargaCredito into @id_cliente,@fecha,@id_tipo_pago,@carga_credito
-end
-close cursorCargaCredito
-deallocate cursorCargaCredito
 
-end
-
-exec migrarCargasDeCredito
-drop procedure migrarCargasDeCredito
-GO
 --migramos las ofertas y linkeadas a cada proveedor
-create procedure migrarOfertas
-as begin
-declare @cod_proveedor int
-declare @cod_oferta nvarchar(50)
-declare @descripcion nvarchar(255)
-declare @cantidad int
-declare @fecha_publicacion datetime
-declare @fecha_vencimiento datetime
-declare @precio_lista decimal(12,2)
-declare @precio_oferta decimal (12,2)
 
 
-declare cursor_oferta cursor fast_forward for (select distinct id_proveedor,Oferta_Codigo,Oferta_Descripcion,Oferta_Fecha,Oferta_Fecha_Venc,Oferta_Precio,Oferta_Precio_Ficticio,Oferta_Cantidad from gd_esquema.Maestra join GDDS2.Proveedor on prov_CUIT = Provee_CUIT)
-open cursor_oferta
-fetch cursor_oferta into @cod_proveedor,@cod_oferta,@descripcion,@fecha_publicacion,@fecha_vencimiento,@precio_oferta,@precio_lista,@cantidad
-while @@FETCH_STATUS = 0
-begin
+insert into GDDS2.[Oferta](id_oferta,id_proveedor,ofer_descripcion,ofer_f_public,ofer_f_venc,ofer_pr_oferta,ofer_pr_lista,ofer_cant_disp,ofer_activo)
+select distinct Oferta_Codigo,id_proveedor,Oferta_Descripcion,Oferta_Fecha,Oferta_Fecha_Venc,Oferta_Precio,Oferta_Precio_Ficticio,Oferta_Cantidad,1 from gd_esquema.Maestra join GDDS2.Proveedor on prov_CUIT = Provee_CUIT
 
-insert into GDDS2.[Oferta](id_oferta,id_proveedor,ofer_descripcion,ofer_cant_disp,ofer_activo,ofer_f_public,ofer_f_venc,ofer_pr_oferta,ofer_pr_lista)
-values (@cod_oferta,@cod_proveedor,@descripcion,@cantidad,1,@fecha_publicacion,@fecha_vencimiento,@precio_oferta,@precio_lista)
-
-
-
-fetch cursor_oferta into @cod_proveedor,@cod_oferta,@descripcion,@fecha_publicacion,@fecha_vencimiento,@precio_oferta,@precio_lista,@cantidad
-end
-close cursor_oferta
-deallocate cursor_oferta
-end
-
-exec migrarOfertas
-drop procedure migrarOfertas
 
 GO
-/*select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha,(select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null  
-union
-select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha ,(select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni ) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is null and m1.Oferta_Codigo not in (select distinct m1.Oferta_Codigo from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null   )
-*/ -- query que retorna todas las compras hechas, tanto las que fueron entregadas como las que no. me gustaria que en la ultima columna pueda transformar el null de los clientes que canjean los productos en el codigo de cliente que compraron, incluso usando "isnull" devuelve null esas columnas .
-/*create procedure migrarComprasEntregas
+
+
+-- carga de compras que fueron entregadas, 2' 32"
+ 
+create procedure migrarComprasEntregadas
 as begin
 declare @ofertaCodigo nvarchar(50)
 declare @idCliente int
@@ -686,47 +617,109 @@ declare @precioFicticio decimal (12,2)
 declare @ofertaPrecio decimal(12,2)
 declare @fecha_entrega datetime
 declare @id_cliente_destino int
-declare @id_compra int
-set @id_compra = 1
-declare cursor_compras cursor for (select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha,(select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null  
-union
-select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m2.Oferta_Entregado_Fecha ,(select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni ) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is null and m1.Oferta_Codigo not in (select distinct m1.Oferta_Codigo from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = Cli_Dni  join gd_esquema.Maestra m2 on m1.Oferta_Codigo = m2.Oferta_Codigo where  m1.Oferta_Codigo is not null and m1.Oferta_Entregado_Fecha is null and m2.Oferta_Entregado_Fecha is not null   ))
-open cursor_compras 
-fetch cursor_compras into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
+declare @contador int
+set @contador = 1
+declare c cursor fast_forward for (select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m1.Oferta_Entregado_Fecha,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ),id_cliente) cliente_destino from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = m1.Cli_Dni  where m1.Oferta_Fecha_Compra is not null and m1.Oferta_Entregado_Fecha is not null)
+open c
+fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
 while (@@FETCH_STATUS = 0)
-BEGIN ---BEGIN DE CURSOR
-if (@fecha_entrega is not null)
 begin
 SET IDENTITY_INSERT GDDS2.[Compra] on
-insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado)
-values (@id_compra,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,1)
+insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado, compra_cantidad)
+values (@contador,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,1,1)
 SET IDENTITY_INSERT GDDS2.[Compra] off
-
-if (@id_cliente_destino is null)
-set @id_cliente_destino = @idCliente
 
 insert into GDDS2.Entrega(ent_fecha,id_compra,id_cliente)
-values (@fecha_entrega,@id_compra,@id_cliente_destino)
-end --FIN DE IF
+values (@fecha_entrega,@contador,@id_cliente_destino)
+set @contador  = @contador +1
+fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
+end
+close c
+deallocate c
+end
+GO
+exec migrarComprasEntregadas
+drop procedure migrarComprasEntregadas
+GO
 
-else
- 
+--carga de compras no entregadas
+-- duracion 34"
+
+create procedure migrarComprasSinEntregas
+as begin
+declare @ofertaCodigo nvarchar(50)
+declare @idCliente int
+declare @fechaCompra datetime
+declare @precioFicticio decimal (12,2)
+declare @ofertaPrecio decimal(12,2)
+declare @fecha_entrega datetime
+declare @id_cliente_destino int
+declare @contador int
+set @contador = (select count(*) from GDDS2.Compra)+1
+declare c cursor fast_forward for (select distinct m1.Oferta_Codigo,id_cliente,m1.Oferta_Fecha_Compra,m1.Oferta_Precio_Ficticio,m1.Oferta_Precio,m1.Oferta_Entregado_Fecha,isnull((select c1.id_cliente from GDDS2.Cliente c1  where m1.Cli_Dest_Dni = c1.clie_dni  ),id_cliente) cliente_destino   from gd_esquema.Maestra m1 join GDDS2.Cliente on clie_dni = m1.Cli_Dni   where m1.Oferta_Fecha_Compra is not null and m1.Oferta_Entregado_Fecha is  null and cast(m1.Oferta_Codigo as nvarchar(50))+cast(id_cliente as nvarchar(50))+cast(m1.Oferta_Fecha_Compra as nvarchar(50)) not  in (select distinct( cast(id_oferta as nvarchar(50))+cast(id_cliente as nvarchar(50))+cast(compra_fecha as nvarchar(50))) from GDDS2.Compra)  )
+open c
+fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
+while (@@FETCH_STATUS = 0)
 begin
 SET IDENTITY_INSERT GDDS2.[Compra] on
-insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado)
-values (@id_compra,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,0)
+insert into GDDS2.Compra (id_compra ,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_canjeado,compra_cantidad)
+values (@contador,@ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,0,1)
 SET IDENTITY_INSERT GDDS2.[Compra] off
-end --FIN DE ELSE
-set @id_compra = @id_compra + 1
 
-fetch cursor_compras into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
-end --FIN CURSOR
-close cursor_compras
-deallocate cursor_compras
+
+set @contador = @contador + 1
+fetch next from c into @ofertaCodigo,@idCliente,@fechaCompra,@precioFicticio,@ofertaPrecio,@fecha_entrega,@id_cliente_destino
+end
+close c
+deallocate c
 
 end
-*/
-create procedure GDDS2.existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(50), @resultado bit OUTPUT , @intentos INT OUTPUT
+
+GO
+exec migrarComprasSinEntregas
+drop procedure migrarComprasSinEntregas
+GO 
+
+
+
+--migrarFacturas
+
+create procedure cargarFactura
+as begin
+declare @idFactura int, @idProveedor int , @fechaDeFacturacion datetime,@total decimal(12,2)
+
+declare c cursor fast_forward for (select distinct Factura_Nro,(select id_proveedor from GDDS2.Proveedor where prov_CUIT = Provee_CUIT),Factura_Fecha, sum(Oferta_Precio) from gd_esquema.Maestra where Factura_Nro is not null group by Factura_Nro,Factura_Fecha,Provee_CUIT)
+open c
+fetch next from c into @idFactura,@idProveedor,@fechaDeFacturacion,@total 
+while (@@FETCH_STATUS = 0)
+begin
+SET IDENTITY_INSERT GDDS2.[Factura] on
+insert into GDDS2.Factura (id_fact,id_proveedor,fact_fecha,fact_importe)
+values (@idFactura,@idProveedor,@fechaDeFacturacion,@total)
+SET IDENTITY_INSERT GDDS2.[Factura] off
+fetch next from c into @idFactura,@idProveedor,@fechaDeFacturacion ,@total
+end
+close c
+deallocate c
+end
+
+
+
+GO
+exec cargarFactura
+drop procedure cargarFactura
+GO
+
+--cargarItemFactura
+
+insert into GDDS2.Item_factura (id_fact,id_compra,item_precio,item_fecha_compra)
+select f.id_fact,co.id_compra,Oferta_Precio,co.compra_fecha from gd_esquema.Maestra join GDDS2.Factura f on Factura_Nro = f.id_fact join GDDS2.Cliente cli on cli.clie_dni = Cli_Dni join GDDS2.Compra co on (cast(co.id_oferta as nvarchar(50))+cast(co.id_cliente as nvarchar(50))+cast(co.compra_fecha as nvarchar(50)) )= (cast(Oferta_Codigo as nvarchar(50))+cast(cli.id_cliente as nvarchar(50))+ cast(Oferta_Fecha_Compra as nvarchar(50)))
+
+
+
+GO
+--procedure login- existe usuario
+create procedure GDDS2.existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(50), @resultado bit OUTPUT
 AS
 BEGIN
 	declare @hash binary(32) = (select HASHBYTES('SHA2_256', @Contrasenia))
@@ -742,5 +735,105 @@ BEGIN
 			update GDDS2.Usuario set usu_cant_intentos_fallidos = ((select usu_cant_intentos_fallidos from GDDS2.Usuario where usu_username = @Usuario) + 1) where usu_username = @Usuario
 		end
 	end
-		
 END
+
+GO
+--metodos de compras
+create function [GDDS2].cantidadDeArticulosVendidos(@idCliente int, @idOferta nvarchar(50))
+returns int
+as begin
+declare @cantidad int
+set @cantidad = isnull((select sum(compra_cantidad) from GDDS2.Compra where id_cliente = @idCliente and @idOferta = id_oferta),0)
+return @cantidad
+
+end
+
+GO
+
+create function [GDDS2].hayStockDisponible(@idOferta nvarchar(50),@cantidad int)
+returns bit
+as begin
+declare @estado bit
+if ((select ofer_cant_disp from GDDS2.Oferta where id_oferta = @idOferta) >= @cantidad)
+begin
+set @estado = 1
+end
+else 
+begin
+set @estado = 0
+end
+return @estado
+end
+GO
+
+
+
+create function [GDDS2].poseeSaldoSuficiente(@idCliente int, @idOferta nvarchar(50),@cantidad int)
+returns bit
+as begin
+declare @totalPrecio decimal(12,2), @estado bit,@saldoCliente decimal(12,2)
+set @totalPrecio = isnull((select ofer_pr_oferta from GDDS2.Oferta where id_oferta = @idOferta ),0) * @cantidad
+set @saldoCliente = (select clie_credito from GDDS2.Cliente where id_cliente = @idCliente)
+if (@totalPrecio <= @saldoCliente )
+begin
+set @estado = 1
+end
+else
+begin
+set @estado = 0
+end
+return @estado
+end
+GO
+
+create procedure [GDDS2].realizarCompra(@idCliente int ,@idOferta nvarchar(50),@cantidad int,@codigoCuponResultante int output)
+as begin
+declare @cantidadMaximaPorCliente int, @importe decimal(12,2)
+set @cantidadMaximaPorCliente = (select ofer_cant_x_cli from GDDS2.Oferta where id_oferta = @idOferta)
+if (@cantidadMaximaPorCliente < (GDDS2.cantidadDeArticulosVendidos(@idCliente,@idOferta) + @cantidad)     )
+begin
+RAISERROR('El cliente no puede adquirir la cantidad seleccionada del producto',1,1)
+end
+
+
+if (GDDS2.poseeSaldoSuficiente(@idCliente,@idOferta,@cantidad) = 0)
+begin
+RAISERROR('Saldo insuficiente',1,1)
+end
+
+if(GDDS2.hayStockDisponible(@idOferta,@cantidad) = 0)
+begin
+RAISERROR('No hay Stock disponible',1,1)
+end
+
+declare @precioLista decimal(12,2)
+declare @precioOferta decimal (12,2)
+declare @nuevoCodigo int
+set @precioLista = (select ofer_pr_lista from GDDS2.Oferta where id_oferta = @idOferta)
+set @precioOferta = (select ofer_pr_oferta from GDDS2.Oferta where id_oferta = @idOferta)
+set @importe =  isnull((select ofer_pr_oferta from GDDS2.Oferta where id_oferta = @idOferta ),0) * @cantidad
+set @nuevoCodigo = (select count(distinct id_compra) from GDDS2.Compra)+1
+update Cliente
+set clie_credito = clie_credito - @importe
+where id_cliente = @idCliente
+
+
+SET IDENTITY_INSERT GDDS2.[Compra] on
+
+insert into Compra(id_compra,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_cantidad,compra_canjeado,compra_fecha_vencimiento)
+values(@nuevoCodigo,@idOferta,@idCliente,GETDATE(),@precioLista,@precioOferta,@cantidad,0,dateadd(DAY,14,GETDATE()))
+
+SET IDENTITY_INSERT GDDS2.[Compra] off
+
+update Oferta
+set ofer_cant_disp = ofer_cant_disp - @cantidad
+where id_oferta = @idOferta
+
+
+set @codigoCuponResultante = @nuevoCodigo
+return
+
+end
+
+GO
+
