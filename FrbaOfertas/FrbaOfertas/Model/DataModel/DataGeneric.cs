@@ -109,5 +109,57 @@ namespace FrbaOfertas.Model.DataModel
             return listado;
         }
 
+        public List<ListDescuento> mayorDescuento(DateTime inicio, DateTime fin, out Exception exError)
+        {
+            List<ListDescuento> listado = new List<ListDescuento>();
+
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                using (SqlCommand command = new SqlCommand("select * from GDDS2.listadoEstadisticoProveedoresMayorDescuento(@fecha1,@fecha2)", (SqlConnection)this.Connection))
+                {
+                    command.CommandType = CommandType.Text;
+                    SqlParameter parameter1 = new SqlParameter("@fecha1", SqlDbType.DateTime);
+                    parameter1.Direction = ParameterDirection.Input;
+                    parameter1.Value = inicio;
+                    SqlParameter parameter2 = new SqlParameter("@fecha2", SqlDbType.DateTime);
+                    parameter2.Direction = ParameterDirection.Input;
+                    parameter2.Value = fin;
+
+
+                    command.Parameters.Add(parameter1);
+                    command.Parameters.Add(parameter2);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            listado.Add(new ListDescuento(reader));
+
+                        }
+                    }
+
+                }
+            }
+            catch (InvalidOperationException invalid)
+            {
+                exError = invalid;
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+
+
+
+            return listado;
+        }
+
     }
 }

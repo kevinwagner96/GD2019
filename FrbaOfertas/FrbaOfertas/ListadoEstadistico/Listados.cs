@@ -71,8 +71,8 @@ namespace FrbaOfertas.ListadoEstadistico
             }
             else
             {
-                MessageBox.Show("Proveedores con mayor descuento desde " + start.ToShortDateString() + " hasta " + end.ToShortDateString(), "Consulta", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cargarDataGridFacturacion(start, end);
+                MessageBox.Show("Proveedores con mayor descuento desde " + start.ToShortDateString() + " hasta " + end.ToShortDateString(), "Consulta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cargarDataGridDescuento(start, end);
             }
             
 
@@ -87,6 +87,18 @@ namespace FrbaOfertas.ListadoEstadistico
             if (exError == null)
             {
                 listadosGrid.DataSource = listado;                
+            }
+            else
+                MessageBox.Show("No se pudo obtener la lista , " + exError.Message);
+        }
+
+        private void cargarDataGridDescuento(DateTime desde, DateTime hasta)
+        {
+            List<ListDescuento> listado = data.mayorDescuento(desde, hasta, out exError);
+
+            if (exError == null)
+            {
+                listadosGrid.DataSource = listado;
             }
             else
                 MessageBox.Show("No se pudo obtener la lista , " + exError.Message);

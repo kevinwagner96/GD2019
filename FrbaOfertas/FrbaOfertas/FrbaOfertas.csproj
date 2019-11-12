@@ -185,6 +185,7 @@
       <DependentUpon>Tus roles.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Compra.cs" />
+    <Compile Include="Model\ListDescuento.cs" />
     <Compile Include="Model\Credito.cs" />
     <Compile Include="Model\DataModel\ClienteData.cs" />
     <Compile Include="Model\DataModel\CompraData.cs" />
