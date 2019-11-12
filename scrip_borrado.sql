@@ -25,10 +25,6 @@ GO
 DROP PROCEDURE GDDS2.cargarEntrega
 GO
 
-DROP FUNCTION GDDS2.compraPerteceAProveedor
-GO
-
-
 DROP FUNCTION GDDS2.listadoEstadisticoProveedoresMayorDescuento
 GO
 
