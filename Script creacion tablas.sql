@@ -641,6 +641,10 @@ exec migrarComprasEntregadas
 drop procedure migrarComprasEntregadas
 GO
 
+
+
+
+
 --carga de compras no entregadas
 -- duracion 34"
 
@@ -705,6 +709,7 @@ end
 
 
 GO
+
 exec cargarFactura
 drop procedure cargarFactura
 GO
@@ -835,8 +840,9 @@ return
 end
 
 GO
+--trigger ante la carga de credito
 
-create trigger [GDDS2].cargaCredito on GDDS2.credito for INSERT
+create trigger [GDDS2].cargaCredito on GDDS2.credito after INSERT
 as begin
 declare @id_carga_credito int, @idCliente int ,@cred_monto decimal(12,2)
 declare c cursor for (select id_carga_credito,id_cliente,cred_monto from inserted)
@@ -918,6 +924,25 @@ where prov.prov_activo = 1
 order by 8 desc
 
 GO
+
+--procedure para facturación
+create procedure [GDDS2].facturar(@proveedor int, @fechaInicio datetime , @fechaFin datetime,@numeroFactura int output, @importe decimal(12,2) output)
+as begin
+
+
+set @numeroFactura = (select max(id_fact) from GDDS2.Factura)+1
+set @importe = isnull((select sum(c.compra_precio_oferta * c.compra_cantidad) from GDDS2.Compra c join GDDS2.Oferta o on o.id_oferta = c.id_oferta where o.id_proveedor = @proveedor and c.compra_fecha between @fechaInicio and @fechaFin  ) ,0)
+
+SET IDENTITY_INSERT GDDS2.[Factura] on
+insert into GDDS2.Factura(id_fact,id_proveedor,fact_fecha,fact_fecha_inicio,fact_fecha_fin,fact_importe)
+values(@numeroFactura,@proveedor,GETDATE(),@fechaInicio,@fechaFin,@importe)
+SET IDENTITY_INSERT GDDS2.[Factura] off
+
+insert into GDDS2.Item_factura(id_fact,id_compra,item_fecha_compra,item_precio)
+(select @numeroFactura,c.id_compra,c.compra_fecha,(c.compra_precio_oferta * c.compra_cantidad) from GDDS2.Compra c join GDDS2.Oferta o on o.id_oferta = c.id_oferta where o.id_proveedor = @proveedor and c.compra_fecha between @fechaInicio and @fechaFin  ) 
+
+RETURN
+end
 
 
 

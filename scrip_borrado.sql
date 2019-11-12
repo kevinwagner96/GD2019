@@ -1,6 +1,8 @@
 USE [GD2C2019]
 GO
 
+DROP PROCEDURE GDDS2.facturar
+GO
 
 DROP PROCEDURE GDDS2.existe_usuario
 GO
