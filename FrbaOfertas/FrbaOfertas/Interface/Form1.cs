@@ -20,6 +20,7 @@ using FrbaOfertas.ComprarOferta;
 using FrbaOfertas.CrearOferta;
 using FrbaOfertas.ConsumirOferta;
 using FrbaOfertas.Facturar;
+using FrbaOfertas.ListadoEstadistico;
 
 
 namespace FrbaOfertas
@@ -319,6 +320,13 @@ namespace FrbaOfertas
         private void GENERAR_FACTURA_Click(object sender, EventArgs e)
         {
             NuevaFactura form = new NuevaFactura();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void LISTADO_ESTADISTICO_Click(object sender, EventArgs e)
+        {
+            Listados form = new Listados();
             form.MdiParent = this;
             form.Show();
         }
