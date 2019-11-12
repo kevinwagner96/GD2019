@@ -148,6 +148,7 @@ namespace FrbaOfertas.CrearOferta
             {
                 this.proveedor = (Proveedor)form.returnProveedor;
                 nombre_proveedor.Text = this.proveedor.prov_razon_social;
+                
             }
         }
 

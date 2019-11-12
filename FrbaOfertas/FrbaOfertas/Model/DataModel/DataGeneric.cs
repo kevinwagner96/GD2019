@@ -202,6 +202,55 @@ namespace FrbaOfertas.Model.DataModel
             }
             
         }
+        /*@idCliente int ,@idOferta nvarchar(50),@cantidad int,@codigoCuponResultante int output*/
+        public String realizarCompra(Int32 idCliente, String idOferta, Int32 cantidad  , out Exception exError)
+        {
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+
+                using (SqlCommand command = new SqlCommand("[GDDS2].realizarCompra", (SqlConnection)this.Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlParameter parameter1 = new SqlParameter("@idCliente", SqlDbType.Int);
+                    parameter1.Direction = ParameterDirection.Input;
+                    parameter1.Value = idCliente;
+                    SqlParameter parameter2 = new SqlParameter("@idOferta", SqlDbType.NVarChar);
+                    parameter2.Direction = ParameterDirection.Input;
+                    parameter2.Value = idOferta;
+                    SqlParameter parameter3 = new SqlParameter("@cantidad", SqlDbType.Int);
+                    parameter3.Direction = ParameterDirection.Input;
+                    parameter3.Value = cantidad;
+                    SqlParameter parameter4 = new SqlParameter("@codigoCuponResultante", SqlDbType.Int);
+                    parameter4.Direction = ParameterDirection.Output;
+
+                    command.Parameters.Add(parameter1);
+                    command.Parameters.Add(parameter2);
+                    command.Parameters.Add(parameter3);
+                    command.Parameters.Add(parameter4);
+
+                    command.ExecuteNonQuery();
+
+                    return command.Parameters["@codigoCuponResultante"].Value.ToString();
+
+                }
+
+
+
+            }
+            catch (SqlException ex)
+            {
+                exError = ex;
+            }
+
+            return null;
+
+        }
 
 
     }
