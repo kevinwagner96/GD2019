@@ -935,7 +935,3 @@ insert into GDDS2.Item_factura(id_fact,id_compra,item_fecha_compra,item_precio)
 
 RETURN
 end
-
-
-
-
