@@ -269,7 +269,7 @@ namespace FrbaOfertas
                 return;
             }
 
-            ListadoCupones form2 = new ListadoCupones();
+            CanjearCupon form2 = new CanjearCupon();
             form2.MdiParent = this;
             form2.Show();
         }

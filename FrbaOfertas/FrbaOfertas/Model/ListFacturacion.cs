@@ -34,7 +34,7 @@ namespace FrbaOfertas.Model
         public String rubr_detalle { get { return this._prov_rubro; } set { this._prov_rubro = value; atributesModify.Add("rubr_detalle"); } }
         [System.ComponentModel.DisplayName("Contacto")]
         public String prov_contacto { get { return this._prov_contacto; } set { this._prov_contacto = value; atributesModify.Add("prov_contacto"); } }
-        [System.ComponentModel.DisplayName("Mayor descuento")]
+        [System.ComponentModel.DisplayName("Facturacion")]
         public String porcent { get { return this._porcent; } set { this._porcent = value; atributesModify.Add("porcent"); } }
 
         public ListFacturacion() { }
