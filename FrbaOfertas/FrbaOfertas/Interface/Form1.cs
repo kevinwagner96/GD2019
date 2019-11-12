@@ -305,7 +305,7 @@ namespace FrbaOfertas
 
         private void COMPRAR_OFERTA_Click(object sender, EventArgs e)
         {
-            ListadoOfertas carg = new ListadoOfertas();
+            ListadoOfertas carg = new ListadoOfertas(meCliente);
             carg.MdiParent = this;
             carg.Show();
         }
