@@ -108,7 +108,11 @@ namespace FrbaOfertas.RegistroUsuario
             var result = form.ShowDialog();
             if (result == DialogResult.OK)
             {
-                Int32 id_user = dataU.Create(new Usuario(usuario.Text, password.Text), getId_rol(text.Text), out exError);
+                Usuario user = new Usuario(usuario.Text, password.Text);
+                Rol rol = new Rol();
+                rol.id_rol = getId_rol(text.Text);
+                user.roles.Add(rol);
+                Int32 id_user = dataU.Create(user, getId_rol(text.Text), out exError);
                 if (exError == null)
                 {
                     form.returnCliente.clie_usuario = id_user;
@@ -137,7 +141,11 @@ namespace FrbaOfertas.RegistroUsuario
             var result = form.ShowDialog();
             if (result == DialogResult.OK)
             {
-                Int32 id_user = dataU.Create(new Usuario(usuario.Text, password.Text), getId_rol(text.Text), out exError);
+                Usuario user = new Usuario(usuario.Text, password.Text);
+                Rol rol = new Rol();
+                rol.id_rol = getId_rol(text.Text);
+                user.roles.Add(rol);
+                Int32 id_user = dataU.Create(user, getId_rol(text.Text), out exError);
                 if (exError == null)
                 {
                     ((Proveedor)form.returnProveedor).prove_usuario = id_user;

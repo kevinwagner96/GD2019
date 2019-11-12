@@ -164,5 +164,25 @@ namespace FrbaOfertas.Helpers
                 return false;
             }
         }
+
+        public static bool fechaMayor(DateTime menor , DateTime mayor)
+        {            
+            if (mayor < menor ) 
+            {
+                MessageBox.Show("La fecha inicio es mayor a la final.", "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+            return false;
+        }
+
+        public static bool fechaMayorAactual(DateTime menor, DateTime mayor)
+        {
+            if (mayor < menor)
+            {
+                MessageBox.Show("La fecha inicio es mayor a la actual. Actual:"+ mayor.ToShortDateString(), "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+            return false;
+        }
     }
 }

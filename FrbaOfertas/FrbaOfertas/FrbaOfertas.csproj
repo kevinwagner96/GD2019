@@ -185,9 +185,11 @@
       <DependentUpon>Tus roles.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Compra.cs" />
+    <Compile Include="Model\ListDescuento.cs" />
     <Compile Include="Model\Credito.cs" />
     <Compile Include="Model\DataModel\ClienteData.cs" />
     <Compile Include="Model\DataModel\CompraData.cs" />
+    <Compile Include="Model\DataModel\DataGeneric.cs" />
     <Compile Include="Model\DataModel\EntregaData.cs" />
     <Compile Include="Model\DataModel\FacturaData.cs" />
     <Compile Include="Model\DataModel\OfertaData.cs" />
@@ -207,11 +209,11 @@
     <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
-    <Compile Include="ListadoEstadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\Listados.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\Listados.Designer.cs">
+      <DependentUpon>Listados.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\Direccion.cs" />
@@ -219,6 +221,7 @@
     <Compile Include="Model\Factura.cs" />
     <Compile Include="Model\Funcionalidad.cs" />
     <Compile Include="Model\ItemFactura.cs" />
+    <Compile Include="Model\ListFacturacion.cs" />
     <Compile Include="Model\Oferta.cs" />
     <Compile Include="Model\Proveedor.cs" />
     <Compile Include="Model\Rol.cs" />
@@ -306,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\Tus roles.resx">
       <DependentUpon>Tus roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListadoEstadistico\Listados.resx">
+      <DependentUpon>Listados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

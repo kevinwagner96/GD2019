@@ -1,4 +1,5 @@
-﻿using FrbaOfertas.Helpers;
+﻿using FrbaOfertas.AbmRubro;
+using FrbaOfertas.Helpers;
 using FrbaOfertas.Model;
 using FrbaOfertas.Model.DataModel;
 using System;
@@ -20,7 +21,8 @@ namespace FrbaOfertas.AbmProveedor
         List<TextBox> numericos= new List<TextBox>();
         List<TextBox> todos = new List<TextBox>();
         public object returnDireccion { get; set; }
-        public object returnProveedor { get; set; }  
+        public object returnProveedor { get; set; }
+        Dictionary<Int32, String> rubros;
         ProveedorData dataP;
         DireccionData dataD;
         Exception exError = null;
@@ -41,11 +43,11 @@ namespace FrbaOfertas.AbmProveedor
         {
             noNulos.Add(prov_razon_social);
             noNulos.Add(prov_CUIT);
-            noNulos.Add(prov_rubro);
-            noNulos.Add(prov_contacto);
+            //noNulos.Add(prov_rubro);
+            //noNulos.Add(prov_contacto);
             noNulos.Add(dom_calle);
             noNulos.Add(dom_ciudad);
-            numericos.Add(prov_CUIT);
+            //numericos.Add(prov_CUIT);
             numericos.Add(dom_numero);
             numericos.Add(dom_depto);
             numericos.Add(dom_piso);
@@ -61,7 +63,28 @@ namespace FrbaOfertas.AbmProveedor
             dataD = new DireccionData(Conexion.getConexion());
             dataP = new ProveedorData(Conexion.getConexion());
 
+            rubros = dataP.Rubros(out exError);
+            agregarRubros(rubros);
+            
            
+        }
+
+        private void setRubro(int p)
+        {
+            foreach (KeyValuePair<int, string> entry in rubros)
+            {
+                if (entry.Key == p)
+                    rubrosComboBox.Text = entry.Value;
+            }
+
+        }
+
+        private void agregarRubros(Dictionary<int, string> rubros)
+        {
+            foreach (KeyValuePair<int, string> entry in rubros)
+            {
+                rubrosComboBox.Items.Add(entry.Value);
+            }
         }
 
         private void guardar_Click(object sender, EventArgs e)
@@ -77,6 +100,8 @@ namespace FrbaOfertas.AbmProveedor
             FormHelper.setearAtributos(todos, proveedor);
             FormHelper.setearAtributos(todos, direccion);
             proveedor.prov_activo = prov_activo.Checked;
+            proveedor.rubr_id = getRubroId(rubrosComboBox.Text);
+
 
             Dictionary<String, Object> exac = new Dictionary<string, Object>() { { "prov_razon_social", proveedor.prov_razon_social } };
             if (dataP.FilterSelect(new Dictionary<String, String>(), exac, out exError).Count() > 0)
@@ -111,6 +136,39 @@ namespace FrbaOfertas.AbmProveedor
                 MessageBox.Show("Erro al agregar Proveedor, " + exError.Message, "Proveedor", MessageBoxButtons.OK, MessageBoxIcon.Error);    
           
             
+        }
+
+        private int getRubroId(string p)
+        {
+            foreach (KeyValuePair<int, string> entry in rubros)
+            {
+                if (entry.Value == rubrosComboBox.Text)
+                    return entry.Key;
+            }
+            return 0;
+        }
+
+
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            NuevoRubro form = new NuevoRubro();
+            form.Parent = this.Parent;
+            var dialog = form.ShowDialog();
+            if (dialog == DialogResult.OK)
+            {
+                KeyValuePair<Int32, String> kv = dataP.CreateRubro(form.rubro, out exError);
+                if (exError != null)
+                {
+                    MessageBox.Show("Error al agreagar el rubro.", "Proveedor nuevo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    rubros.Add(kv.Key, kv.Value);
+                    rubrosComboBox.Items.Add(kv.Value);
+                }
+
+            }
         }
 
         

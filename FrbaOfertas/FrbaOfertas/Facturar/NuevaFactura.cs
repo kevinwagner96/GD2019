@@ -61,14 +61,29 @@ namespace FrbaOfertas.Facturar
             if (!FormHelper.noNullList(noNulos))
                 return;
 
+            
+
             Factura factura = new Factura();
             factura.id_proveedor = proveedor.id_proveedor;
             factura.fact_fecha = fecha;
             factura.fact_fecha_inicio = DateTime.Parse(inicio.Text);
             factura.fact_fecha_fin = DateTime.Parse(fin.Text);
 
+           if (FormHelper.fechaMayor(factura.fact_fecha_inicio , factura.fact_fecha_fin)      )          
+                return;
+
+           if (FormHelper.fechaMayorAactual(factura.fact_fecha_fin, fecha))
+               return;
+            
+
+
             FacturarListado form = new FacturarListado(factura);            
             form.ShowDialog();
+        }
+
+        private void MessageBox(string p)
+        {
+            throw new NotImplementedException();
         }
 
         private void NuevaFactura_Load(object sender, EventArgs e)

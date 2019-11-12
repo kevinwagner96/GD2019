@@ -34,7 +34,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.prov_CUIT = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.prov_rubro = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.prov_email = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -57,6 +56,8 @@
             this.prov_activo = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.prov_contacto = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.rubrosComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // prov_razon_social
@@ -110,14 +111,6 @@
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "Rubro *";
-            // 
-            // prov_rubro
-            // 
-            this.prov_rubro.Location = new System.Drawing.Point(111, 81);
-            this.prov_rubro.Name = "prov_rubro";
-            this.prov_rubro.Size = new System.Drawing.Size(213, 20);
-            this.prov_rubro.TabIndex = 5;
-            this.prov_rubro.Tag = "Rubro";
             // 
             // label5
             // 
@@ -311,11 +304,31 @@
             this.prov_contacto.TabIndex = 35;
             this.prov_contacto.Tag = "Contacto";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(267, 82);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(57, 21);
+            this.button1.TabIndex = 40;
+            this.button1.Text = "Nuevo";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // rubrosComboBox
+            // 
+            this.rubrosComboBox.FormattingEnabled = true;
+            this.rubrosComboBox.Location = new System.Drawing.Point(111, 82);
+            this.rubrosComboBox.Name = "rubrosComboBox";
+            this.rubrosComboBox.Size = new System.Drawing.Size(150, 21);
+            this.rubrosComboBox.TabIndex = 39;
+            // 
             // NuevoProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(337, 426);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.rubrosComboBox);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.prov_contacto);
             this.Controls.Add(this.prov_activo);
@@ -339,7 +352,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.prov_email);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.prov_rubro);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.prov_CUIT);
             this.Controls.Add(this.label2);
@@ -361,7 +373,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox prov_CUIT;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox prov_rubro;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox prov_email;
         private System.Windows.Forms.Label label6;
@@ -384,5 +395,7 @@
         private System.Windows.Forms.CheckBox prov_activo;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox prov_contacto;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox rubrosComboBox;
     }
 }
