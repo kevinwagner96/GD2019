@@ -82,7 +82,7 @@ namespace FrbaOfertas.ConsumirOferta
             Int32 id = (Int32)dataGridOfertas.Rows[dataGridOfertas.CurrentCell.RowIndex].Cells["id_compra"].Value;
             Compra compra = new Compra();
             compra.id_compra = id;
-            CanjearCupon canjeo = new CanjearCupon(compra);
+            CanjearCupon canjeo = new CanjearCupon();
             canjeo.MdiParent = this.ParentForm;
             canjeo.Show();
 

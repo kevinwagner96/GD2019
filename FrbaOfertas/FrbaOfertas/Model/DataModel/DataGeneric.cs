@@ -161,5 +161,48 @@ namespace FrbaOfertas.Model.DataModel
             return listado;
         }
 
+        public void entregarCompra(Int32 idProveedor,Int32  idCompra , Int32 idCliente, out Exception exError)
+        {            
+            exError = null;
+
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                //create procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int)
+
+                    using (SqlCommand command = new SqlCommand("[GDDS2].cargarEntrega", (SqlConnection)this.Connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        SqlParameter parameter1 = new SqlParameter("@idProveedor", SqlDbType.Int);
+                        parameter1.Direction = ParameterDirection.Input;
+                        parameter1.Value = idProveedor;
+                        SqlParameter parameter2 = new SqlParameter("@idCompra", SqlDbType.Int);
+                        parameter2.Direction = ParameterDirection.Input;
+                        parameter2.Value = idCompra;
+                        SqlParameter parameter3 = new SqlParameter("@idCliente", SqlDbType.Int);
+                        parameter3.Direction = ParameterDirection.Input;
+                        parameter3.Value = idCliente;
+
+                        command.Parameters.Add(parameter1);
+                        command.Parameters.Add(parameter2);
+                        command.Parameters.Add(parameter3);
+
+                        command.ExecuteNonQuery();
+                        
+                    }
+
+
+
+            }
+            catch (SqlException ex)
+            {
+                exError = ex;
+            }
+            
+        }
+
+
     }
 }

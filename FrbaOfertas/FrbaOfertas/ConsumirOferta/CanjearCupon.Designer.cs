@@ -34,15 +34,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.id_compra = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.ent_fecha = new System.Windows.Forms.TextBox();
             this.guardar = new System.Windows.Forms.Button();
+            this.seleecionar_proveedor = new System.Windows.Forms.Button();
+            this.nombre_proveedor = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 63);
+            this.label2.Location = new System.Drawing.Point(15, 91);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 42;
@@ -51,7 +52,7 @@
             // clie_nombre
             // 
             this.clie_nombre.Enabled = false;
-            this.clie_nombre.Location = new System.Drawing.Point(110, 60);
+            this.clie_nombre.Location = new System.Drawing.Point(114, 88);
             this.clie_nombre.Name = "clie_nombre";
             this.clie_nombre.Size = new System.Drawing.Size(123, 20);
             this.clie_nombre.TabIndex = 41;
@@ -60,7 +61,7 @@
             // seleccionar
             // 
             this.seleccionar.Enabled = false;
-            this.seleccionar.Location = new System.Drawing.Point(239, 60);
+            this.seleccionar.Location = new System.Drawing.Point(243, 88);
             this.seleccionar.Name = "seleccionar";
             this.seleccionar.Size = new System.Drawing.Size(81, 20);
             this.seleccionar.TabIndex = 43;
@@ -71,7 +72,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 37);
+            this.label1.Location = new System.Drawing.Point(15, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 45;
@@ -80,7 +81,7 @@
             // id_compra
             // 
             this.id_compra.Enabled = false;
-            this.id_compra.Location = new System.Drawing.Point(110, 34);
+            this.id_compra.Location = new System.Drawing.Point(114, 62);
             this.id_compra.Name = "id_compra";
             this.id_compra.Size = new System.Drawing.Size(210, 20);
             this.id_compra.TabIndex = 44;
@@ -96,27 +97,9 @@
             this.label3.TabIndex = 46;
             this.label3.Text = "Canjear Cupon";
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(11, 90);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(89, 13);
-            this.label14.TabIndex = 48;
-            this.label14.Text = "Fecha de Canje *";
-            // 
-            // ent_fecha
-            // 
-            this.ent_fecha.Enabled = false;
-            this.ent_fecha.Location = new System.Drawing.Point(110, 87);
-            this.ent_fecha.Name = "ent_fecha";
-            this.ent_fecha.Size = new System.Drawing.Size(210, 20);
-            this.ent_fecha.TabIndex = 47;
-            this.ent_fecha.Tag = "Fecha de nacimiento";
-            // 
             // guardar
             // 
-            this.guardar.Location = new System.Drawing.Point(239, 113);
+            this.guardar.Location = new System.Drawing.Point(239, 114);
             this.guardar.Name = "guardar";
             this.guardar.Size = new System.Drawing.Size(84, 20);
             this.guardar.TabIndex = 51;
@@ -124,14 +107,44 @@
             this.guardar.UseVisualStyleBackColor = true;
             this.guardar.Click += new System.EventHandler(this.guardar_Click);
             // 
+            // seleecionar_proveedor
+            // 
+            this.seleecionar_proveedor.Enabled = false;
+            this.seleecionar_proveedor.Location = new System.Drawing.Point(243, 36);
+            this.seleecionar_proveedor.Name = "seleecionar_proveedor";
+            this.seleecionar_proveedor.Size = new System.Drawing.Size(84, 20);
+            this.seleecionar_proveedor.TabIndex = 84;
+            this.seleecionar_proveedor.Text = "Seleccionar";
+            this.seleecionar_proveedor.UseVisualStyleBackColor = true;
+            this.seleecionar_proveedor.Click += new System.EventHandler(this.seleecionar_proveedor_Click);
+            // 
+            // nombre_proveedor
+            // 
+            this.nombre_proveedor.Enabled = false;
+            this.nombre_proveedor.Location = new System.Drawing.Point(114, 36);
+            this.nombre_proveedor.Name = "nombre_proveedor";
+            this.nombre_proveedor.Size = new System.Drawing.Size(123, 20);
+            this.nombre_proveedor.TabIndex = 83;
+            this.nombre_proveedor.Tag = "Proveedor";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 39);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.TabIndex = 82;
+            this.label4.Text = "Proveedor *";
+            // 
             // CanjearCupon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(332, 146);
+            this.Controls.Add(this.seleecionar_proveedor);
+            this.Controls.Add(this.nombre_proveedor);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.guardar);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.ent_fecha);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.id_compra);
@@ -154,8 +167,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox id_compra;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox ent_fecha;
         private System.Windows.Forms.Button guardar;
+        private System.Windows.Forms.Button seleecionar_proveedor;
+        private System.Windows.Forms.TextBox nombre_proveedor;
+        private System.Windows.Forms.Label label4;
     }
 }
