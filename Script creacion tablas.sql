@@ -862,29 +862,14 @@ end
 GO
 
 
-create function [GDDS2].compraPerteceAProveedor(@idProveedor int, @idCompra int)
-returns bit
-as begin
-declare @idOferta nvarchar(50)
-set @idOferta = (select id_oferta from GDDS2.Compra where id_compra = @idCompra)
-declare @estado bit
-if(@idOferta in (select id_oferta from GDDS2.Oferta where id_proveedor = @idProveedor))
-begin
-set @estado = 1
-end
-else 
-begin
-set @estado = 0
-end
-return @estado
-end
-
-GO
 
 
 create procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int)
 as begin
-if (GDDS2.compraPerteceAProveedor(@idProveedor, @idCompra) = 0)
+declare @idOferta nvarchar(50)
+set @idOferta = (select id_oferta from GDDS2.Compra where id_compra = @idCompra)
+
+if( @idProveedor != (select id_proveedor from GDDS2.Oferta where id_oferta = @idOferta)     )
 begin
 RAISERROR('El codigo de compra no pertenece al proveedor',1,1)
 end
