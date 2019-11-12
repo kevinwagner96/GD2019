@@ -918,12 +918,12 @@ order by 8 desc
 GO
 
 --procedure para facturación
-create procedure [GDDS2].facturar(@proveedor int, @fechaInicio datetime , @fechaFin datetime,@numeroFactura int output, @importe decimal(12,2) output)
+create procedure [GDDS2].facturar(@proveedor int, @fechaInicio nvarchar(50) , @fechaFin nvarchar(50),@numeroFactura int output, @importe decimal(12,2) output)
 as begin
 
 
 set @numeroFactura = (select max(id_fact) from GDDS2.Factura)+1
-set @importe = isnull((select sum(c.compra_precio_oferta * c.compra_cantidad) from GDDS2.Compra c join GDDS2.Oferta o on o.id_oferta = c.id_oferta where o.id_proveedor = @proveedor and c.compra_fecha between @fechaInicio and @fechaFin  ) ,0)
+set @importe = isnull((select sum(c.compra_precio_oferta * c.compra_cantidad) from GDDS2.Compra c join GDDS2.Oferta o on o.id_oferta = c.id_oferta where o.id_proveedor = @proveedor and c.compra_fecha between  ((convert(datetime,convert(datetime,@fechaInicio,103),120)) )  and ((convert(datetime,convert(datetime,@fechaFin,103),120)) )  ) ,0)
 
 SET IDENTITY_INSERT GDDS2.[Factura] on
 insert into GDDS2.Factura(id_fact,id_proveedor,fact_fecha,fact_fecha_inicio,fact_fecha_fin,fact_importe)
@@ -931,7 +931,7 @@ values(@numeroFactura,@proveedor,GETDATE(),@fechaInicio,@fechaFin,@importe)
 SET IDENTITY_INSERT GDDS2.[Factura] off
 
 insert into GDDS2.Item_factura(id_fact,id_compra,item_fecha_compra,item_precio)
-(select @numeroFactura,c.id_compra,c.compra_fecha,(c.compra_precio_oferta * c.compra_cantidad) from GDDS2.Compra c join GDDS2.Oferta o on o.id_oferta = c.id_oferta where o.id_proveedor = @proveedor and c.compra_fecha between @fechaInicio and @fechaFin  ) 
+(select @numeroFactura,c.id_compra,c.compra_fecha,(c.compra_precio_oferta * c.compra_cantidad) from GDDS2.Compra c join GDDS2.Oferta o on o.id_oferta = c.id_oferta where o.id_proveedor = @proveedor and c.compra_fecha between  ((convert(datetime,convert(datetime,@fechaInicio,103),120)) )  and ((convert(datetime,convert(datetime,@fechaFin,103),120)) ) ) 
 
 RETURN
 end
