@@ -889,6 +889,11 @@ begin
 RAISERROR('El codigo de compra no pertenece al proveedor',1,1)
 end
 
+if ( (select c.compra_canjeado from GDDS2.Compra c where c.id_compra = @idCompra ) = 1       )
+begin
+RAISERROR('El cupon ya ha sido canjeado',1,1)
+end
+
 insert into GDDS2.Entrega (ent_fecha,id_compra,id_cliente)
 values (GETDATE(),@idCompra,@idCliente)
 
@@ -898,6 +903,8 @@ where id_compra = @idCompra
 end
 
 GO
+
+
 
 
 --funciones de listados estadisticos, ambos reciben 2 fechas q seran ingresadas desde la aplicacion
