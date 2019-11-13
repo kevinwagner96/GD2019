@@ -305,13 +305,13 @@ namespace FrbaOfertas.Model.DataModel
                     parameter1.Value = factura.id_proveedor;
                     SqlParameter parameter2 = new SqlParameter("@fechaInicio", SqlDbType.NVarChar);
                     parameter2.Direction = ParameterDirection.Input;
-                    parameter2.Value = factura.fact_fecha_inicio;
+                    parameter2.Value = factura.fact_fecha_inicio.ToShortDateString();
                     SqlParameter parameter3 = new SqlParameter("@fechaFin", SqlDbType.NVarChar);
                     parameter3.Direction = ParameterDirection.Input;
-                    parameter3.Value = factura.fact_fecha_fin;
+                    parameter3.Value = factura.fact_fecha_fin.ToShortDateString();
                     SqlParameter parameter4 = new SqlParameter("@fechaActual", SqlDbType.NVarChar);
                     parameter4.Direction = ParameterDirection.Input;
-                    parameter4.Value = factura.fact_fecha;
+                    parameter4.Value = factura.fact_fecha.ToShortDateString(); 
 
                     SqlParameter parameter5 = new SqlParameter("@numeroFactura", SqlDbType.Int);
                     parameter5.Direction = ParameterDirection.Output;
