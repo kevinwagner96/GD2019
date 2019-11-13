@@ -30,7 +30,8 @@ namespace FrbaOfertas.AbmRol
         }
 
         private void ModificarRol_Load(object sender, EventArgs e)
-        {
+        {            
+
             rol = data.Read(id_rol,out exError);
             if (exError != null)
             {
@@ -40,6 +41,12 @@ namespace FrbaOfertas.AbmRol
             
 
             rol_nombre.Text = rol.rol_nombre;
+
+            if (rol.rol_nombre == "ADMINISTRADOR" || rol.rol_nombre == "CLIENTE" || rol.rol_nombre == "PROVEEDOR")
+            {
+                rol_nombre.Enabled = false;
+            }
+
             rol_activo.Checked = rol.rol_activo;
             int i = 0;
 
