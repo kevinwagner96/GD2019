@@ -875,7 +875,7 @@ as begin
 declare @idOferta nvarchar(50), @fechaActualParseada datetime
 set @idOferta = (select id_oferta from GDDS2.Compra where id_compra = @idCompra)
 set  @fechaActualParseada = (convert(datetime,convert(datetime,@fechaActual,103),120))
-if( @idProveedor != (select id_proveedor from GDDS2.Oferta where id_oferta = @idOferta)     )
+if( @idProveedor not in (select id_proveedor from GDDS2.Oferta where id_oferta = @idOferta)     )
 begin
 RAISERROR('El codigo de compra no pertenece al proveedor',16,1)
 return
