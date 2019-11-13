@@ -92,14 +92,14 @@ namespace FrbaOfertas.ConsumirOferta
             }
 
 
-            
-            data.entregarCompra(proveedor.id_proveedor , Int32.Parse(id_compra.Text), cliente.id_cliente, out exError);
+
+            data.entregarCompra(proveedor.id_proveedor, Int32.Parse(id_compra.Text), cliente.id_cliente, fecha, out exError);
             if (exError == null)
             {               
                 MessageBox.Show("Cupon canjeado ");
             }
             else
-                MessageBox.Show("No se pudo canjear el cupon, no existe o no pertence a este proveedor.");
+                MessageBox.Show("No se pudo canjear el cupon, "+exError.Message);
 
         }
 

@@ -179,7 +179,7 @@ namespace FrbaOfertas.Helpers
         {
             if (mayor < menor)
             {
-                MessageBox.Show("La fecha inicio es mayor a la actual. Actual:"+ mayor.ToShortDateString(), "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La fecha de fin es mayor a la actual. Actual:"+ mayor.ToShortDateString(), "Formulario", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return true;
             }
             return false;

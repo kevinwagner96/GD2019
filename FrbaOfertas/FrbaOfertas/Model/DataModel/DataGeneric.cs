@@ -161,7 +161,7 @@ namespace FrbaOfertas.Model.DataModel
             return listado;
         }
 
-        public void entregarCompra(Int32 idProveedor,Int32  idCompra , Int32 idCliente, out Exception exError)
+        public void entregarCompra(Int32 idProveedor,Int32  idCompra , Int32 idCliente,DateTime fecha, out Exception exError)
         {            
             exError = null;
 
@@ -184,10 +184,14 @@ namespace FrbaOfertas.Model.DataModel
                         SqlParameter parameter3 = new SqlParameter("@idCliente", SqlDbType.Int);
                         parameter3.Direction = ParameterDirection.Input;
                         parameter3.Value = idCliente;
+                        SqlParameter parameter4 = new SqlParameter("@fechaActual", SqlDbType.NVarChar);
+                        parameter4.Direction = ParameterDirection.Input;
+                        parameter4.Value = fecha.ToString();
 
                         command.Parameters.Add(parameter1);
                         command.Parameters.Add(parameter2);
                         command.Parameters.Add(parameter3);
+                        command.Parameters.Add(parameter4);
 
                         command.ExecuteNonQuery();
                         
@@ -199,6 +203,16 @@ namespace FrbaOfertas.Model.DataModel
             catch (SqlException ex)
             {
                 exError = ex;
+                if (ex.Errors[0].Class == 16)
+                {
+                    exError = new Exception("El codigo de compra no pertenece al proveedor");
+                 
+                }
+                if (ex.Errors[0].Class == 15)
+                {
+                    exError = new Exception("El cupon ya ha sido canjeado");
+                }
+
             }
             
         }

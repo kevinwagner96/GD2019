@@ -798,6 +798,7 @@ declare @cantidadMaximaPorCliente int, @importe decimal(12,2), @fechaActualParse
 set @fechaActualParseada = (convert(datetime,convert(datetime,@fechaActual,103),120))
 set @cantidadMaximaPorCliente = (select ofer_cant_x_cli from GDDS2.Oferta where id_oferta = @idOferta)
 if (@cantidadMaximaPorCliente < (GDDS2.cantidadDeArticulosVendidos(@idCliente,@idOferta) + @cantidad)     )
+
 begin
 set @resultado = 1
 RAISERROR('El cliente no puede adquirir la cantidad seleccionada del producto',16,1)
@@ -808,14 +809,14 @@ end
 if (GDDS2.poseeSaldoSuficiente(@idCliente,@idOferta,@cantidad) = 0)
 begin
 set @resultado = 2
-RAISERROR('Saldo insuficiente',16,1)
+RAISERROR('Saldo insuficiente',15,1)
 return 
 end
 
 if(GDDS2.hayStockDisponible(@idOferta,@cantidad) = 0)
 begin
 set @resultado = 3
-RAISERROR('No hay Stock disponible',16,1)
+RAISERROR('No hay Stock disponible',14,1)
 return
 end
 
@@ -890,7 +891,7 @@ end
 if ( (select c.compra_canjeado from GDDS2.Compra c where c.id_compra = @idCompra ) = 1       )
 begin
 set @resultado = 2
-RAISERROR('El cupon ya ha sido canjeado',16,1)
+RAISERROR('El cupon ya ha sido canjeado',15,1)
 return
 end
 

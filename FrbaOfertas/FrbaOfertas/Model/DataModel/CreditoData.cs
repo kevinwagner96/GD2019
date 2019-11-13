@@ -130,7 +130,7 @@ namespace FrbaOfertas.Model.DataModel
                     try
                     {
                         command = new SqlCommand("INSERT INTO " + Table + " (" + SqlHelper.getColumns(instance.getAtributeMList()) + ")" +
-                                       " output INSERTED.id_carga_credito VALUES(" + SqlHelper.getValues(instance.getAtributeMList()) + ")", (SqlConnection)this.Connection, trans);
+                                       " VALUES(" + SqlHelper.getValues(instance.getAtributeMList()) + ")", (SqlConnection)this.Connection, trans);
 
                         command.CommandType = System.Data.CommandType.Text;
                         foreach (String value in instance.getAtributeMList())
@@ -139,7 +139,7 @@ namespace FrbaOfertas.Model.DataModel
                         }
 
 
-                        modified = (Int32)command.ExecuteScalar();
+                        command.ExecuteNonQuery();
 
                         trans.Commit();
                     }
