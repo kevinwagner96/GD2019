@@ -1,5 +1,6 @@
 ﻿using FrbaFacturas.Model.DataModel;
 using FrbaOfertas.Model;
+using FrbaOfertas.Model.DataModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,12 +17,14 @@ namespace FrbaOfertas.Facturar
     {
         private Model.Factura factura;
         FacturaData data;
+        DataGeneric gdata;
         Exception exError = null;
 
         public FacturarListado()
         {
             InitializeComponent();
             data = new FacturaData(Conexion.getConexion());
+            gdata = new DataGeneric(Conexion.getConexion());
         }
 
         public FacturarListado(Model.Factura factura)
@@ -29,6 +32,7 @@ namespace FrbaOfertas.Facturar
             // TODO: Complete member initialization
             InitializeComponent();
             data = new FacturaData(Conexion.getConexion());
+            gdata = new DataGeneric(Conexion.getConexion());
             this.factura = factura;
         }
 
@@ -44,9 +48,10 @@ namespace FrbaOfertas.Facturar
 
             if (exError == null)
             {
-                total_f.Text = factura.fact_importe.ToString();
-                cant_items.Text = factura.items.Count().ToString();
+                total_f.Text = factura.fact_importe.ToString("n2");
+                cant_items.Text = "$"+factura.items.Count().ToString();
                 
+
                 dataGridClientes.DataSource = compras;
                 dataGridClientes.Columns[0].Visible = false;
             }
@@ -56,14 +61,15 @@ namespace FrbaOfertas.Facturar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            data.Create(factura, out exError);
+
+            Factura response = gdata.facturar(factura, out exError);
             if (exError != null)
             {
                 MessageBox.Show("No se pudo facturar, " + exError.Message);
                 return;
             }
 
-            DialogResult result = MessageBox.Show("FACTURA N:" + factura.id_fact + " \n IMPORTE:" + factura.fact_importe, "FACTURA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DialogResult result = MessageBox.Show("FACTURA N: " + response.id_fact + " \n IMPORTE: $" + response.fact_importe.ToString("n2"), "FACTURA", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
     }

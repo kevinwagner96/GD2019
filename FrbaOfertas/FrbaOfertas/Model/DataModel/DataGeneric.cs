@@ -281,5 +281,64 @@ namespace FrbaOfertas.Model.DataModel
         }
 
 
+
+        internal Factura facturar(Factura factura, out Exception exError)
+        {
+            exError = null;
+            Factura response=null;
+            try
+            {
+                if (this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+
+                /*[GDDS2].facturar(@proveedor int, @fechaInicio nvarchar(50) , @fechaFin nvarchar(50),@fechaActual nvarchar(50),@numeroFactura int output, @importe decimal(12,2) output)*/
+                using (SqlCommand command = new SqlCommand("[GDDS2].facturar", (SqlConnection)this.Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlParameter parameter1 = new SqlParameter("@proveedor", SqlDbType.Int);
+                    parameter1.Direction = ParameterDirection.Input;
+                    parameter1.Value = factura.id_proveedor;
+                    SqlParameter parameter2 = new SqlParameter("@fechaInicio", SqlDbType.NVarChar);
+                    parameter2.Direction = ParameterDirection.Input;
+                    parameter2.Value = factura.fact_fecha_inicio;
+                    SqlParameter parameter3 = new SqlParameter("@fechaFin", SqlDbType.NVarChar);
+                    parameter3.Direction = ParameterDirection.Input;
+                    parameter3.Value = factura.fact_fecha_fin;
+                    SqlParameter parameter4 = new SqlParameter("@fechaActual", SqlDbType.NVarChar);
+                    parameter4.Direction = ParameterDirection.Input;
+                    parameter4.Value = factura.fact_fecha;
+
+                    SqlParameter parameter5 = new SqlParameter("@numeroFactura", SqlDbType.Int);
+                    parameter5.Direction = ParameterDirection.Output;
+                    SqlParameter parameter6 = new SqlParameter("@importe", SqlDbType.Decimal);
+                    parameter6.Direction = ParameterDirection.Output;
+                    
+
+                    command.Parameters.Add(parameter1);
+                    command.Parameters.Add(parameter2);
+                    command.Parameters.Add(parameter3);
+                    command.Parameters.Add(parameter4);
+                    command.Parameters.Add(parameter5);
+                    command.Parameters.Add(parameter6);
+
+                    command.ExecuteNonQuery();
+
+                    response = new Factura();
+                    response.fact_importe = Double.Parse( command.Parameters["@importe"].Value.ToString());
+                    response.id_fact = Int32.Parse(command.Parameters["@numeroFactura"].Value.ToString());
+                }
+
+
+
+            }
+            catch (SqlException ex)
+            {
+                exError = ex;
+
+            }
+
+            return response;
+        }
     }
 }
