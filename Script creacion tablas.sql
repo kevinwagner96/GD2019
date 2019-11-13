@@ -797,17 +797,20 @@ set @cantidadMaximaPorCliente = (select ofer_cant_x_cli from GDDS2.Oferta where 
 if (@cantidadMaximaPorCliente < (GDDS2.cantidadDeArticulosVendidos(@idCliente,@idOferta) + @cantidad)     )
 begin
 RAISERROR('El cliente no puede adquirir la cantidad seleccionada del producto',1,1)
+return
 end
 
 
 if (GDDS2.poseeSaldoSuficiente(@idCliente,@idOferta,@cantidad) = 0)
 begin
 RAISERROR('Saldo insuficiente',1,1)
+return 
 end
 
 if(GDDS2.hayStockDisponible(@idOferta,@cantidad) = 0)
 begin
 RAISERROR('No hay Stock disponible',1,1)
+return
 end
 
 declare @precioLista decimal(12,2)
@@ -840,6 +843,8 @@ return
 end
 
 GO
+
+
 --trigger ante la carga de credito
 
 create trigger [GDDS2].cargaCredito on GDDS2.credito after INSERT
@@ -864,7 +869,7 @@ GO
 
 
 
-create procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int)
+alter procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int)
 as begin
 declare @idOferta nvarchar(50)
 set @idOferta = (select id_oferta from GDDS2.Compra where id_compra = @idCompra)
@@ -872,11 +877,13 @@ set @idOferta = (select id_oferta from GDDS2.Compra where id_compra = @idCompra)
 if( @idProveedor != (select id_proveedor from GDDS2.Oferta where id_oferta = @idOferta)     )
 begin
 RAISERROR('El codigo de compra no pertenece al proveedor',1,1)
+return
 end
 
 if ( (select c.compra_canjeado from GDDS2.Compra c where c.id_compra = @idCompra ) = 1       )
 begin
 RAISERROR('El cupon ya ha sido canjeado',1,1)
+return
 end
 
 insert into GDDS2.Entrega (ent_fecha,id_compra,id_cliente)
