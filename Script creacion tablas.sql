@@ -791,15 +791,13 @@ end
 GO
 
 
-create procedure [GDDS2].realizarCompra(@idCliente int ,@idOferta nvarchar(50),@cantidad int,@fechaActual nvarchar(50),@codigoCuponResultante int output, @resultado int output)
+create procedure [GDDS2].realizarCompra(@idCliente int ,@idOferta nvarchar(50),@cantidad int,@fechaActual nvarchar(50),@codigoCuponResultante int output)
 as begin
-set @resultado = 0
 declare @cantidadMaximaPorCliente int, @importe decimal(12,2), @fechaActualParseada datetime
 set @fechaActualParseada = (convert(datetime,convert(datetime,@fechaActual,103),120))
 set @cantidadMaximaPorCliente = (select ofer_cant_x_cli from GDDS2.Oferta where id_oferta = @idOferta)
-if (@cantidadMaximaPorCliente < (GDDS2.cantidadDeArticulosVendidos(@idCliente,@idOferta) + @cantidad)     )
+if (@cantidadMaximaPorCliente < (GDDS2.cantidadDeArticulosVendidos(@idCliente,@idOferta) + @cantidad)   or @cantidadMaximaPorCliente is not null  )
 begin
-set @resultado = 1
 RAISERROR('El cliente no puede adquirir la cantidad seleccionada del producto',16,1)
 return
 end
@@ -807,14 +805,12 @@ end
 
 if (GDDS2.poseeSaldoSuficiente(@idCliente,@idOferta,@cantidad) = 0)
 begin
-set @resultado = 2
 RAISERROR('Saldo insuficiente',16,1)
 return 
 end
 
 if(GDDS2.hayStockDisponible(@idOferta,@cantidad) = 0)
 begin
-set @resultado = 3
 RAISERROR('No hay Stock disponible',16,1)
 return
 end
@@ -874,22 +870,19 @@ GO
 
 
 
-create procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int,@fechaActual nvarchar(50), @resultado int output)
+create procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int,@fechaActual nvarchar(50))
 as begin
-set @resultado = 0
 declare @idOferta nvarchar(50), @fechaActualParseada datetime
 set @idOferta = (select id_oferta from GDDS2.Compra where id_compra = @idCompra)
 set  @fechaActualParseada = (convert(datetime,convert(datetime,@fechaActual,103),120))
 if( @idProveedor != (select id_proveedor from GDDS2.Oferta where id_oferta = @idOferta)     )
 begin
-set @resultado = 1
 RAISERROR('El codigo de compra no pertenece al proveedor',16,1)
 return
 end
 
 if ( (select c.compra_canjeado from GDDS2.Compra c where c.id_compra = @idCompra ) = 1       )
 begin
-set @resultado = 2
 RAISERROR('El cupon ya ha sido canjeado',16,1)
 return
 end
