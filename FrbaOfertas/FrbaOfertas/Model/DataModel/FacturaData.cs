@@ -41,7 +41,7 @@ namespace FrbaFacturas.Model.DataModel
 
 
                 using (SqlCommand command = new SqlCommand("SELECT [Compra]." + SqlHelper.getColumns(allAtributesCompra) + " FROM " + CTable + " JOIN " + OTable + " ON " + OTable + ".[id_oferta]=" + CTable + ".[id_oferta] WHERE [id_proveedor]="+factura.id_proveedor
-                    + " AND [compra_fecha] BETWEEN '" + factura.fact_fecha_inicio.ToShortDateString() + "' AND '" + factura.fact_fecha_fin.ToShortDateString() + "'", (SqlConnection)this.Connection))
+                    + " AND [compra_fecha] BETWEEN CONVERT(datetime,'" + factura.fact_fecha_inicio.ToShortDateString() + "',103) AND CONVERT(datetime,'" + factura.fact_fecha_fin.ToShortDateString() + "',103) ", (SqlConnection)this.Connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
