@@ -16,6 +16,7 @@ namespace FrbaOfertas.ComprarOferta
 {
     public partial class CompraOferta : Form
     {
+        private static DateTime fecha = FrbaOfertas.ConfigurationHelper.FechaActual;
         DataGeneric data;
         Exception exError = null;
         Cliente cliente;
@@ -65,7 +66,7 @@ namespace FrbaOfertas.ComprarOferta
                 return;
             }
 
-            String codigo =  data.realizarCompra(cliente.id_cliente, id_oferta.Text, Int32.Parse(cantidad.Text), out exError);
+            String codigo =  data.realizarCompra(cliente.id_cliente, id_oferta.Text, Int32.Parse(cantidad.Text), fecha,out exError);
             if (exError == null)
             {
                 MessageBox.Show("Compra realizada el codigo de cupon es : "+codigo);

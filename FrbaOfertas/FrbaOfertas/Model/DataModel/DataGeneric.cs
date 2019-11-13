@@ -217,7 +217,7 @@ namespace FrbaOfertas.Model.DataModel
             
         }
         /*@idCliente int ,@idOferta nvarchar(50),@cantidad int,@codigoCuponResultante int output*/
-        public String realizarCompra(Int32 idCliente, String idOferta, Int32 cantidad  , out Exception exError)
+        public String realizarCompra(Int32 idCliente, String idOferta, Int32 cantidad, DateTime fecha  , out Exception exError)
         {
             exError = null;
 
@@ -242,11 +242,15 @@ namespace FrbaOfertas.Model.DataModel
                     parameter3.Value = cantidad;
                     SqlParameter parameter4 = new SqlParameter("@codigoCuponResultante", SqlDbType.Int);
                     parameter4.Direction = ParameterDirection.Output;
+                    SqlParameter parameter5 = new SqlParameter("@fechaActual", SqlDbType.NVarChar);
+                    parameter5.Direction = ParameterDirection.Input;
+                    parameter5.Value = fecha.ToString();
 
                     command.Parameters.Add(parameter1);
                     command.Parameters.Add(parameter2);
                     command.Parameters.Add(parameter3);
                     command.Parameters.Add(parameter4);
+                    command.Parameters.Add(parameter5);
 
                     command.ExecuteNonQuery();
 
