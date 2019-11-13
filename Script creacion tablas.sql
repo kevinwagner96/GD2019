@@ -559,7 +559,7 @@ VALUES (1,1)
 -- Cargo relaciones en al tabla intermedia
 
 INSERT INTO GDDS2.[rol_funcionalidad](id_rol,func_codigo)
-VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(2,2),(2,6),(3,5),(3,9),(3,10)
+VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(2,2),(2,6),(3,5),(3,10)
 go
 
 --insertamos los tipos de pago,cod de c/u 1,2,y 3 respectivamente
@@ -791,10 +791,11 @@ end
 GO
 
 
-create procedure [GDDS2].realizarCompra(@idCliente int ,@idOferta nvarchar(50),@cantidad int,@codigoCuponResultante int output, @resultado int output)
+create procedure [GDDS2].realizarCompra(@idCliente int ,@idOferta nvarchar(50),@cantidad int,@fechaActual nvarchar(50),@codigoCuponResultante int output, @resultado int output)
 as begin
 set @resultado = 0
-declare @cantidadMaximaPorCliente int, @importe decimal(12,2)
+declare @cantidadMaximaPorCliente int, @importe decimal(12,2), @fechaActualParseada datetime
+set @fechaActualParseada = (convert(datetime,convert(datetime,@fechaActual,103),120))
 set @cantidadMaximaPorCliente = (select ofer_cant_x_cli from GDDS2.Oferta where id_oferta = @idOferta)
 if (@cantidadMaximaPorCliente < (GDDS2.cantidadDeArticulosVendidos(@idCliente,@idOferta) + @cantidad)     )
 begin
@@ -833,7 +834,7 @@ where id_cliente = @idCliente
 SET IDENTITY_INSERT GDDS2.[Compra] on
 
 insert into Compra(id_compra,id_oferta,id_cliente,compra_fecha,compra_precio_lista,compra_precio_oferta,compra_cantidad,compra_canjeado,compra_fecha_vencimiento)
-values(@nuevoCodigo,@idOferta,@idCliente,GETDATE(),@precioLista,@precioOferta,@cantidad,0,dateadd(DAY,14,GETDATE()))
+values(@nuevoCodigo,@idOferta,@idCliente,@fechaActualParseada,@precioLista,@precioOferta,@cantidad,0,dateadd(DAY,14,GETDATE()))
 
 SET IDENTITY_INSERT GDDS2.[Compra] off
 
@@ -873,12 +874,12 @@ GO
 
 
 
-create procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int, @resultado int output)
+create procedure [GDDS2].cargarEntrega(@idProveedor int, @idCompra int, @idCliente int,@fechaActual nvarchar(50), @resultado int output)
 as begin
 set @resultado = 0
-declare @idOferta nvarchar(50)
+declare @idOferta nvarchar(50), @fechaActualParseada datetime
 set @idOferta = (select id_oferta from GDDS2.Compra where id_compra = @idCompra)
-
+set  @fechaActualParseada = (convert(datetime,convert(datetime,@fechaActual,103),120))
 if( @idProveedor != (select id_proveedor from GDDS2.Oferta where id_oferta = @idOferta)     )
 begin
 set @resultado = 1
@@ -894,7 +895,7 @@ return
 end
 
 insert into GDDS2.Entrega (ent_fecha,id_compra,id_cliente)
-values (GETDATE(),@idCompra,@idCliente)
+values (@fechaActualParseada,@idCompra,@idCliente)
 
 update Compra
 set compra_canjeado = 1 
@@ -933,16 +934,17 @@ order by 8 desc
 GO
 
 --procedure para facturación
-create procedure [GDDS2].facturar(@proveedor int, @fechaInicio nvarchar(50) , @fechaFin nvarchar(50),@numeroFactura int output, @importe decimal(12,2) output)
+create procedure [GDDS2].facturar(@proveedor int, @fechaInicio nvarchar(50) , @fechaFin nvarchar(50),@fechaActual nvarchar(50),@numeroFactura int output, @importe decimal(12,2) output)
 as begin
 
-
+declare @fechaActualParseada datetime
+set @fechaActualParseada = (convert(datetime,convert(datetime,@fechaActual,103),120))
 set @numeroFactura = (select max(id_fact) from GDDS2.Factura)+1
 set @importe = isnull((select sum(c.compra_precio_oferta * c.compra_cantidad) from GDDS2.Compra c join GDDS2.Oferta o on o.id_oferta = c.id_oferta where o.id_proveedor = @proveedor and c.compra_fecha between  ((convert(datetime,convert(datetime,@fechaInicio,103),120)) )  and ((convert(datetime,convert(datetime,@fechaFin,103),120)) )  ) ,0)
 
 SET IDENTITY_INSERT GDDS2.[Factura] on
 insert into GDDS2.Factura(id_fact,id_proveedor,fact_fecha,fact_fecha_inicio,fact_fecha_fin,fact_importe)
-values(@numeroFactura,@proveedor,GETDATE(),@fechaInicio,@fechaFin,@importe)
+values(@numeroFactura,@proveedor,@fechaActualParseada,@fechaInicio,@fechaFin,@importe)
 SET IDENTITY_INSERT GDDS2.[Factura] off
 
 insert into GDDS2.Item_factura(id_fact,id_compra,item_fecha_compra,item_precio)
