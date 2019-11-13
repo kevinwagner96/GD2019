@@ -244,9 +244,23 @@ namespace FrbaOfertas.Model.DataModel
 
             }
             catch (SqlException ex)
-            {
-                exError = ex;
-            }
+            {                
+                if (ex.Errors[0].Class == 16)
+                {
+                    exError = new Exception("El cliente no puede adquirir la cantidad seleccionada del producto");
+                    return null;
+                }
+                if (ex.Errors[0].Class == 15)
+                {
+                    exError = new Exception("Saldo insuficiente");
+                    return null;
+                }
+                if (ex.Errors[0].Class == 14)
+                {
+                    exError = new Exception("No hay Stock disponible");
+                    return null;
+                }
+            } 
 
             return null;
 
