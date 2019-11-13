@@ -805,7 +805,6 @@ end
 
 if (GDDS2.poseeSaldoSuficiente(@idCliente,@idOferta,@cantidad) = 0)
 begin
-
 RAISERROR('Saldo insuficiente',15,1)
 return 
 end
