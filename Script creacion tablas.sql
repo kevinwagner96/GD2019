@@ -805,14 +805,12 @@ end
 
 if (GDDS2.poseeSaldoSuficiente(@idCliente,@idOferta,@cantidad) = 0)
 begin
-set @resultado = 2
 RAISERROR('Saldo insuficiente',15,1)
 return 
 end
 
 if(GDDS2.hayStockDisponible(@idOferta,@cantidad) = 0)
 begin
-set @resultado = 3
 RAISERROR('No hay Stock disponible',14,1)
 return
 end
@@ -885,7 +883,6 @@ end
 
 if ( (select c.compra_canjeado from GDDS2.Compra c where c.id_compra = @idCompra ) = 1       )
 begin
-set @resultado = 2
 RAISERROR('El cupon ya ha sido canjeado',15,1)
 return
 end
