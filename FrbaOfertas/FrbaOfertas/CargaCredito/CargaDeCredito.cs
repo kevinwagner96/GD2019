@@ -53,7 +53,8 @@ namespace FrbaOfertas.CargaCredito
 
             listPagos.ForEach(delegate(TipoDePago f)
             {
-                tipo_pago.Items.Add(f.tipo_pago_nombre);
+                if (f.tipo_pago_nombre != "Efectivo")
+                    tipo_pago.Items.Add(f.tipo_pago_nombre);
             });
         }
 
@@ -89,6 +90,8 @@ namespace FrbaOfertas.CargaCredito
             if (!FormHelper.noNullList(noNulos) || !FormHelper.esNumericoList(numericos))
                 return;
 
+            
+
             if (tipo_pago.Text.Count() < 1)
             {
                 MessageBox.Show("Selecciones un tipo de pago.");
@@ -98,6 +101,10 @@ namespace FrbaOfertas.CargaCredito
             
 
             FormHelper.setearAtributos(todos, credito);
+            if (credito.cred_monto <= 0) {
+                MessageBox.Show("El monto no puede ser negativo.");
+                return;
+            }
             credito.id_cliente = cliente.id_cliente;
             credito.id_tipo_pago = getPagoSeleccionado().id_tipo_pago;
 

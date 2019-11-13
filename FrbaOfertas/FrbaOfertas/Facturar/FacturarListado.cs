@@ -48,8 +48,8 @@ namespace FrbaOfertas.Facturar
 
             if (exError == null)
             {
-                total_f.Text = factura.fact_importe.ToString("n2");
-                cant_items.Text = "$"+factura.items.Count().ToString();
+                total_f.Text = "$ "+ factura.fact_importe.ToString("n2");
+                cant_items.Text = factura.items.Count().ToString();
                 
 
                 dataGridClientes.DataSource = compras;

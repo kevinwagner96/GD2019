@@ -66,6 +66,12 @@ namespace FrbaOfertas.ComprarOferta
                 return;
             }
 
+            if (Int32.Parse(cantidad.Text) <= 0)
+            {
+                MessageBox.Show("La cantidad no puede ser negativa.");
+                return;
+            }
+
             String codigo =  data.realizarCompra(cliente.id_cliente, id_oferta.Text, Int32.Parse(cantidad.Text), fecha,out exError);
             if (exError == null)
             {
