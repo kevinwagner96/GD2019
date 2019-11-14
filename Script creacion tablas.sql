@@ -908,7 +908,7 @@ create function [GDDS2].listadoEstadisticoProveedoresMayorDescuento(@fecha1 nvar
 returns table
 as 
 return 
-select TOP 5 prov.id_proveedor PROVEEDOR,ru.rubr_detalle RUBRO,prov_razon_social RAZON_SOCIAL, prov.prov_CUIT CUIT, prov.prov_email EMAIL, prov.prov_telefono TELEFONO, prov.prov_contacto CONTACTO,isnull((select  top 1(convert( nvarchar(10),cast(((ofe.ofer_pr_lista - ofe.ofer_pr_oferta )/ofe.ofer_pr_lista)*100 as decimal(12,2) ))+'%') from GDDS2.Proveedor p2 join GDDS2.Oferta ofe on ofe.id_proveedor = p2.id_proveedor where p2.id_proveedor =prov.id_proveedor and ofe.ofer_f_public between (convert(datetime,convert(datetime,@fecha1,103),120)) and (convert(datetime,convert(datetime,@fecha2,103),120))   order by 1 desc), '0%') PORCENTAJE_MAS_ALTO
+select TOP 5 prov.id_proveedor PROVEEDOR,ru.rubr_detalle RUBRO,prov_razon_social RAZON_SOCIAL, prov.prov_CUIT CUIT, prov.prov_email EMAIL, prov.prov_telefono TELEFONO, prov.prov_contacto CONTACTO,(select  top 1(convert( nvarchar(10),cast(((ofe.ofer_pr_lista - ofe.ofer_pr_oferta )/ofe.ofer_pr_lista)*100 as decimal(12,2) ))+'%') from GDDS2.Proveedor p2 join GDDS2.Oferta ofe on ofe.id_proveedor = p2.id_proveedor where p2.id_proveedor =prov.id_proveedor and ofe.ofer_f_public between (convert(datetime,convert(datetime,@fecha1,103),120)) and (convert(datetime,convert(datetime,@fecha2,103),120))   order by 1 desc) PORCENTAJE_MAS_ALTO
 from GDDS2.Proveedor prov join GDDS2.Rubro ru on ru.rubr_id = prov.rubr_id 
 where prov.prov_activo = 1 
 order by 8 desc
@@ -945,3 +945,23 @@ insert into GDDS2.Item_factura(id_fact,id_compra,item_fecha_compra,item_precio)
 
 RETURN
 end
+/*
+alter procedure [GDDS2].facturar(@proveedor int, @fechaInicio nvarchar(50) , @fechaFin nvarchar(50),@fechaActual nvarchar(50),@numeroFactura int output, @importe decimal(12,2) output)
+as begin
+
+declare @fechaActualParseada datetime
+set @fechaActualParseada = (convert(datetime,@fechaActual,103))
+set @numeroFactura = (select max(id_fact) from GDDS2.Factura)+1
+set @importe = isnull((select sum(c.compra_precio_oferta * c.compra_cantidad) from GDDS2.Compra c join GDDS2.Oferta o on o.id_oferta = c.id_oferta where o.id_proveedor = @proveedor and c.compra_fecha between  ((convert(datetime,@fechaInicio,103)) )  and ((convert(datetime,@fechaFin,103)) )  ) ,0)
+
+SET IDENTITY_INSERT GDDS2.[Factura] on
+insert into GDDS2.Factura(id_fact,id_proveedor,fact_fecha,fact_fecha_inicio,fact_fecha_fin,fact_importe)
+values(@numeroFactura,@proveedor,@fechaActualParseada,@fechaInicio,@fechaFin,@importe)
+SET IDENTITY_INSERT GDDS2.[Factura] off
+
+insert into GDDS2.Item_factura(id_fact,id_compra,item_fecha_compra,item_precio)
+(select @numeroFactura,c.id_compra,c.compra_fecha,(c.compra_precio_oferta * c.compra_cantidad) from GDDS2.Compra c join GDDS2.Oferta o on o.id_oferta = c.id_oferta where o.id_proveedor = @proveedor and c.compra_fecha between  ((convert(datetime,@fechaInicio,103)) )  and ((convert(datetime,@fechaFin,103)) ) ) 
+
+RETURN
+end
+*/
